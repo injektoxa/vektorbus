@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using BlaBlaBusMVC.Models;
+using BlaBlaBusMVC.ViewModels;
 
 namespace BlaBlaBusMVC.Controllers
 {
@@ -34,7 +35,17 @@ namespace BlaBlaBusMVC.Controllers
         // GET: Trips/Create
         public ActionResult Create()
         {
-            return View();
+            TripsViewModel tripsView = new TripsViewModel
+            {
+                BusList = db.Buses.Select(x =>
+                    new SelectListItem
+                    {
+                        Value = x.FriendlyName,
+                        Text = x.FriendlyName
+                    })
+            };
+
+            return View(tripsView);
         }
 
         // POST: Trips/Create

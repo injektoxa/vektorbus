@@ -42,7 +42,7 @@ namespace BlaBlaBusMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RegistrationNumber,PlacesCount")] Bus bus)
+        public ActionResult Create([Bind(Include = "Id,RegistrationNumber,PlacesCount,FriendlyName")] Bus bus)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +74,7 @@ namespace BlaBlaBusMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,RegistrationNumber,PlacesCount")] Bus bus)
+        public ActionResult Edit([Bind(Include = "Id,RegistrationNumber,PlacesCount,FriendlyName")] Bus bus)
         {
             if (ModelState.IsValid)
             {

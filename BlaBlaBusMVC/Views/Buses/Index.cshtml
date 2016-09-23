@@ -10,10 +10,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.RegistrationNumber)
+            Регистрационный номер:
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PlacesCount)
+            Кол-во мест:
+        </th>
+        <th>
+            Имя:
         </th>
         <th></th>
     </tr>
@@ -27,9 +30,11 @@
             @Html.DisplayFor(modelItem => item.PlacesCount)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.DisplayFor(modelItem => item.FriendlyName)
+        </td>
+        <td>
+            @Html.ActionLink("Изменить", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
