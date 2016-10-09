@@ -1,114 +1,112 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Web.Mvc;
+using System.Web.Http;
+using System.Web.Http.Description;
 using BlaBlaBusMVC.Models;
+using BlaBlaBusMVC.ViewModels;
 
 namespace BlaBlaBusMVC.Controllers
 {
-    public class ClientsController : BaseController
+    public class ClientsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Clients
-        public ActionResult Index()
+        // GET: api/Clients
+        public IEnumerable<ClientViewModel> GetClients()
         {
-            return View(db.Clients.ToList());
+            var clients = db.Clients.Select(s => new ClientViewModel()
+            {
+                Phone = s.Phone,
+                Name = s.Name,
+                Id = s.Id,
+                Comments = s.Comments,
+                HasDiscount = s.HasDiscount
+            }).ToList();
+
+            return clients;
         }
 
-        // GET: Clients/Details/5
-        public ActionResult Details(int? id)
+        // GET: api/Clients/5
+        [ResponseType(typeof(Client))]
+        public IHttpActionResult GetClient(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Client client = db.Clients.Find(id);
             if (client == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            return View(client);
+
+            return Ok(client);
         }
 
-        // GET: Clients/Create
-        public ActionResult Create()
+        // PUT: api/Clients/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutClient(int id, Client client)
         {
-            return View();
-        }
-
-        // POST: Clients/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Phone")] Client client)
-        {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Clients.Add(client);
+                return BadRequest(ModelState);
+            }
+
+            if (id != client.Id)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(client).State = EntityState.Modified;
+
+            try
+            {
                 db.SaveChanges();
-                return RedirectToAction("Index");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ClientExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
-            return View(client);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: Clients/Edit/5
-        public ActionResult Edit(int? id)
+        // POST: api/Clients
+        [ResponseType(typeof(Client))]
+        public IHttpActionResult PostClient(Client client)
         {
-            if (id == null)
+            if (!ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return BadRequest(ModelState);
             }
-            Client client = db.Clients.Find(id);
+
+            db.Clients.Add(client);
+            db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = client.Id }, client);
+        }
+
+        // DELETE: api/Clients/5
+        [ResponseType(typeof(Client))]
+        public IHttpActionResult DeleteClient(int Id)
+        {
+            Client client = db.Clients.Find(Id);
             if (client == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            return View(client);
-        }
 
-        // POST: Clients/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Phone")] Client client)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(client).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(client);
-        }
-
-        // GET: Clients/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Client client = db.Clients.Find(id);
-            if (client == null)
-            {
-                return HttpNotFound();
-            }
-            return View(client);
-        }
-
-        // POST: Clients/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Client client = db.Clients.Find(id);
             db.Clients.Remove(client);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return Ok(client);
         }
 
         protected override void Dispose(bool disposing)
@@ -118,6 +116,11 @@ namespace BlaBlaBusMVC.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private bool ClientExists(int id)
+        {
+            return db.Clients.Count(e => e.Id == id) > 0;
         }
     }
 }

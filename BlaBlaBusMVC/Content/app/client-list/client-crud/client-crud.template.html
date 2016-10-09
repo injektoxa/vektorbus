@@ -1,0 +1,25 @@
+﻿<p>
+    <hr/>
+    <form name="form" novalidate>
+        <table>
+            <tr>
+                <td>Имя:</td>
+                <td><input type="text" ng-model="client.name" required /></td>
+            </tr>
+            <tr>
+                <td>Телефон: </td>
+                <td><input type="text" ng-model="client.phone" required /></td>
+            </tr>
+            <tr>
+                <td>Комментарий: </td>
+                <td><input type="text" ng-model="client.comments" /></td>
+            </tr>
+            <tr>
+                <td>Скидка: </td>
+                <td><input type="checkbox" ng-model="client.hasDiscount" /></td>
+            </tr>
+        </table>
+        <button ng-click="$ctrl.add(client)">Добавить</button>
+    </form>
+    <hr/>
+</p>

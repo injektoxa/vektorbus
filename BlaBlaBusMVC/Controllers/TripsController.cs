@@ -42,10 +42,16 @@ namespace BlaBlaBusMVC.Controllers
                     {
                         Value = x.FriendlyName,
                         Text = x.FriendlyName
+                    }),
+                Clients = db.Clients.Select(x =>
+                new SelectListItem
+                    {
+                        Value = x.Name,
+                        Text = x.Name
                     })
             };
 
-            return View(tripsView);
+            return new FilePathResult("~/Content/app/index.html", "text/html");
         }
 
         // POST: Trips/Create

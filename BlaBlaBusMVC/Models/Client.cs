@@ -14,5 +14,9 @@ namespace BlaBlaBusMVC.Models
         [Required]
         [MaxLength(200)]
         public string Phone { get; set; }
+
+        public bool HasDiscount { get; set; }
+
+        public string Comments { get; set; }
     }
 }

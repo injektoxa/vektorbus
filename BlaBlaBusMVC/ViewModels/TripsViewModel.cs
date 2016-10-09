@@ -14,8 +14,8 @@ namespace BlaBlaBusMVC.ViewModels
 
         public IEnumerable<SelectListItem> BusList { get; set; }
 
-        public string BusName { set; get; }
+        public IEnumerable<SelectListItem> Clients { get; set; }
 
-        public List<Client> Clients { get; set; }
+        public string BusName { set; get; }
     }
 }

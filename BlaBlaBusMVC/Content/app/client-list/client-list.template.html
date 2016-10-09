@@ -1,0 +1,39 @@
+﻿<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4">
+      <!--Sidebar content-->
+
+      <p>
+        Поиск:
+        <input ng-model="$ctrl.query" />
+      </p>
+        <client-crud></client-crud>
+    <p>
+        Сортировать:
+        <select ng-model="$ctrl.orderProp">
+            <option value="Name">По алфавиту</option>
+            <option value="Id">По дате добавления</option>
+        </select>
+    </p>
+
+</div>
+    <div class="col-md-4">
+      <!--Body content-->
+
+      <ul class="Clients">
+        <li ng-repeat="client in $ctrl.clients | filter:$ctrl.query | orderBy:$ctrl.orderProp" class="thumbnail client-list-item">
+          <a href="#!/clients/{{client.Id}}">{{client.Name}}</a>
+          <p>{{client.Phone}}</p>
+          <p>{{client.Comments}}</p>
+            <label>
+                Скидка:
+                <input type="checkbox" ng-disabled="true" ng-model="client.HasDiscount">
+            </label>
+            <button ng-click="$ctrl.remove(client.Id)">Удалить</button>
+            
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>

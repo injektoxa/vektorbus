@@ -179,6 +179,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BusesController.cs" />
@@ -203,6 +204,10 @@
     <Compile Include="Migrations\201609231531497_AddedFieldFriendlyName.Designer.cs">
       <DependentUpon>201609231531497_AddedFieldFriendlyName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610091147411_added_Comments_to_client.cs" />
+    <Compile Include="Migrations\201610091147411_added_Comments_to_client.Designer.cs">
+      <DependentUpon>201610091147411_added_Comments_to_client.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bus.cs" />
     <Compile Include="Models\City.cs" />
@@ -212,6 +217,7 @@
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Trip.cs" />
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\FactorViewModel.cs" />
     <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -236,6 +242,25 @@
     <Compile Include="ViewModels\VerifyPhoneNumberViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\.gitignore" />
+    <Content Include="Content\app\app.animations.css" />
+    <Content Include="Content\app\app.animations.js" />
+    <Content Include="Content\app\app.config.js" />
+    <Content Include="Content\app\app.css" />
+    <Content Include="Content\app\app.module.js" />
+    <Content Include="Content\app\client-detail\client-detail.template.html" />
+    <Content Include="Content\app\client-list\client-crud\client-crud.module.js" />
+    <Content Include="Content\app\core\checkmark\checkmark.filter.js" />
+    <Content Include="Content\app\core\core.module.js" />
+    <Content Include="Content\app\core\client\client.module.js" />
+    <Content Include="Content\app\core\client\client.service.js" />
+    <Content Include="Content\app\index.html" />
+    <Content Include="Content\app\client-detail\client-detail.component.js" />
+    <Content Include="Content\app\client-detail\client-detail.module.js" />
+    <Content Include="Content\app\client-list\client-crud\client-crud.template.html" />
+    <Content Include="Content\app\client-list\client-list.component.js" />
+    <Content Include="Content\app\client-list\client-list.module.js" />
+    <Content Include="Content\app\client-list\client-list.template.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -285,6 +310,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\bower.json" />
+    <Content Include="Content\package.json" />
+    <Content Include="Content\LICENSE" />
+    <Content Include="Content\app\client-list\client-crud\client-crud.component.js" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -300,7 +329,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -380,6 +411,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609231531497_AddedFieldFriendlyName.resx">
       <DependentUpon>201609231531497_AddedFieldFriendlyName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610091147411_added_Comments_to_client.resx">
+      <DependentUpon>201610091147411_added_Comments_to_client.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
