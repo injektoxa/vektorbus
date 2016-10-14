@@ -250,10 +250,16 @@
     <Content Include="Content\app\app.module.js" />
     <Content Include="Content\app\client-detail\client-detail.template.html" />
     <Content Include="Content\app\client-list\client-crud\client-crud.module.js" />
+    <Content Include="Content\app\core\bus\bus.module.js" />
+    <Content Include="Content\app\core\bus\bus.service.js" />
     <Content Include="Content\app\core\checkmark\checkmark.filter.js" />
+    <Content Include="Content\app\core\city\city.module.js" />
+    <Content Include="Content\app\core\city\city.service.js" />
     <Content Include="Content\app\core\core.module.js" />
     <Content Include="Content\app\core\client\client.module.js" />
     <Content Include="Content\app\core\client\client.service.js" />
+    <Content Include="Content\app\core\trip\trip.module.js" />
+    <Content Include="Content\app\core\trip\trip.service.js" />
     <Content Include="Content\app\index.html" />
     <Content Include="Content\app\client-detail\client-detail.component.js" />
     <Content Include="Content\app\client-detail\client-detail.module.js" />
@@ -261,6 +267,9 @@
     <Content Include="Content\app\client-list\client-list.component.js" />
     <Content Include="Content\app\client-list\client-list.module.js" />
     <Content Include="Content\app\client-list\client-list.template.html" />
+    <Content Include="Content\app\trip-list\trip-list.component.js" />
+    <Content Include="Content\app\trip-list\trip-list.module.js" />
+    <Content Include="Content\app\trip-list\trip-list.template.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\themes\base\accordion.css" />

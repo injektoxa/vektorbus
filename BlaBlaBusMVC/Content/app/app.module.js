@@ -1,11 +1,13 @@
 'use strict';
 
-// Define the `VektorApp` module
 angular.module('VektorApp', [
   'ngAnimate',
   'ngRoute',
+  'ui.bootstrap.datetimepicker',
+  'ui.bootstrap',
   'core',
   'clientDetail',
   'clientList',
-  'clientCrud'
+  'clientCrud',
+  'tripList'
 ]);

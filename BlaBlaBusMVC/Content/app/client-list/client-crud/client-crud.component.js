@@ -9,9 +9,9 @@ angular.
   	        self.client = {};
   	        self.add = function add(client) {
   	            Client.add(client);
-  	            setTimeout(function () {
-  	                $scope.$parent.$ctrl.clients = Client.query();
-  	            }, 1000)
+  	            //setTimeout(function () {
+  	            //    $scope.$parent.$ctrl.clients = Client.query();
+  	            //}, 1000)
   	        }
   	        self.update = function (client) {
   	        }

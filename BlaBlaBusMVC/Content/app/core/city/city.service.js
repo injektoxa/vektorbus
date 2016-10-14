@@ -1,10 +1,10 @@
 'use strict';
 
 angular.
-  module('core.client').
-  factory('Client', ['$resource',
+  module('core.city').
+  factory('City', ['$resource',
     function ($resource) {
-        return $resource('/api/clients/:Id', {}, {
+        return $resource('/api/Cities/:Id', {}, {
             query: {
                 method: 'GET',
                 isArray: true

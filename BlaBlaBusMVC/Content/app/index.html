@@ -1,16 +1,20 @@
 ﻿<!doctype html>
-<html lang="en" ng-app="VektorApp">
-  <head>
+<html lang="en">
+<head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="app.css" />
     <link rel="stylesheet" href="app.animations.css" />
-
+    <link href="bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css" rel="stylesheet" />
+    
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js"></script>
+
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.0.1.js"></script>
     <script src="app.module.js"></script>
     <script src="app.config.js"></script>
     <script src="app.animations.js"></script>
@@ -18,7 +22,16 @@
     <script src="core/checkmark/checkmark.filter.js"></script>
     <script src="core/client/client.module.js"></script>
     <script src="core/client/client.service.js"></script>
-   
+
+    <script src="core/trip/trip.module.js"></script>
+    <script src="core/trip/trip.service.js"></script>
+
+    <script src="core/bus/bus.module.js"></script>
+    <script src="core/bus/bus.service.js"></script>
+
+    <script src="core/city/city.module.js"></script>
+    <script src="core/city/city.service.js"></script>
+
     <script src="client-list/client-list.module.js"></script>
     <script src="client-list/client-list.component.js"></script>
 
@@ -28,14 +41,30 @@
     <script src="client-list/client-crud/client-crud.module.js"></script>
     <script src="client-list/client-crud/client-crud.component.js"></script>
 
+    <script src="trip-list/trip-list.module.js"></script>
+    <script src="trip-list/trip-list.component.js"></script>
 
-
-  </head>
-  <body>
-
-    <div class="view-container">
-      <div ng-view class="view-frame"></div>
+    <script>
+        $(document).ready(function () {
+            $('ul.nav > li').click(function (e) {
+                $('ul.nav > li').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
+    </script>
+</head>
+<body ng-app="VektorApp">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li><a class="active" ng-href="#trips">Маршруты</a></li>
+                <li><a ng-href="#clients">Клиенты</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div ng-view>
+        </div>
     </div>
-
-  </body>
+</body>
 </html>

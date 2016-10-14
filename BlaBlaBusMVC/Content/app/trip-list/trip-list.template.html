@@ -1,0 +1,74 @@
+﻿<div>
+    {{this.trips}}
+    <p>
+        <hr />
+        <a ng-click="$ctrl.showAddForm()" style="cursor:pointer">Добавить маршрут</a>
+        <div class="row" ng-show="$ctrl.showAddTripForm">
+            <div class="col-md-4">
+                <form name="form" novalidate>
+                    <table>
+                        <tr>
+                            <td>Автобус: </td>
+                            <td>
+                                <select name="repeatSelect" id="repeatSelect" ng-model="$ctrl.bus">
+                                    <option ng-repeat="bus in $ctrl.buses" value="{{bus.Id}}">{{bus.FriendlyName}}</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Комментарий: </td>
+                            <td><input type="text" ng-model="client.comments" /></td>
+                        </tr>
+                        <tr>
+                            <td>Дата/время: </td>
+                            <td>
+                                <datetimepicker hour-step="$ctrl.hourStep"
+                                                minute-step="$ctrl.minuteStep"
+                                                ng-model="$ctrl.date"
+                                                show-meridian="$ctrl.showMeridian"
+                                                date-format="{{format}}"
+                                                date-options="$ctrl.dateOptions"
+                                                datepicker-append-to-body="false"
+                                                readonly-date="false"
+                                                disabled-date="false"
+                                                hidden-time="false"
+                                                hidden-date="false"
+                                                name="datetimepicker"
+                                                show-spinners="true"
+                                                readonly-time="false"
+                                                date-opened="$ctrl.dateOpened"
+                                                show-button-bar="false">
+                                </datetimepicker>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Откуда: </td>
+                            <td>
+                                <select name="repeatFrom" id="repeatFrom" ng-model="$ctrl.cityFrom">
+                                    <option ng-repeat="city in $ctrl.cities" value="{{city.Id}}">{{city.Name}}</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Куда: </td>
+                            <td>
+                                <select name="repeatTo" id="repeatTo" ng-model="$ctrl.cityTo">
+                                    <option ng-repeat="city in $ctrl.cities" value="{{city.Id}}">{{city.Name}}</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button ng-click="$ctrl.add(trip)">Добавить</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--<button ng-click="$ctrl.add(client)">Добавить</button>-->
+                </form>
+            </div>
+            <client-list></client-list>
+
+        </div>
+        <hr />
+    </p>
+</div>

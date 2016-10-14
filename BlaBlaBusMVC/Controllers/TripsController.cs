@@ -1,131 +1,104 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Web.Mvc;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Description;
 using BlaBlaBusMVC.Models;
-using BlaBlaBusMVC.ViewModels;
 
 namespace BlaBlaBusMVC.Controllers
 {
-    public class TripsController : BaseController
+    public class TripsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Trips
-        public ActionResult Index()
+        // GET: api/Trips
+        public IQueryable<Trip> GetTrips()
         {
-            return View(db.Trips.ToList());
+            return db.Trips;
         }
 
-        // GET: Trips/Details/5
-        public ActionResult Details(int? id)
+        // GET: api/Trips/5
+        [ResponseType(typeof(Trip))]
+        public IHttpActionResult GetTrip(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Trip trip = db.Trips.Find(id);
             if (trip == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            return View(trip);
+
+            return Ok(trip);
         }
 
-        // GET: Trips/Create
-        public ActionResult Create()
+        // PUT: api/Trips/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutTrip(int id, Trip trip)
         {
-            TripsViewModel tripsView = new TripsViewModel
+            if (!ModelState.IsValid)
             {
-                BusList = db.Buses.Select(x =>
-                    new SelectListItem
-                    {
-                        Value = x.FriendlyName,
-                        Text = x.FriendlyName
-                    }),
-                Clients = db.Clients.Select(x =>
-                new SelectListItem
-                    {
-                        Value = x.Name,
-                        Text = x.Name
-                    })
-            };
+                return BadRequest(ModelState);
+            }
 
-            return new FilePathResult("~/Content/app/index.html", "text/html");
-        }
-
-        // POST: Trips/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Date")] Trip trip)
-        {
-            if (ModelState.IsValid)
+            if (id != trip.Id)
             {
-                db.Trips.Add(trip);
+                return BadRequest();
+            }
+
+            db.Entry(trip).State = EntityState.Modified;
+
+            try
+            {
                 db.SaveChanges();
-                return RedirectToAction("Index");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TripExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
-            return View(trip);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: Trips/Edit/5
-        public ActionResult Edit(int? id)
+        // POST: api/Trips
+        [ResponseType(typeof(Trip))]
+        public IHttpActionResult PostTrip(Trip trip)
         {
-            if (id == null)
+            if (!ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return BadRequest(ModelState);
             }
+
+            db.Trips.Add(trip);
+            db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = trip.Id }, trip);
+        }
+
+        // DELETE: api/Trips/5
+        [ResponseType(typeof(Trip))]
+        public IHttpActionResult DeleteTrip(int id)
+        {
             Trip trip = db.Trips.Find(id);
             if (trip == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            return View(trip);
-        }
 
-        // POST: Trips/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Date")] Trip trip)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(trip).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(trip);
-        }
-
-        // GET: Trips/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Trip trip = db.Trips.Find(id);
-            if (trip == null)
-            {
-                return HttpNotFound();
-            }
-            return View(trip);
-        }
-
-        // POST: Trips/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Trip trip = db.Trips.Find(id);
             db.Trips.Remove(trip);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return Ok(trip);
         }
 
         protected override void Dispose(bool disposing)
@@ -135,6 +108,11 @@ namespace BlaBlaBusMVC.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private bool TripExists(int id)
+        {
+            return db.Trips.Count(e => e.Id == id) > 0;
         }
     }
 }
