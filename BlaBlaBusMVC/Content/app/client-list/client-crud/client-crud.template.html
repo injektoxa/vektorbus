@@ -1,25 +1,35 @@
-﻿<p>
-    <hr/>
-    <form name="form" novalidate>
+﻿<hr />
+<form name="form" novalidate>
+    <div class="form-group">
         <table>
             <tr>
                 <td>Имя:</td>
-                <td><input type="text" ng-model="client.name" required /></td>
+                <td>
+                    <div>
+                        <input type="text" class="form-control" name="name" ng-model="client.name" required="required" />
+                        <span class="error" ng-show="!form.name.$valid && form.name.$dirty">Это поле обязательное</span>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td>Телефон: </td>
-                <td><input type="text" ng-model="client.phone" required /></td>
+                <td><div>
+                    <input class="form-control" name="phone" ng-model="client.phone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 32' required="required" />
+                    <span class="error" ng-show="!form.phone.$valid && form.phone.$dirty">Это поле обязательное</span>
+                </div>
+                    </td>
             </tr>
             <tr>
                 <td>Комментарий: </td>
-                <td><input type="text" ng-model="client.comments" /></td>
+                <td><input type="text" class="form-control" ng-model="client.comments" /></td>
             </tr>
             <tr>
                 <td>Скидка: </td>
                 <td><input type="checkbox" ng-model="client.hasDiscount" /></td>
             </tr>
         </table>
-        <button ng-click="$ctrl.add(client)">Добавить</button>
-    </form>
-    <hr/>
-</p>
+    </div>
+
+    <button type="submit" ng-disabled="!form.name.$valid || !form.phone.$valid" class="btn btn-primary" ng-click="$ctrl.add(client)">Добавить</button>
+</form>
+<hr />

@@ -208,11 +208,20 @@
     <Compile Include="Migrations\201610091147411_added_Comments_to_client.Designer.cs">
       <DependentUpon>201610091147411_added_Comments_to_client.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610151015094_AddedFieldsToTrip.cs" />
+    <Compile Include="Migrations\201610151015094_AddedFieldsToTrip.Designer.cs">
+      <DependentUpon>201610151015094_AddedFieldsToTrip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610161131503_changed_structure_of_db.cs" />
+    <Compile Include="Migrations\201610161131503_changed_structure_of_db.Designer.cs">
+      <DependentUpon>201610161131503_changed_structure_of_db.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bus.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\CityPrice.cs" />
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\ClientTrip.cs" />
     <Compile Include="Models\Driver.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Trip.cs" />
@@ -222,7 +231,6 @@
     <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="Models\Price.cs" />
     <Compile Include="ViewModels\AddPhoneNumberViewModel.cs" />
     <Compile Include="ViewModels\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="ViewModels\ExternalLoginListViewModel.cs" />
@@ -258,6 +266,8 @@
     <Content Include="Content\app\core\core.module.js" />
     <Content Include="Content\app\core\client\client.module.js" />
     <Content Include="Content\app\core\client\client.service.js" />
+    <Content Include="Content\app\core\driver\driver.module.js" />
+    <Content Include="Content\app\core\driver\driver.service.js" />
     <Content Include="Content\app\core\trip\trip.module.js" />
     <Content Include="Content\app\core\trip\trip.service.js" />
     <Content Include="Content\app\index.html" />
@@ -423,6 +433,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610091147411_added_Comments_to_client.resx">
       <DependentUpon>201610091147411_added_Comments_to_client.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610151015094_AddedFieldsToTrip.resx">
+      <DependentUpon>201610151015094_AddedFieldsToTrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610161131503_changed_structure_of_db.resx">
+      <DependentUpon>201610161131503_changed_structure_of_db.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

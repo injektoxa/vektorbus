@@ -4,23 +4,25 @@ angular.
   module('tripList').
   component('tripList', {
       templateUrl: 'trip-list/trip-list.template.html',
-      controller: ['Trip', 'Bus','City', function TripListController(Trip, Bus, City) {
+      controller: ['Trip', 'Bus','City','Driver', function TripListController(Trip, Bus, City, Driver) {
           var that = this;
 
           this.showAddTripForm = false;
+          this.trip = {}
 
           this.trips = Trip.query();
           this.buses = Bus.query();
           this.cities = City.query();
+          this.drivers = Driver.query();
 
           this.showAddForm = function () {
               that.showAddTripForm = !that.showAddTripForm;
           }
 
           this.add = function (trip) {
+              trip.clients = that.trip.tripClients;
               Trip.add(trip);
           }
-
 
           this.dateTimeNow = function () {
               that.date = new Date();
@@ -52,17 +54,12 @@ angular.
           this.hourStep = 1;
           this.format = "dd-MMM-yyyy";
           this.minuteStep = 1;
-          // add min-time="minTime" to datetimepicker to use this value 
           this.minTime = new Date(0, 0, 0, Math.max(1, that.date.getHours() - 2), 0, 0, 0);
 
           this.showMeridian = true;
           this.timeToggleMode = function () {
               that.showMeridian = !that.showMeridian;
           };
-
-          //this.$watch("date", function (date) {
-          //    // read date value
-          //}, true);
 
           this.resetHours = function () {
               that.date.setHours(1);

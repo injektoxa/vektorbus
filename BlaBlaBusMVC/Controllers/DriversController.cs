@@ -1,114 +1,104 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Web.Mvc;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Description;
 using BlaBlaBusMVC.Models;
 
 namespace BlaBlaBusMVC.Controllers
 {
-    public class DriversController : BaseController
+    public class DriversController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Drivers
-        public ActionResult Index()
+        // GET: api/Drivers
+        public IQueryable<Driver> GetDrivers()
         {
-            return View(db.Drivers.ToList());
+            return db.Drivers;
         }
 
-        // GET: Drivers/Details/5
-        public ActionResult Details(int? id)
+        // GET: api/Drivers/5
+        [ResponseType(typeof(Driver))]
+        public IHttpActionResult GetDriver(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Driver driver = db.Drivers.Find(id);
             if (driver == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            return View(driver);
+
+            return Ok(driver);
         }
 
-        // GET: Drivers/Create
-        public ActionResult Create()
+        // PUT: api/Drivers/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutDriver(int id, Driver driver)
         {
-            return View();
-        }
-
-        // POST: Drivers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Phone,Sername")] Driver driver)
-        {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Drivers.Add(driver);
+                return BadRequest(ModelState);
+            }
+
+            if (id != driver.Id)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(driver).State = EntityState.Modified;
+
+            try
+            {
                 db.SaveChanges();
-                return RedirectToAction("Index");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DriverExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
-            return View(driver);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: Drivers/Edit/5
-        public ActionResult Edit(int? id)
+        // POST: api/Drivers
+        [ResponseType(typeof(Driver))]
+        public IHttpActionResult PostDriver(Driver driver)
         {
-            if (id == null)
+            if (!ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return BadRequest(ModelState);
             }
+
+            db.Drivers.Add(driver);
+            db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = driver.Id }, driver);
+        }
+
+        // DELETE: api/Drivers/5
+        [ResponseType(typeof(Driver))]
+        public IHttpActionResult DeleteDriver(int id)
+        {
             Driver driver = db.Drivers.Find(id);
             if (driver == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            return View(driver);
-        }
 
-        // POST: Drivers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Phone,Sername")] Driver driver)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(driver).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(driver);
-        }
-
-        // GET: Drivers/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Driver driver = db.Drivers.Find(id);
-            if (driver == null)
-            {
-                return HttpNotFound();
-            }
-            return View(driver);
-        }
-
-        // POST: Drivers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Driver driver = db.Drivers.Find(id);
             db.Drivers.Remove(driver);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return Ok(driver);
         }
 
         protected override void Dispose(bool disposing)
@@ -118,6 +108,11 @@ namespace BlaBlaBusMVC.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private bool DriverExists(int id)
+        {
+            return db.Drivers.Count(e => e.Id == id) > 0;
         }
     }
 }

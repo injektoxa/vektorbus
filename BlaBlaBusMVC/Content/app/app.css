@@ -14,7 +14,7 @@ h1 {
 
 .clients li {
   clear: both;
-  height: 115px;
+  height: 150px;
   padding-top: 15px;
 }
 
@@ -26,6 +26,10 @@ h1 {
   width: 100px;
 }
 
+.thumbnail {
+    height: 135px;
+}
+
 .client {
   background-color: white;
   display: none;
@@ -34,7 +38,7 @@ h1 {
   margin-bottom: 2em;
   margin-right: 3em;
   padding: 2em;
-  width: 400px;
+  width: 500px;
 }
 
 .phone:first-child {
@@ -93,4 +97,25 @@ h1 {
 
 a {
    cursor:pointer;
+}
+
+.error {
+  color: red;  
+}
+
+.discount {
+color: chartreuse;
+}
+
+ .form-group div {
+    position:relative;
+    margin-right:15px;
+}
+
+.form-group div:after {
+    position:absolute;
+    content:'*';
+    color:red;
+    right:-10px;
+    top:0;
 }

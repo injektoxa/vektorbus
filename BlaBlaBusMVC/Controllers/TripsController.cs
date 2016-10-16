@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BlaBlaBusMVC.Models;
+using BlaBlaBusMVC.ViewModels;
 
 namespace BlaBlaBusMVC.Controllers
 {
@@ -17,9 +16,35 @@ namespace BlaBlaBusMVC.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Trips
-        public IQueryable<Trip> GetTrips()
+        public IEnumerable<TripsViewModel> GetTrips()
         {
-            return db.Trips;
+            List<TripsViewModel> trips = new List<TripsViewModel>();
+            var tripsdb = db.Trips;
+
+            foreach (var item in tripsdb)
+            {
+                trips.Add(new TripsViewModel()
+                {
+                    busName = item.Bus.FriendlyName,
+                    cityFromName = item.CityFrom.Name,
+                    cityToName = item.CityTo.Name,
+                    date = item.Date,
+                    clients = item.ClientTrip.Select(i =>
+                    new ClientViewModel()
+                    {
+                        Name = i.Client.Name,
+                        Comments = i.Client.Comments,
+                        HasDiscount = i.Client.HasDiscount,
+                        Phone = i.Client.Phone,
+                        From = i.From.Name,
+                        To = i.To.Name,
+                        Price = i.Price
+                    }).ToList(),
+                    comments = item.Comments
+                });
+            }
+
+            return trips;
         }
 
         // GET: api/Trips/5
@@ -71,18 +96,39 @@ namespace BlaBlaBusMVC.Controllers
         }
 
         // POST: api/Trips
-        [ResponseType(typeof(Trip))]
-        public IHttpActionResult PostTrip(Trip trip)
+        [ResponseType(typeof(TripsViewModel))]
+        public IHttpActionResult PostTrip(TripsViewModel trip)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Trips.Add(trip);
+            Trip tripdb = new Trip();
+            tripdb.Bus = db.Buses.First(b => b.Id == trip.busId);
+            tripdb.Date = trip.date;
+
+            List<ClientTrip> clientsDb = new List<ClientTrip>();
+            foreach (var item in trip.clients)
+            {
+                ClientTrip clientTrip = new ClientTrip();
+                clientTrip.Client = db.Clients.First(i => i.Id == item.Id);
+                clientTrip.From = db.Cities.First(i => i.Name == item.From);
+                clientTrip.To = db.Cities.First(i => i.Name == item.To);
+                clientTrip.Price = item.Price;
+
+                clientsDb.Add(clientTrip);
+            }
+
+            tripdb.ClientTrip = clientsDb;
+            tripdb.CityFrom = db.Cities.First(c => c.Id == trip.cityFrom);
+            tripdb.CityTo = db.Cities.First(c => c.Id == trip.cityTo);
+            tripdb.Comments = trip.comments;
+
+            db.Trips.Add(tripdb);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = trip.Id }, trip);
+            return CreatedAtRoute("DefaultApi", new { id = tripdb.Id }, trip);
         }
 
         // DELETE: api/Trips/5

@@ -10,7 +10,7 @@ namespace BlaBlaBusMVC.Models
         {
         }
 
-        public IDbSet<Price> Prices { get; set; }
+        public IDbSet<ClientTrip> ClientTrip { set; get; }
 
         public IDbSet<Driver> Drivers { get; set; }
 

@@ -9,7 +9,7 @@ namespace BlaBlaBusMVC.Models
         [MaxLength(200)]
         public string Name { get; set; }
 
-        public virtual List<Trip> Trips { get; set; }
+        public virtual List<ClientTrip> ClientTrips { get; set; }
 
         [Required]
         [MaxLength(200)]

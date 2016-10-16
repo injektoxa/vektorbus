@@ -5,26 +5,32 @@ angular.
   module('clientList').
   component('clientList', {
       templateUrl: 'client-list/client-list.template.html',
-      controller: ['Client',
-        function ClientListController(Client) {
+      controller: ['Client','$scope', 'City',
+        function ClientListController(Client, $scope, City) {
             var that = this;
 
-            this.tripClients = [];
-
+            $scope.$parent.$ctrl.trip.tripClients = [];
+            this.addClientBlockVisible = false;
             this.clients = Client.query();
+            this.cities = City.query();
             this.orderProp = 'Id';
 
             this.removeFromTrip = function (client) {
-                var index = that.tripClients.indexOf(client);
-                that.tripClients.splice(index, 1);
+                var index = $scope.$parent.$ctrl.trip.tripClients.indexOf(client);
+                $scope.$parent.trip.tripClients.splice(index, 1);
             }
+
             this.addToTrip = function (client) {
-                if (that.tripClients.indexOf(client) === -1) {
-                    that.tripClients.push(client);
+                if ($scope.$parent.$ctrl.trip.tripClients.indexOf(client) === -1) {
+                    $scope.$parent.$ctrl.trip.tripClients.push(client);
                 }
                 else {
                     console.log("This item already exists");
                 }
+            }
+
+            this.showAddClientBlock = function () {
+                that.addClientBlockVisible = !that.addClientBlockVisible;
             }
 
             this.remove = function (id) {

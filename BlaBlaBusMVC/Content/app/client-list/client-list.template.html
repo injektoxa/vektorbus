@@ -1,35 +1,64 @@
-﻿<div class="col-md-8">
+﻿<div class="col-md-6">
     <table>
-        <tr ng-repeat="client in $ctrl.tripClients">
+        <tr ng-repeat="client in $parent.$ctrl.trip.tripClients">
             <td class="col-md-4"> {{client.Name}} </td>
             <td class="col-md-4"> {{client.Phone}} </td>
+            <td class="col-md-4"> {{client.From}} </td>
+            <td class="col-md-4"> {{client.To}} </td>
+            <td class="col-md-4"> {{client.price}} </td>
             <td class="col-md-4">
                 <a ng-click="$ctrl.removeFromTrip(client)">Удалить </a>
             </td>
         </tr>
     </table>
+    <span>
+        <a ng-click="$ctrl.showAddClientBlock()">Добавить клиента</a>
+    </span>
+    <client-crud ng-show="$ctrl.addClientBlockVisible"></client-crud>
     <p>
-        Поиск:
-        <input ng-model="$ctrl.query" />
-    </p>
-    <client-crud></client-crud>
-    <p>
-        Сортировать:
-        <select ng-model="$ctrl.orderProp">
-            <option value="Name">По алфавиту</option>
-            <option value="Id">По дате добавления</option>
-        </select>
+        <span>
+            Поиск:
+            <input class="form-control" ng-model="$ctrl.query" />
+        </span>
+        <span>
+            Сортировать:
+            <select class="form-control" ng-model="$ctrl.orderProp">
+                <option value="Name">По алфавиту</option>
+                <option value="Id">По дате добавления</option>
+            </select>
+        </span>
     </p>
     <ul class="Clients">
         <li ng-repeat="client in $ctrl.clients | filter:$ctrl.query | orderBy:$ctrl.orderProp" class="thumbnail client-list-item">
-            <a href="#!/clients/{{client.Id}}">{{client.Name}}</a>
-            <p>{{client.Phone}}</p>
-            <p>{{client.Comments}}</p>
-            <label>
-                Скидка:
-                <input type="checkbox" ng-disabled="true" ng-model="client.HasDiscount">
-            </label>
-            <button ng-click="$ctrl.addToTrip(client)">Добавить в маршрут</button>
+            <table>
+                <tr>
+                    <td width="150px">
+                        <a href="#/clients/{{client.Id}}">{{client.Name}}</a>
+                        <p>{{client.Phone}}</p>
+                    </td>
+                    <td width="150px">
+                        <select class="form-control" name="repeatFrom" id="repeatFrom" ng-model="client.From" required>
+                            <option ng-repeat="city in $ctrl.cities" value="{{city.Name}}">{{city.Name}}</option>
+                        </select>
+                        <select class="form-control" name="repeatTo" id="repeatTo" ng-model="client.To" required>
+                            <option ng-repeat="city in $ctrl.cities" value="{{city.Name}}">{{city.Name}}</option>
+                        </select>
+                        <input type="text" class="form-control" name="price" ng-model="client.price" required />
+                    </td>
+                    <td style="padding:10px">
+                        <label>
+                            Скидка:
+                            <input type="checkbox" ng-disabled="true" ng-model="client.HasDiscount">
+                        </label>
+                        <button class="btn btn-success" ng-click="$ctrl.addToTrip(client)">Добавить</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <p>{{client.Comments}}</p>
+                    </td>
+                </tr>
+            </table>
         </li>
     </ul>
 </div>
