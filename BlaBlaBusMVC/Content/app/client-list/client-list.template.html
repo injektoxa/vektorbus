@@ -30,22 +30,37 @@
     </p>
     <ul class="Clients">
         <li ng-repeat="client in $ctrl.clients | filter:$ctrl.query | orderBy:$ctrl.orderProp" class="thumbnail client-list-item">
-            <table>
+            <table class="clients-trip">
                 <tr>
-                    <td width="150px">
+                    <td class="info">
                         <a href="#/clients/{{client.Id}}">{{client.Name}}</a>
                         <p>{{client.Phone}}</p>
                     </td>
-                    <td width="150px">
-                        <select class="form-control" name="repeatFrom" id="repeatFrom" ng-model="client.From" required>
-                            <option ng-repeat="city in $ctrl.cities" value="{{city.Name}}">{{city.Name}}</option>
-                        </select>
-                        <select class="form-control" name="repeatTo" id="repeatTo" ng-model="client.To" required>
-                            <option ng-repeat="city in $ctrl.cities" value="{{city.Name}}">{{city.Name}}</option>
-                        </select>
-                        <input type="text" class="form-control" name="price" ng-model="client.price" required />
-                    </td>
-                    <td style="padding:10px">
+                  <td class="options">
+                    <div>
+                      <label>
+                        Откуда:
+                      </label>
+                      <select class="form-control" name="repeatFrom" id="repeatFrom" ng-model="client.From" required>
+                        <option ng-repeat="city in $ctrl.cities" value="{{city.Name}}">{{city.Name}}</option>
+                      </select>                      
+                    </div>
+                    <div>
+                      <label>
+                        Куда:
+                      </label>
+                      <select class="form-control" name="repeatTo" id="repeatTo" ng-model="client.To" required>
+                        <option ng-repeat="city in $ctrl.cities" value="{{city.Name}}">{{city.Name}}</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label>
+                        Цена:
+                      </label>
+                      <input type="text" class="form-control" name="price" ng-model="client.price" required />                      
+                    </div>
+                  </td>
+                    <td class="button-area">
                         <label>
                             Скидка:
                             <input type="checkbox" ng-disabled="true" ng-model="client.HasDiscount">

@@ -119,3 +119,33 @@ color: chartreuse;
     right:-10px;
     top:0;
 }
+
+table.clients-trip td.info {
+  width : 150px;
+}
+
+table.clients-trip td.options {
+  width : 250px;
+}
+
+.options div{
+    float: left;
+    width: 100%;
+    height: 33%;
+}
+
+.options label {
+  width: 40%;
+  float: left;
+  font-weight: normal;
+  padding: 6px;
+}
+
+td.options select, td.options input {
+  width: 60%;
+  float: right;
+}
+
+table.clients-trip td.button-area {
+  padding : 10px
+}
