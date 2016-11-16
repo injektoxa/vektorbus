@@ -216,6 +216,10 @@
     <Compile Include="Migrations\201610161131503_changed_structure_of_db.Designer.cs">
       <DependentUpon>201610161131503_changed_structure_of_db.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611161412459_addPropertyToClientTrip.cs" />
+    <Compile Include="Migrations\201611161412459_addPropertyToClientTrip.Designer.cs">
+      <DependentUpon>201611161412459_addPropertyToClientTrip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bus.cs" />
     <Compile Include="Models\City.cs" />
@@ -439,6 +443,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610161131503_changed_structure_of_db.resx">
       <DependentUpon>201610161131503_changed_structure_of_db.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611161412459_addPropertyToClientTrip.resx">
+      <DependentUpon>201611161412459_addPropertyToClientTrip.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

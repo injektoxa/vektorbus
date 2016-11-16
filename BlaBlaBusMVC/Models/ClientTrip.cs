@@ -11,5 +11,7 @@
         public virtual City From { set; get; }
 
         public virtual City To { set; get; }
-    }
+
+        public virtual bool IsComeOutOnBorder { set; get; }
+  }
 }
