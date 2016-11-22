@@ -105,16 +105,18 @@
                                 <td> Комментарий </td>
                                 <td> Цена </td>
                                 <td> Маршрут </td>
+                                <td>Не выходит</td>
                             </tr>
                         </thead>
                         <tr ng-repeat="client in trip.clients">
                             <td>{{trip.comments}}</td>
                             <td>{{client.Name}}</td>
                             <td>{{client.Phone}}</td>
-                            <td ng-class="client.HasDiscount ? 'discount' : ''">{{client.HasDiscount ? 'Есть скидка' : ''}}</td>
+                            <td ng-class="client.HasDiscount ? 'highlighting' : ''">{{client.HasDiscount ? 'Есть скидка' : ''}}</td>
                             <td>{{client.Comments}}</td>
                             <td>{{client.Price}}</td>
                             <td>{{client.From}} --> {{client.To}}</td>
+                            <td ng-class="client.IsStayInBus ? 'highlighting' : ''">{{client.IsStayInBus ? 'Да' : ''}}</td>
                         </tr>
                     </table>
                 </div>

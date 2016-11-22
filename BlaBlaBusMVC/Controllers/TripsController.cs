@@ -38,7 +38,8 @@ namespace BlaBlaBusMVC.Controllers
                         Phone = i.Client.Phone,
                         From = i.From.Name,
                         To = i.To.Name,
-                        Price = i.Price
+                        Price = i.Price,
+                        IsStayInBus = i.IsStayInBus
                     }).ToList(),
                     comments = item.Comments
                 });
@@ -116,6 +117,7 @@ namespace BlaBlaBusMVC.Controllers
                 clientTrip.From = db.Cities.First(i => i.Name == item.From);
                 clientTrip.To = db.Cities.First(i => i.Name == item.To);
                 clientTrip.Price = item.Price;
+                clientTrip.IsStayInBus = item.IsStayInBus;
 
                 clientsDb.Add(clientTrip);
             }
