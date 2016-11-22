@@ -27,7 +27,7 @@ h1 {
 }
 
 .thumbnail {
-    height: 150px;
+    height: 220px;
 }
 
 .client {
@@ -131,7 +131,7 @@ table.clients-trip td.options {
 .options div{
     float: left;
     width: 100%;
-    height: 25%;
+    height: 20%;
 }
 
 .options label {

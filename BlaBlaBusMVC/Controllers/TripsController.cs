@@ -39,7 +39,8 @@ namespace BlaBlaBusMVC.Controllers
                         From = i.From.Name,
                         To = i.To.Name,
                         Price = i.Price,
-                        IsStayInBus = i.IsStayInBus
+                        IsStayInBus = i.IsStayInBus,
+                        HasBaggage = i.HasBaggage
                     }).ToList(),
                     comments = item.Comments
                 });
@@ -118,6 +119,7 @@ namespace BlaBlaBusMVC.Controllers
                 clientTrip.To = db.Cities.First(i => i.Name == item.To);
                 clientTrip.Price = item.Price;
                 clientTrip.IsStayInBus = item.IsStayInBus;
+                clientTrip.HasBaggage = item.HasBaggage;
 
                 clientsDb.Add(clientTrip);
             }

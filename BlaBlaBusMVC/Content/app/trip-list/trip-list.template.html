@@ -106,6 +106,7 @@
                                 <td> Цена </td>
                                 <td> Маршрут </td>
                                 <td>Не выходит</td>
+                                <td>Багаж</td>
                             </tr>
                         </thead>
                         <tr ng-repeat="client in trip.clients">
@@ -117,6 +118,7 @@
                             <td>{{client.Price}}</td>
                             <td>{{client.From}} --> {{client.To}}</td>
                             <td ng-class="client.IsStayInBus ? 'highlighting' : ''">{{client.IsStayInBus ? 'Да' : ''}}</td>
+                            <td>{{client.HasBaggage ? 'Есть' : ''}}</td>
                         </tr>
                     </table>
                 </div>
