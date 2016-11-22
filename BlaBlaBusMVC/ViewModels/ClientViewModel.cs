@@ -17,5 +17,9 @@
         public string From { get; set; }
 
         public string To { get; set; }
-    }
+
+        public bool IsStayInBus { get; set; }
+
+        public bool HasBaggage { set; get; }
+  }
 }

@@ -220,6 +220,14 @@
     <Compile Include="Migrations\201611161412459_addPropertyToClientTrip.Designer.cs">
       <DependentUpon>201611161412459_addPropertyToClientTrip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611161636262_RenameClientTripproperty.cs" />
+    <Compile Include="Migrations\201611161636262_RenameClientTripproperty.Designer.cs">
+      <DependentUpon>201611161636262_RenameClientTripproperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611221021289_AddBaggageFieldToClientTrip.cs" />
+    <Compile Include="Migrations\201611221021289_AddBaggageFieldToClientTrip.Designer.cs">
+      <DependentUpon>201611221021289_AddBaggageFieldToClientTrip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bus.cs" />
     <Compile Include="Models\City.cs" />
@@ -446,6 +454,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611161412459_addPropertyToClientTrip.resx">
       <DependentUpon>201611161412459_addPropertyToClientTrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611161636262_RenameClientTripproperty.resx">
+      <DependentUpon>201611161636262_RenameClientTripproperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611221021289_AddBaggageFieldToClientTrip.resx">
+      <DependentUpon>201611221021289_AddBaggageFieldToClientTrip.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

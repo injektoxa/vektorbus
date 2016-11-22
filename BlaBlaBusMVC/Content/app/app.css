@@ -27,7 +27,7 @@ h1 {
 }
 
 .thumbnail {
-    height: 135px;
+    height: 220px;
 }
 
 .client {
@@ -103,7 +103,7 @@ a {
   color: red;  
 }
 
-.discount {
+.highlighting {
 color: chartreuse;
 }
 
@@ -121,17 +121,17 @@ color: chartreuse;
 }
 
 table.clients-trip td.info {
-  width : 150px;
+  width : 130px;
 }
 
 table.clients-trip td.options {
-  width : 250px;
+  width : 300px;
 }
 
 .options div{
     float: left;
     width: 100%;
-    height: 33%;
+    height: 20%;
 }
 
 .options label {
@@ -141,11 +141,20 @@ table.clients-trip td.options {
   padding: 6px;
 }
 
-td.options select, td.options input {
+.options select, td.options input {
   width: 60%;
   float: right;
+}
+.options input[type='checkbox']{
+  width: initial;
+  float: left;
+  margin: 10px 0 0;
 }
 
 table.clients-trip td.button-area {
   padding : 10px
+}
+
+.Clients {
+  padding-left: 0;
 }
