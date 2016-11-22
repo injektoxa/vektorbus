@@ -13,5 +13,7 @@
         public virtual City To { set; get; }
 
         public virtual bool IsStayInBus { set; get; }
+
+        public virtual bool HasBaggage { set; get; }
   }
 }
