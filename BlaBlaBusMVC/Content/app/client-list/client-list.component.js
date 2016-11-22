@@ -9,7 +9,6 @@ angular.
         function ClientListController(Client, $scope, City) {
             var that = this;
 
-            $scope.$parent.$ctrl.trip.tripClients = [];
             this.addClientBlockVisible = false;
             this.clients = Client.query();
             this.cities = City.query();

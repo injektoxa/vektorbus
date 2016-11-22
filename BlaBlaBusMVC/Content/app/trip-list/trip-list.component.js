@@ -9,7 +9,7 @@ angular.
 
           this.showAddTripForm = false;
           this.trip = {}
-
+          this.trip.tripClients = [];
           this.trips = Trip.query();
           this.buses = Bus.query();
           this.cities = City.query();
