@@ -280,7 +280,6 @@
     <Content Include="Content\app\core\core.module.js" />
     <Content Include="Content\app\core\client\client.module.js" />
     <Content Include="Content\app\core\client\client.service.js" />
-    <Content Include="Content\app\core\directives\googleplace.js" />
     <Content Include="Content\app\core\driver\driver.module.js" />
     <Content Include="Content\app\core\driver\driver.service.js" />
     <Content Include="Content\app\core\trip\trip.module.js" />
