@@ -9,5 +9,6 @@ angular.module('VektorApp', [
   'clientDetail',
   'clientList',
   'clientCrud',
-  'tripList'
+  'tripList',
+  'citiesList'
 ]);

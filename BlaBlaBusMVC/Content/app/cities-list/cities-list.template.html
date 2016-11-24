@@ -1,0 +1,7 @@
+﻿
+Доступные города :
+<ul class="cities">
+    <li ng-repeat="city in $ctrl.cities | filter:$ctrl.query">
+       {{city.Name}}
+    </li>
+</ul>
