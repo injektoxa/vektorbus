@@ -268,6 +268,8 @@
     <Content Include="Content\app\app.config.js" />
     <Content Include="Content\app\app.css" />
     <Content Include="Content\app\app.module.js" />
+    <Content Include="Content\app\cities-list\cities-list.module.js" />
+    <Content Include="Content\app\cities-list\cities-list.template.html" />
     <Content Include="Content\app\client-detail\client-detail.template.html" />
     <Content Include="Content\app\client-list\client-crud\client-crud.module.js" />
     <Content Include="Content\app\core\bus\bus.module.js" />
@@ -345,6 +347,7 @@
     <Content Include="Content\package.json" />
     <Content Include="Content\LICENSE" />
     <Content Include="Content\app\client-list\client-crud\client-crud.component.js" />
+    <Content Include="Content\app\cities-list\cities-list.component.js" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />

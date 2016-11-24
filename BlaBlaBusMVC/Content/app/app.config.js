@@ -4,7 +4,6 @@ angular.
   module('VektorApp').
   config(['$locationProvider' ,'$routeProvider',
     function config($locationProvider, $routeProvider) {
-
       $routeProvider.   
         when('/clients', {
           template: '<client-list></client-list>'
@@ -14,6 +13,9 @@ angular.
         }).
         when('/trips', {
           template: '<trip-list></trip-list>'
+        }).
+        when('/cities', {
+           template: '<cities-list></cities-list>'
         }).
         otherwise('/clients');
     }

@@ -13,6 +13,7 @@
     "angular-route": "1.5.x",
     "bootstrap": "3.3.x",
     "jquery": "2.2.x",
-    "angular-ui-bootstrap-datetimepicker": "^2.0.2"
+    "angular-ui-bootstrap-datetimepicker": "^2.0.2",
+    "angular-google-places-autocomplete": "^0.2.7"
   }
 }
