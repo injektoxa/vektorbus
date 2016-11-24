@@ -4,25 +4,34 @@ angular.
   module('citiesList').
   component('citiesList', {
       templateUrl: 'cities-list/cities-list.template.html',
-      controller: ['City', function CitiesListController(City) {
+      controller: ['City', '$scope', function CitiesListController(City, $scope) {
           var that = this;
 
           this.cities = City.query();
           this.showAddCityForm = false;
-          this.city = {};
 
           this.showAddForm = function () {
               that.showAddCityForm = !that.showAddCityForm;
           }
 
-          this.saveCity = function (city) {
-              let thatCity = city;
-              City.add(city);
+          $scope.autocompleteOptions = {
+              componentRestrictions: { country: 'ukr' },
+              types: ['(cities)']
+          }
+
+          this.saveCity = function (place) {
+              let thatPlace = place;
+
+              City.add({ name: place.name });
               that.showAddCityForm = false;
               setTimeout(function () {
                   that.cities = City.query();
-                  thatCity = {};
+                  thatPlace = '';
               }, 100);
+          }
+
+          this.setCityFromAutocomplete = function(err, place){
+              that.city.name = place;
           }
       }]
   });

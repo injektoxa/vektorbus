@@ -10,5 +10,6 @@ angular.module('VektorApp', [
   'clientList',
   'clientCrud',
   'tripList',
-  'citiesList'
+  'citiesList',
+  'google.places'
 ]);
