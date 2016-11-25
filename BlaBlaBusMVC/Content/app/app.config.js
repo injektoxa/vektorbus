@@ -15,6 +15,9 @@ angular.
         when('/trips', {
           template: '<trip-list></trip-list>'
         }).
+        when('/buses',{
+          template: '<bus-list></bus-list>'
+        }).
         otherwise('/clients');
     }
   ]);

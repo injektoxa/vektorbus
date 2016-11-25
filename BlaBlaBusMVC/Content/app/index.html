@@ -48,8 +48,11 @@
 
     <script src="trip-list/trip-list.module.js"></script>
     <script src="trip-list/trip-list.component.js"></script>
+  
+    <script src="bus-list/bus-list.module.js"></script>
+    <script src="bus-list/bus-list.component.js"></script>
 
-    <script>
+  <script>
         $(document).ready(function () {
             $('ul.nav > li').click(function (e) {
                 $('ul.nav > li').removeClass('active');
@@ -64,6 +67,7 @@
             <ul class="nav navbar-nav">
                 <li><a class="active" ng-href="#trips">Маршруты</a></li>
                 <li><a ng-href="#clients">Клиенты</a></li>
+                <li><a ng-href="#buses">Автобусы</a></li>
             </ul>
         </div>
     </nav>
