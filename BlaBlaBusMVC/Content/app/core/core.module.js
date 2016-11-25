@@ -1,4 +1,4 @@
 'use strict';
 
 // Define the `core` module
-angular.module('core', ['core.client','core.trip','core.bus','core.city','core.driver']);
+angular.module('core', ['core.client', 'core.trip', 'core.bus', 'core.city', 'core.driver', 'core.authentication']);

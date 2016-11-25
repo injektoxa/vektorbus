@@ -5,11 +5,13 @@ angular.module('VektorApp', [
   'ngRoute',
   'ui.bootstrap.datetimepicker',
   'ui.bootstrap',
+  'LocalStorageModule',
   'core',
   'clientDetail',
   'clientList',
   'clientCrud',
   'tripList',
   'citiesList',
+  'signUp',
   'google.places'
 ]);
