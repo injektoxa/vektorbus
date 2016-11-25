@@ -12,6 +12,8 @@ namespace BlaBlaBusMVC.ViewModels
 
         public DateTime date { get; set; }
 
+        public DateTime arrivalDate { get; set; }
+
         public int cityTo { get; set; }
 
         public string cityToName { get; set; }

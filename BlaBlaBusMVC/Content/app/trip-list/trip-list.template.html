@@ -46,7 +46,29 @@
                                             show-spinners="true"
                                             readonly-time="false"
                                             date-opened="$ctrl.dateOpened"
-                                            show-button-bar="false">
+                                            show-button-bar="false"
+                                            data-on-set-time="onTimeSet(newDate, oldDate)">
+                            </datetimepicker>
+                        </td>
+                    </tr>
+                    <tr ng-show="$ctrl.isShowingArrivalDatePicker">
+                        <td>Время прибытия </td> 
+                        <td>
+                            <datetimepicker hour-step="$ctrl.hourStep"
+                                            minute-step="$ctrl.minuteStep"
+                                            ng-model="trip.arrivalDate"
+                                            show-meridian="$ctrl.showMeridian"
+                                            date-format="{{format}}"
+                                            date-options="$ctrl.arrivalDateOptions"
+                                            datepicker-append-to-body="false"
+                                            readonly-date="false"
+                                            disabled-date="false"
+                                            hidden-time="false"
+                                            hidden-date="false"
+                                            name="datetimepicker"
+                                            show-spinners="true"
+                                            readonly-time="false"
+                                            show-button-bar="false" >
                             </datetimepicker>
                         </td>
                     </tr>

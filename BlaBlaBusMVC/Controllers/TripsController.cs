@@ -109,6 +109,7 @@ namespace BlaBlaBusMVC.Controllers
             Trip tripdb = new Trip();
             tripdb.Bus = db.Buses.First(b => b.Id == trip.busId);
             tripdb.Date = trip.date;
+            tripdb.ArrivalDate = trip.arrivalDate;
 
             List<ClientTrip> clientsDb = new List<ClientTrip>();
             foreach (var item in trip.clients)
