@@ -29,6 +29,7 @@ namespace BlaBlaBusMVC.Controllers
                     cityFromName = item.CityFrom.Name,
                     cityToName = item.CityTo.Name,
                     date = item.Date,
+                    arrivalDate = item.ArrivalDate,
                     clients = item.ClientTrip.Select(i =>
                     new ClientViewModel()
                     {

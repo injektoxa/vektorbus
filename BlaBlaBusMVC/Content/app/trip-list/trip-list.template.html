@@ -116,7 +116,9 @@
             </span>
             <br />
             <uib-accordion close-others="oneAtATime" ng-repeat="trip in $ctrl.trips | filter:$ctrl.query">
-                <div uib-accordion-group class="panel-default" heading="{{trip.date}}, {{trip.busName}}, Маршрут: {{trip.cityFromName}} ----> {{trip.cityToName}}" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                <div uib-accordion-group class="panel-default" 
+                     heading="{{trip.date | date:$ctrl.dateTimeFormat }} - {{trip.arrivalDate| date:$ctrl.dateTimeFormat}}, {{trip.busName}}, Маршрут: {{trip.cityFromName}} ----> {{trip.cityToName}}" 
+                     is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
                     <table class="table table-hover table-bordered">
                         <thead>
                             <tr>

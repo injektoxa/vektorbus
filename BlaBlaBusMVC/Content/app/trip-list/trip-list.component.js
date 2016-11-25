@@ -20,6 +20,7 @@ angular.
           this.buses = Bus.query();
           this.cities = City.query();
           this.drivers = Driver.query();
+          this.dateTimeFormat = "dd/MM/yyyy HH:mm";
 
           this.showAddForm = function () {
               that.showAddTripForm = !that.showAddTripForm;

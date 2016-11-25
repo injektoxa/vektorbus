@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BlaBlaBusMVC.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace BlaBlaBusMVC.ViewModels
 {
