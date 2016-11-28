@@ -271,6 +271,9 @@
     <Content Include="Content\app\bus-list\bus-list.component.js" />
     <Content Include="Content\app\bus-list\bus-list.module.js" />
     <Content Include="Content\app\bus-list\bus-list.template.html" />
+    <Content Include="Content\app\bus-list\modal\modalBus-template.html" />
+    <Content Include="Content\app\bus-list\modal\modalBus.component.js" />
+    <Content Include="Content\app\bus-list\modal\modalBus.modul.js" />
     <Content Include="Content\app\client-detail\client-detail.template.html" />
     <Content Include="Content\app\client-list\client-crud\client-crud.module.js" />
     <Content Include="Content\app\core\bus\bus.module.js" />

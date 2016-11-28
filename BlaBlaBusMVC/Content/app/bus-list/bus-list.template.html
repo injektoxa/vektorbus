@@ -1,4 +1,5 @@
 ﻿<div class="buses col-md-8 row gridContainer">
+  <a ng-click="$ctrl.addBus()">Добавить автобус</a>
   <div>
     <table class="table table-striped table-condensed">
       <thead>
@@ -10,10 +11,10 @@
       </thead>
       <tbody>
         <tr ng-repeat="bus in $ctrl.buses" class="repeat-animation">
-          <td>{{bus.FriendlyName}}</td>
+          <td><a ng-click="$ctrl.editBus(bus)">{{bus.FriendlyName}}</a></td>
           <td>{{bus.PlacesCount}}</td>
           <td>{{bus.RegistrationNumber}}</td>
-          <td><button class="btn btn-primary" ng-click="">Delete</button></td>
+          <td><button class="btn btn-primary" ng-click="$ctrl.deleteBus(bus.Id)">Delete</button></td>
         </tr>
       </tbody>
     </table>

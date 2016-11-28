@@ -165,3 +165,12 @@ table.clients-trip td.button-area {
 .table > tbody > tr > td {
   vertical-align: middle;
 }
+
+.modal-body table {
+  width: 80%;
+}
+
+.modal-body input {
+  margin-bottom: 10px;
+  float: left;
+}
