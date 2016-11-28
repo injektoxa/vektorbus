@@ -9,6 +9,8 @@ namespace BlaBlaBusMVC.Models
 
         public DateTime Date { get; set; }
 
+        public DateTime ArrivalDate { get; set; }
+
         public virtual List<ClientTrip> ClientTrip { get; set; }
 
         public virtual City CityFrom { get; set; }
