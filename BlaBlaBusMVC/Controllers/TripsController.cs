@@ -29,6 +29,7 @@ namespace BlaBlaBusMVC.Controllers
                     cityFromName = item.CityFrom.Name,
                     cityToName = item.CityTo.Name,
                     date = item.Date,
+                    arrivalDate = item.ArrivalDate,
                     clients = item.ClientTrip.Select(i =>
                     new ClientViewModel()
                     {
@@ -109,6 +110,7 @@ namespace BlaBlaBusMVC.Controllers
             Trip tripdb = new Trip();
             tripdb.Bus = db.Buses.First(b => b.Id == trip.busId);
             tripdb.Date = trip.date;
+            tripdb.ArrivalDate = trip.arrivalDate;
 
             List<ClientTrip> clientsDb = new List<ClientTrip>();
             foreach (var item in trip.clients)
