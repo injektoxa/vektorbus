@@ -158,3 +158,23 @@ table.clients-trip td.button-area {
 .Clients {
   padding-left: 0;
 }
+
+.gridContainer thead {
+      border-bottom: 2px solid #ddd;
+}
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+.modal-body {
+  display:block;
+  overflow:auto;
+}
+.modal-body table {
+  width: 80%;
+}
+
+.modal-body input {
+  margin-bottom: 10px;
+  float: left;
+}

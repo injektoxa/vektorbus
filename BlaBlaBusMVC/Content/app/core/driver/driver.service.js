@@ -12,6 +12,9 @@ angular.
             add: {
                 method: 'POST',
             },
+            update: {
+              method: 'PUT'
+            },
             remove: {
                 method: 'DELETE',
                 params: { Id: 'id' },

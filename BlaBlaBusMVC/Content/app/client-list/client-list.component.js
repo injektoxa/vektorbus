@@ -35,9 +35,10 @@ angular.
             this.remove = function (id) {
                 Client.remove({ Id: id });
 
-                setTimeout(function () {
-                    that.clients = Client.query();
-                }, 1000)
+              setTimeout(function() {
+                  that.clients = Client.query();
+                },
+                1000);
             }
         }
       ]

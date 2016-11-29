@@ -9,7 +9,8 @@ angular.
   module('tripList').
   component('tripList', {
       templateUrl: 'trip-list/trip-list.template.html',
-      controller: ['Trip', 'Bus', 'City', 'Driver', '$scope', function TripListController(Trip, Bus, City, Driver, $scope) {
+      controller: ['Trip', 'Bus','City','Driver', '$uibModal', '$scope', 
+        function TripListController(Trip, Bus, City, Driver, $uibModal, $scope) {
           var that = this;
 
           this.isShowingArrivalDatePicker = false;
@@ -70,6 +71,26 @@ angular.
           this.resetHours = function () {
               that.date.setHours(1);
           };
+
+          this.openDriversList = function () {
+            var modalOptions = {
+              animation: true,
+              backdrop: 'static',
+              size: 'lg',
+              component: 'driverList',
+              resolve: {
+                drivers: function () {
+                  return that.drivers;
+                }
+              }
+            };
+
+            var modalInstance = $uibModal.open(modalOptions);
+
+            modalInstance.result.then(function (drivers) {
+              that.drivers = drivers;
+            });
+          }
 
           //bootstrap datepicker doesn`t support ng-change event
           $scope.$watch('trip.date', function (nextValue, prevValue) {

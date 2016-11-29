@@ -12,16 +12,16 @@
                                 <option ng-repeat="bus in $ctrl.buses" value="{{bus.Id}}">{{bus.FriendlyName}}</option>
                             </select>
                         </td>
-                        <td>
-                            <button class="btn btn-default" ng-click="$ctrl.open()()"> + </button>
-                        </td>
                     </tr>
                     <tr>
                         <td>Водитель: </td>
                         <td>
-                            <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="trip.driverId">
-                                <option ng-repeat="driver in $ctrl.drivers" value="{{driver.Id}}">{{driver.Name}}</option>
-                            </select>
+                          <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="trip.driverId">
+                            <option ng-repeat="driver in $ctrl.drivers" value="{{driver.Id}}">{{driver.Name}} {{driver.Sername}}</option>
+                          </select>
+                        </td>
+                        <td>
+                          <button class="btn btn-default" ng-click="$ctrl.openDriversList()"> + </button>
                         </td>
                     </tr>
                     <tr>

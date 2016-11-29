@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="app.css" />
     <link rel="stylesheet" href="app.animations.css" />
-    <link rel="stylesheet" href="bower_components/angular-google-places-autocomplete/src/autocomplete.css">
+    <link rel="stylesheet" href="bower_components/angular-google-places-autocomplete/src/autocomplete.css" />
     <link href="bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css" rel="stylesheet" />
 
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -14,12 +14,12 @@
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
-
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBkEIsxJ1ZqsEBPUYsef_jF2ajuSkmbxJ4&libraries=places"></script>
     <script src="bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
 
-    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.0.1.js"></script>
     <script src="app.module.js"></script>
     <script src="app.config.js"></script>
     <script src="app.animations.js"></script>
@@ -52,6 +52,16 @@
     <script src="trip-list/trip-list.module.js"></script>
     <script src="trip-list/trip-list.component.js"></script>
 
+    <script src="driver-list/driver-list.module.js"></script>
+    <script src="driver-list/driver-list.component.js"></script>
+    <script src="driver-list/driver-crud/driver-crud.module.js"></script>
+    <script src="driver-list/driver-crud/driver-crud.component.js"></script>
+
+    <script src="bus-list/modal/modalBus.module.js"></script>
+    <script src="bus-list/modal/modalBus.component.js"></script>
+    <script src="bus-list/bus-list.module.js"></script>
+    <script src="bus-list/bus-list.component.js"></script>
+
     <script src="cities-list/cities-list.module.js"></script>
     <script src="cities-list/cities-list.component.js"></script>
 
@@ -70,6 +80,7 @@
             <ul class="nav navbar-nav">
                 <li><a class="active" ng-href="#trips">Маршруты</a></li>
                 <li><a ng-href="#clients">Клиенты</a></li>
+                <li><a ng-href="#buses">Автобусы</a></li>
                 <li><a ng-href="#cities">Города</a></li>
             </ul>
         </div>

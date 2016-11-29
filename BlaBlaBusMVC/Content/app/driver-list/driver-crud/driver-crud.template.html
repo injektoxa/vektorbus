@@ -1,0 +1,38 @@
+﻿
+  <form name="form" novalidate>
+    <div class="form-group">
+      <table>
+        <tr>
+          <td class="">Имя:</td>
+          <td>
+            <div>
+              <input type="text" class="form-control" name="name" ng-model="$ctrl.driver.Name" required="required" />
+              <span class="error" ng-show="!form.name.$valid && form.name.$dirty">Это поле обязательное</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Фамилия:</td>
+          <td>
+            <div>
+              <input class="form-control" name="sername" ng-model="$ctrl.driver.Sername" type="text" required="required" />
+              <span class="error" ng-show="!form.sername.$valid && form.sername.$dirty">Это поле обязательное</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Телефон: </td>
+          <td>
+            <div>
+              <input type="text" name="phone" class="form-control" ng-model="$ctrl.driver.Phone"  required="required"/>
+              <span class="error" ng-show="!form.phone.$valid && form.phone.$dirty">Это поле обязательное</span>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <button type="button" class="btn" ng-click="$ctrl.cancel()">Отмена</button>
+    <button class="btn btn-primary" 
+            ng-disabled="!form.name.$valid || !form.sername.$valid || !form.phone.$valid" 
+            ng-click="$ctrl.save($ctrl.driver)">Сохранить</button>
+  </form>

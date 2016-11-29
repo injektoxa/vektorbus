@@ -3,7 +3,10 @@ BlaBlaBusMVC/bin/
 BlaBlaBusMVC/obj/
 BlaBlaBusMVC/Project_Readme.html
 BlaBlaBusMVC/BlaBlaBusMVC.csproj.user
-BlaBlaBusMVC/App_Data
+BlaBlaBusMVC/Content/app/bower_components
+BlaBlaBusMVC/Scripts/_references.js
+BlaBlaBusMVC/App_Data/
 BlaBlaBusMVC/node_modules/
 .vs/config/applicationhost.config
+.vs/BlaBlaBusMVC/v14/.suo
 .vs/

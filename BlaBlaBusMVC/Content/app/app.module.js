@@ -10,6 +10,10 @@ angular.module('VektorApp', [
   'clientList',
   'clientCrud',
   'tripList',
+  'busList',
+  'modalBus',
+  'driverList',
+  'driverCrud',
   'citiesList',
   'google.places'
 ]);
