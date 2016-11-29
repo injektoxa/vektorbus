@@ -4,7 +4,7 @@ angular.
   module('tripList').
   component('tripList', {
       templateUrl: 'trip-list/trip-list.template.html',
-      controller: ['Trip', 'Bus','City','Driver', function TripListController(Trip, Bus, City, Driver) {
+      controller: ['Trip', 'Bus','City','Driver', '$uibModal', function TripListController(Trip, Bus, City, Driver, $uibModal) {
           var that = this;
 
           this.showAddTripForm = false;
@@ -64,5 +64,25 @@ angular.
           this.resetHours = function () {
               that.date.setHours(1);
           };
+
+          this.openDriversList = function () {
+            var modalOptions = {
+              animation: true,
+              backdrop: 'static',
+              size: 'lg',
+              component: 'driverList',
+              resolve: {
+                drivers: function () {
+                  return that.drivers;
+                }
+              }
+            };
+
+            var modalInstance = $uibModal.open(modalOptions);
+
+            modalInstance.result.then(function (drivers) {
+              that.drivers = drivers;
+            });
+          }
       }]
   });

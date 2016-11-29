@@ -273,7 +273,7 @@
     <Content Include="Content\app\bus-list\bus-list.template.html" />
     <Content Include="Content\app\bus-list\modal\modalBus-template.html" />
     <Content Include="Content\app\bus-list\modal\modalBus.component.js" />
-    <Content Include="Content\app\bus-list\modal\modalBus.modul.js" />
+    <Content Include="Content\app\bus-list\modal\modalBus.module.js" />
     <Content Include="Content\app\client-detail\client-detail.template.html" />
     <Content Include="Content\app\client-list\client-crud\client-crud.module.js" />
     <Content Include="Content\app\core\bus\bus.module.js" />
@@ -288,6 +288,9 @@
     <Content Include="Content\app\core\driver\driver.service.js" />
     <Content Include="Content\app\core\trip\trip.module.js" />
     <Content Include="Content\app\core\trip\trip.service.js" />
+    <Content Include="Content\app\driver-list\driver-crud\driver-crud.component.js" />
+    <Content Include="Content\app\driver-list\driver-crud\driver-crud.module.js" />
+    <Content Include="Content\app\driver-list\driver-crud\driver-crud.template.html" />
     <Content Include="Content\app\index.html" />
     <Content Include="Content\app\client-detail\client-detail.component.js" />
     <Content Include="Content\app\client-detail\client-detail.module.js" />
@@ -295,6 +298,9 @@
     <Content Include="Content\app\client-list\client-list.component.js" />
     <Content Include="Content\app\client-list\client-list.module.js" />
     <Content Include="Content\app\client-list\client-list.template.html" />
+    <Content Include="Content\app\driver-list\driver-list.component.js" />
+    <Content Include="Content\app\driver-list\driver-list.module.js" />
+    <Content Include="Content\app\driver-list\driver-list.template.html" />
     <Content Include="Content\app\trip-list\trip-list.component.js" />
     <Content Include="Content\app\trip-list\trip-list.module.js" />
     <Content Include="Content\app\trip-list\trip-list.template.html" />
