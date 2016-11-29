@@ -13,5 +13,7 @@ angular.module('VektorApp', [
   'busList',
   'modalBus',
   'driverList',
-  'driverCrud'
+  'driverCrud',
+  'citiesList',
+  'google.places'
 ]);

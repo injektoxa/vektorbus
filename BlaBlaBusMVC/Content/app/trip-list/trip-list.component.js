@@ -1,12 +1,19 @@
 ﻿'use strict';
 
+const commonDateOptions = {
+    showWeeks: false,
+    startingDay: 0
+};
+
 angular.
   module('tripList').
   component('tripList', {
       templateUrl: 'trip-list/trip-list.template.html',
-      controller: ['Trip', 'Bus','City','Driver', '$uibModal', function TripListController(Trip, Bus, City, Driver, $uibModal) {
+      controller: ['Trip', 'Bus','City','Driver', '$uibModal', '$scope', 
+        function TripListController(Trip, Bus, City, Driver, $uibModal, $scope) {
           var that = this;
 
+          this.isShowingArrivalDatePicker = false;
           this.showAddTripForm = false;
           this.trip = {}
           this.trip.tripClients = [];
@@ -14,6 +21,7 @@ angular.
           this.buses = Bus.query();
           this.cities = City.query();
           this.drivers = Driver.query();
+          this.dateTimeFormat = "dd/MM/yyyy HH:mm";
 
           this.showAddForm = function () {
               that.showAddTripForm = !that.showAddTripForm;
@@ -37,10 +45,8 @@ angular.
               that.dateOptions.minDate = that.dateOptions.minDate ? null : minDate;
           };
 
-          this.dateOptions = {
-              showWeeks: false,
-              startingDay: 0
-          };
+          this.dateOptions = commonDateOptions;
+          this.arrivalDateOptions = commonDateOptions;
 
           this.toggleMinDate();
 
@@ -48,6 +54,7 @@ angular.
               $event.preventDefault();
               $event.stopPropagation();
               that.dateOpened = true;
+              that.isShowingArrivalDatePicker = true;
           };
 
           this.dateOpened = false;
@@ -84,5 +91,13 @@ angular.
               that.drivers = drivers;
             });
           }
+
+          //bootstrap datepicker doesn`t support ng-change event
+          $scope.$watch('trip.date', function (nextValue, prevValue) {
+              if (prevValue != nextValue) {
+                  that.isShowingArrivalDatePicker = true;
+                  that.arrivalDateOptions.minDate = nextValue;
+              }
+          });
       }]
   });

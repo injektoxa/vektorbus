@@ -228,6 +228,10 @@
     <Compile Include="Migrations\201611221021289_AddBaggageFieldToClientTrip.Designer.cs">
       <DependentUpon>201611221021289_AddBaggageFieldToClientTrip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611251027241_Trip arrival date.cs" />
+    <Compile Include="Migrations\201611251027241_Trip arrival date.Designer.cs">
+      <DependentUpon>201611251027241_Trip arrival date.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bus.cs" />
     <Compile Include="Models\City.cs" />
@@ -274,6 +278,8 @@
     <Content Include="Content\app\bus-list\modal\modalBus-template.html" />
     <Content Include="Content\app\bus-list\modal\modalBus.component.js" />
     <Content Include="Content\app\bus-list\modal\modalBus.module.js" />
+    <Content Include="Content\app\cities-list\cities-list.module.js" />
+    <Content Include="Content\app\cities-list\cities-list.template.html" />
     <Content Include="Content\app\client-detail\client-detail.template.html" />
     <Content Include="Content\app\client-list\client-crud\client-crud.module.js" />
     <Content Include="Content\app\core\bus\bus.module.js" />
@@ -357,6 +363,7 @@
     <Content Include="Content\package.json" />
     <Content Include="Content\LICENSE" />
     <Content Include="Content\app\client-list\client-crud\client-crud.component.js" />
+    <Content Include="Content\app\cities-list\cities-list.component.js" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -472,6 +479,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611221021289_AddBaggageFieldToClientTrip.resx">
       <DependentUpon>201611221021289_AddBaggageFieldToClientTrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611251027241_Trip arrival date.resx">
+      <DependentUpon>201611251027241_Trip arrival date.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

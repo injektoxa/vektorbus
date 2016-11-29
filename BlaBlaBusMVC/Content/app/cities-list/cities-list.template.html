@@ -1,0 +1,28 @@
+﻿ <a ng-click="$ctrl.showAddForm()" style="cursor:pointer">Добавить город</a>
+
+<div class="row" ng-show="$ctrl.showAddCityForm">
+    <div class="col-xs-6">
+        <form name="new-city">
+            <div class="form-group">
+                <input class="form-control" type="text" 
+                       ng-model="choosedPlace" 
+                       g-places-autocomplete 
+                       options="autocompleteOptions" />
+            </div>
+            
+            <div class="row">
+                <div class="col-xs-12">
+                    <button type="submit" class="btn btn-primary" ng-click="$ctrl.saveCity(choosedPlace);submitted=true">Добавить</button>
+                </div>        
+            </div>
+        </form>
+    </div>
+</div>
+<hr/>
+
+Доступные города :
+<ul class="cities">
+    <li ng-repeat="city in $ctrl.cities | filter:$ctrl.query">
+       {{city.Name}}
+    </li>
+</ul>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BlaBlaBusMVC.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace BlaBlaBusMVC.ViewModels
 {
@@ -11,6 +12,8 @@ namespace BlaBlaBusMVC.ViewModels
         public List<ClientViewModel> clients { set; get; }
 
         public DateTime date { get; set; }
+
+        public DateTime arrivalDate { get; set; }
 
         public int cityTo { get; set; }
 
