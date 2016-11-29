@@ -5,11 +5,13 @@ angular.
   module('modalBus').
   component('modalBus', {
     templateUrl: 'bus-list/modal/modalBus-template.html',
+
     bindings: {
       resolve: '<',
       close: '&',
       dismiss: '&'
     },
+
     controller: function () {
       var that = this;
 

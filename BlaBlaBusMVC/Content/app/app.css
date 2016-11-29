@@ -166,6 +166,10 @@ table.clients-trip td.button-area {
   vertical-align: middle;
 }
 
+.modal-body {
+  display:block;
+  overflow:auto;
+}
 .modal-body table {
   width: 80%;
 }

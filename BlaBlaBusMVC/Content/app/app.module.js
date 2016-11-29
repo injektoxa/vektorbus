@@ -11,5 +11,7 @@ angular.module('VektorApp', [
   'clientCrud',
   'tripList',
   'busList',
-  'modalBus'
+  'modalBus',
+  'driverList',
+  'driverCrud'
 ]);
