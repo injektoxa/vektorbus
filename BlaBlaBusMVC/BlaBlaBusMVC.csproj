@@ -282,6 +282,12 @@
     <Content Include="Content\app\app.config.js" />
     <Content Include="Content\app\app.css" />
     <Content Include="Content\app\app.module.js" />
+    <Content Include="Content\app\agent-list\agent-list.component.js" />
+    <Content Include="Content\app\agent-list\agent-list.module.js" />
+    <Content Include="Content\app\agent-list\agent-list.template.html" />
+    <Content Include="Content\app\agent-list\modal\modalAgent-template.html" />
+    <Content Include="Content\app\agent-list\modal\modalAgent.component.js" />
+    <Content Include="Content\app\agent-list\modal\modalAgent.module.js" />
     <Content Include="Content\app\bus-list\bus-list.component.js" />
     <Content Include="Content\app\bus-list\bus-list.module.js" />
     <Content Include="Content\app\bus-list\bus-list.template.html" />
@@ -292,6 +298,8 @@
     <Content Include="Content\app\cities-list\cities-list.template.html" />
     <Content Include="Content\app\client-detail\client-detail.template.html" />
     <Content Include="Content\app\client-list\client-crud\client-crud.module.js" />
+    <Content Include="Content\app\core\agent\agent.module.js" />
+    <Content Include="Content\app\core\agent\agent.service.js" />
     <Content Include="Content\app\core\bus\bus.module.js" />
     <Content Include="Content\app\core\bus\bus.service.js" />
     <Content Include="Content\app\core\checkmark\checkmark.filter.js" />
