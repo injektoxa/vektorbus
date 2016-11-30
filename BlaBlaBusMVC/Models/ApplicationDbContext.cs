@@ -24,6 +24,8 @@ namespace BlaBlaBusMVC.Models
 
         public IDbSet<CityPrice> CityPrices { get; set; }
 
+        public IDbSet<Agent> Agets { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
