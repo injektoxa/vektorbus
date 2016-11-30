@@ -11,7 +11,7 @@
   </div>
   <div class="modal-body">
     <div class="modal-body drivers col-md-12 row gridContainer">
-      <a ng-click="$ctrl.showAddDriverBlock()">Добавить водителя</a>
+      <a ng-click="$ctrl.showAddDriverBlock()" ng-class="$ctrl.addNewClass">Добавить водителя</a>
       <driver-crud ng-show="$ctrl.addDriverBlockVisible"></driver-crud>
       <div>
         <table class="table table-striped table-condensed">

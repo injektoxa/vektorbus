@@ -14,6 +14,7 @@ angular.module('driverList')
         var that = this;
         that.drivers = [];
         that.addDriverBlockVisible = false;
+        that.addNewClass = "";
 
         that.$onInit = function () {
           that.drivers = that.resolve.drivers;
@@ -29,6 +30,7 @@ angular.module('driverList')
 
         that.showAddDriverBlock = function() {
           that.addDriverBlockVisible = !that.addDriverBlockVisible;
+          that.addNewClass = that.addDriverBlockVisible ? "not-active" : "";
         };
 
         that.deleteDriver = function(id) {
