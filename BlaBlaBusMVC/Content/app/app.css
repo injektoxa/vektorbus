@@ -175,6 +175,17 @@ table.clients-trip td.button-area {
 }
 
 .modal-body input {
+  width: 100%;
   margin-bottom: 10px;
   float: left;
+}
+
+.modal-body tr > td:first-child {
+  width: 40%;
+  vertical-align: text-top;
+  padding-top: 7px;
+}
+
+.modal-body tr > td:last-child {
+  width: 60%;
 }
