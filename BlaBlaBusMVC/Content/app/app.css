@@ -180,12 +180,12 @@ table.clients-trip td.button-area {
   float: left;
 }
 
-.modal-body tr > td:first-child {
+form.add-edit tr > td:first-child {
   width: 40%;
   vertical-align: text-top;
   padding-top: 7px;
 }
 
-.modal-body tr > td:last-child {
+form.add-edit tr > td:last-child {
   width: 60%;
 }
