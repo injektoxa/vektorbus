@@ -17,5 +17,5 @@ angular.module('VektorApp', [
   'citiesList',
   'google.places',
   'agentList',
-  'agentCrud'
+  'modalAgent'
 ]);
