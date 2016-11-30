@@ -236,6 +236,10 @@
     <Compile Include="Migrations\201611301353360_AgentTableCreate.Designer.cs">
       <DependentUpon>201611301353360_AgentTableCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611301405127_AgentAddedToClientTrip.cs" />
+    <Compile Include="Migrations\201611301405127_AgentAddedToClientTrip.Designer.cs">
+      <DependentUpon>201611301405127_AgentAddedToClientTrip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Agent.cs" />
     <Compile Include="Models\Bus.cs" />
@@ -490,6 +494,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611301353360_AgentTableCreate.resx">
       <DependentUpon>201611301353360_AgentTableCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611301405127_AgentAddedToClientTrip.resx">
+      <DependentUpon>201611301405127_AgentAddedToClientTrip.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
