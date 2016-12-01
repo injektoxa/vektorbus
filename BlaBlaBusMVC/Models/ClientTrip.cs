@@ -19,5 +19,7 @@
         public virtual Agent Agent { set; get; }
 
         public double? AgentPrice { set; get; }
+
+        public double? AdditionalExpenses { set; get; }
     }
 }
