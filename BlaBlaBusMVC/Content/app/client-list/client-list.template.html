@@ -53,23 +53,43 @@
                         <option ng-repeat="city in $ctrl.cities" value="{{city.Name}}">{{city.Name}}</option>
                       </select>
                     </div>
-                    <div>
-                      <label>
-                        Цена:
-                      </label>
-                      <input type="text" class="form-control" name="price" ng-model="client.price" required />                      
-                    </div>
+                      <div>
+                          <label>
+                              Цена:
+                          </label>
+                          <input type="number" class="form-control" name="Price" ng-model="client.Price" required />                      
+                      </div>
+                      <div>
+                          <label>
+                              Доп. расходы:
+                          </label>
+                          <input type="number" class="form-control" name="AdditionalExpenses" ng-model="client.AdditionalExpenses" required />
+                      </div>
+                      <div>
+                          <label>
+                              Агент:
+                          </label>
+                          <select class="form-control" name="repeatAgent" id="repeatAgent" ng-model="client.AgentId" required>
+                              <option ng-repeat="agent in $ctrl.agents" value="{{agent.Id}}">{{agent.FullName}}</option>
+                          </select>
+                      </div>
+                      <div>
+                          <label>
+                              Цена агента:
+                          </label>
+                          <input type="number" class="form-control" name="AgentPrice" ng-model="client.AgentPrice" required />
+                      </div>
                     <div>
                       <label>
                         Не выходит:
                       </label>
-                      <input type="checkbox" name="isStayInBus" ng-model="client.isStayInBus" required />
+                      <input type="checkbox" name="IsStayInBus" ng-model="client.IsStayInBus" required />
                     </div>
                     <div>
                       <label>
                         Багаж:
                       </label>
-                      <input type="checkbox" name="hasBaggage" ng-model="client.hasBaggage" required />
+                      <input type="checkbox" name="HasBaggage" ng-model="client.HasBaggage" required />
                     </div>
                   </td>
                     <td class="button-area">
