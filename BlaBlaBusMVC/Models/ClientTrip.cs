@@ -15,5 +15,9 @@
         public virtual bool IsStayInBus { set; get; }
 
         public virtual bool HasBaggage { set; get; }
-  }
+
+        public virtual Agent Agent { set; get; }
+
+        public double? AgentPrice { set; get; }
+    }
 }

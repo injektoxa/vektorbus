@@ -14,28 +14,29 @@
       <div class="form-group">
         <table>
           <tr>
-            <td>Название:</td>
+            <td>Имя:</td>
             <td>
               <div>
-                <input type="text" class="form-control" name="name" ng-model="$ctrl.bus.FriendlyName" required="required" />
+                <input type="text" class="form-control" name="name" ng-model="$ctrl.agent.Name" required="required" />
                 <span class="error" ng-show="!form.name.$valid && form.name.$dirty">Это поле обязательное</span>
               </div>
             </td>
           </tr>
           <tr>
-            <td>Количество мест: </td>
+            <td>Фамилия:</td>
             <td>
               <div>
-                <input class="form-control" name="count" ng-model="$ctrl.bus.PlacesCount" type="number" required="required" />
-                <span class="error" ng-show="!form.count.$valid && form.count.$dirty">Это поле обязательное</span>
+                <input class="form-control" name="sername" ng-model="$ctrl.agent.Sername" type="text" required="required" />
+                <span class="error" ng-show="!form.sername.$valid && form.sername.$dirty">Это поле обязательное</span>
               </div>
             </td>
           </tr>
           <tr>
-            <td>Регистрационный номер: </td>
+            <td>Телефон:</td>
             <td>
               <div>
-                <input type="text" class="form-control" ng-model="$ctrl.bus.RegistrationNumber" />
+                <input type="text" name="phone" class="form-control" ng-model="$ctrl.agent.Phone" />
+                <span class="error" ng-show="!form.phone.$valid && form.phone.$dirty">Это поле обязательное</span>
               </div>
             </td>
           </tr>
@@ -45,6 +46,8 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn" ng-click="$ctrl.cancel()">Отмена</button>
-    <button class="btn btn-primary" ng-disabled="!form.name.$valid || !form.count.$valid" ng-click="$ctrl.ok(bus);">Сохранить</button>
+      <button class="btn btn-primary" 
+              ng-disabled="!form.name.$valid || !form.sername.$valid || !form.phone.$valid" 
+              ng-click="$ctrl.ok(agent);">Сохранить</button>
   </div>
 </div>
