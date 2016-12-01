@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BlaBlaBusMVC.Models;
+using BlaBlaBusMVC.ViewModels;
 
 namespace BlaBlaAgentMVC.Controllers
 {
@@ -17,9 +18,11 @@ namespace BlaBlaAgentMVC.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Agents
-        public IQueryable<Agent> GetAgents()
+        public IEnumerable<AgentViewModel> GetAgents()
         {
-            return db.Agents;
+            var agents = db.Agents.ToList();
+            var models = agents.Select(x => new AgentViewModel(x)).ToList();
+            return models;
         }
 
         // GET: api/Agents/5
@@ -32,7 +35,7 @@ namespace BlaBlaAgentMVC.Controllers
                 return NotFound();
             }
 
-            return Ok(agent);
+            return Ok(new AgentViewModel(agent));
         }
 
         // PUT: api/Agents/5

@@ -241,6 +241,10 @@
     <Compile Include="Migrations\201611301405127_AgentAddedToClientTrip.Designer.cs">
       <DependentUpon>201611301405127_AgentAddedToClientTrip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612010858003_AddFieldToClientTrip.cs" />
+    <Compile Include="Migrations\201612010858003_AddFieldToClientTrip.Designer.cs">
+      <DependentUpon>201612010858003_AddFieldToClientTrip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Agent.cs" />
     <Compile Include="Models\Bus.cs" />
@@ -251,6 +255,7 @@
     <Compile Include="Models\Driver.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Trip.cs" />
+    <Compile Include="ViewModels\AgentViewModel.cs" />
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\FactorViewModel.cs" />
@@ -506,6 +511,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611301405127_AgentAddedToClientTrip.resx">
       <DependentUpon>201611301405127_AgentAddedToClientTrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612010858003_AddFieldToClientTrip.resx">
+      <DependentUpon>201612010858003_AddFieldToClientTrip.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

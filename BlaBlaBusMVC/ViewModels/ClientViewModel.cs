@@ -18,6 +18,12 @@
 
         public string To { get; set; }
 
+        public int? AgentId { get; set; }
+
+        public double? AgentPrice { get; set; }
+
+        public double? AdditionalExpenses { get; set; }
+
         public bool IsStayInBus { get; set; }
 
         public bool HasBaggage { set; get; }
