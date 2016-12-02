@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlaBlaBusMVC.Models
 {
@@ -13,5 +14,11 @@ namespace BlaBlaBusMVC.Models
 
         [MaxLength(200)]
         public string Sername { get; set; }
+
+        [NotMapped]
+        public string FullName
+        {
+            get { return Name + " " + Sername; }
+        }
     }
 }

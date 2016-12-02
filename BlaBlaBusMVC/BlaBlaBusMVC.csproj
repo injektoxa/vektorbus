@@ -181,6 +181,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AgentReportsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\BusesController.cs" />
@@ -245,6 +246,10 @@
     <Compile Include="Migrations\201612010858003_AddFieldToClientTrip.Designer.cs">
       <DependentUpon>201612010858003_AddFieldToClientTrip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612021203385_AddDriverToTrip.cs" />
+    <Compile Include="Migrations\201612021203385_AddDriverToTrip.Designer.cs">
+      <DependentUpon>201612021203385_AddDriverToTrip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Agent.cs" />
     <Compile Include="Models\Bus.cs" />
@@ -255,6 +260,7 @@
     <Compile Include="Models\Driver.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Trip.cs" />
+    <Compile Include="ViewModels\AgentReportViewModel.cs" />
     <Compile Include="ViewModels\AgentViewModel.cs" />
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
@@ -315,6 +321,8 @@
     <Content Include="Content\app\core\client\client.service.js" />
     <Content Include="Content\app\core\driver\driver.module.js" />
     <Content Include="Content\app\core\driver\driver.service.js" />
+    <Content Include="Content\app\core\report\report.service.js" />
+    <Content Include="Content\app\core\report\report.module.js" />
     <Content Include="Content\app\core\trip\trip.module.js" />
     <Content Include="Content\app\core\trip\trip.service.js" />
     <Content Include="Content\app\driver-list\driver-crud\driver-crud.component.js" />
@@ -330,6 +338,8 @@
     <Content Include="Content\app\driver-list\driver-list.component.js" />
     <Content Include="Content\app\driver-list\driver-list.module.js" />
     <Content Include="Content\app\driver-list\driver-list.template.html" />
+    <Content Include="Content\app\reports\reports.module.js" />
+    <Content Include="Content\app\reports\reports.template.html" />
     <Content Include="Content\app\trip-list\trip-list.component.js" />
     <Content Include="Content\app\trip-list\trip-list.module.js" />
     <Content Include="Content\app\trip-list\trip-list.template.html" />
@@ -387,6 +397,7 @@
     <Content Include="Content\LICENSE" />
     <Content Include="Content\app\client-list\client-crud\client-crud.component.js" />
     <Content Include="Content\app\cities-list\cities-list.component.js" />
+    <Content Include="Content\app\reports\reports.component.js" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -514,6 +525,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612010858003_AddFieldToClientTrip.resx">
       <DependentUpon>201612010858003_AddFieldToClientTrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612021203385_AddDriverToTrip.resx">
+      <DependentUpon>201612021203385_AddDriverToTrip.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
