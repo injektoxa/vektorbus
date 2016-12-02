@@ -194,3 +194,40 @@ form.add-edit tr > td:last-child {
    pointer-events: none;
    cursor: default;
 }
+
+.reports-header {
+    width: 100%;
+    position: relative;
+    height: 59px;
+}
+
+.reports-header > div {
+    float: left;
+    height: 100%;
+    width: 200px;
+    margin-left: 30px;
+}
+
+.reports-header .button-wrapper {
+    position: relative;
+}
+
+.button-wrapper button{
+    position: absolute;
+    bottom: 0;
+}
+
+.report-body {
+    margin-top: 30px;
+}
+
+.report-body h4 {
+    color: #337ab7;
+    margin: 30px 0;
+
+}
+.report-body h4 > span {
+    color: red;
+    font-weight: bold;
+    font-size: larger;
+}

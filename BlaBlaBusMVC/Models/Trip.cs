@@ -7,6 +7,8 @@ namespace BlaBlaBusMVC.Models
     {
         public virtual Bus Bus { get; set; }
 
+        public virtual Driver Driver { get; set; }
+
         public DateTime Date { get; set; }
 
         public DateTime ArrivalDate { get; set; }
