@@ -8,6 +8,7 @@ angular.module('VektorApp', [
   'core',
   'clientDetail',
   'clientList',
+  'clientTripList',
   'clientCrud',
   'tripList',
   'busList',
@@ -18,5 +19,6 @@ angular.module('VektorApp', [
   'google.places',
   'agentList',
   'modalAgent',
+  'modalClient',
   'reports'
 ]);

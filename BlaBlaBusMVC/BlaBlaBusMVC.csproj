@@ -188,6 +188,7 @@
     <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\CityPricesController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\ClientTripsController.cs" />
     <Compile Include="Controllers\DriversController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
@@ -263,6 +264,7 @@
     <Compile Include="ViewModels\AgentReportViewModel.cs" />
     <Compile Include="ViewModels\AgentViewModel.cs" />
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\ClientTripViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\FactorViewModel.cs" />
     <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
@@ -308,7 +310,13 @@
     <Content Include="Content\app\cities-list\cities-list.module.js" />
     <Content Include="Content\app\cities-list\cities-list.template.html" />
     <Content Include="Content\app\client-detail\client-detail.template.html" />
-    <Content Include="Content\app\client-list\client-crud\client-crud.module.js" />
+    <Content Include="Content\app\client-list\client-list.component.js" />
+    <Content Include="Content\app\client-list\client-list.module.js" />
+    <Content Include="Content\app\client-list\client-list.template.html" />
+    <Content Include="Content\app\client-list\modal\modalClient-template.html" />
+    <Content Include="Content\app\client-list\modal\modalClient.component.js" />
+    <Content Include="Content\app\client-list\modal\modalClient.module.js" />
+    <Content Include="Content\app\clientTrip-list\client-crud\client-crud.module.js" />
     <Content Include="Content\app\core\agent\agent.module.js" />
     <Content Include="Content\app\core\agent\agent.service.js" />
     <Content Include="Content\app\core\bus\bus.module.js" />
@@ -316,6 +324,8 @@
     <Content Include="Content\app\core\checkmark\checkmark.filter.js" />
     <Content Include="Content\app\core\city\city.module.js" />
     <Content Include="Content\app\core\city\city.service.js" />
+    <Content Include="Content\app\core\clientTrip\clientTrip.module.js" />
+    <Content Include="Content\app\core\clientTrip\clientTrip.service.js" />
     <Content Include="Content\app\core\core.module.js" />
     <Content Include="Content\app\core\client\client.module.js" />
     <Content Include="Content\app\core\client\client.service.js" />
@@ -331,10 +341,10 @@
     <Content Include="Content\app\index.html" />
     <Content Include="Content\app\client-detail\client-detail.component.js" />
     <Content Include="Content\app\client-detail\client-detail.module.js" />
-    <Content Include="Content\app\client-list\client-crud\client-crud.template.html" />
-    <Content Include="Content\app\client-list\client-list.component.js" />
-    <Content Include="Content\app\client-list\client-list.module.js" />
-    <Content Include="Content\app\client-list\client-list.template.html" />
+    <Content Include="Content\app\clientTrip-list\client-crud\client-crud.template.html" />
+    <Content Include="Content\app\clientTrip-list\clientTrip-list.component.js" />
+    <Content Include="Content\app\clientTrip-list\clientTrip-list.module.js" />
+    <Content Include="Content\app\clientTrip-list\clientTrip-list.template.html" />
     <Content Include="Content\app\driver-list\driver-list.component.js" />
     <Content Include="Content\app\driver-list\driver-list.module.js" />
     <Content Include="Content\app\driver-list\driver-list.template.html" />
@@ -395,7 +405,7 @@
     <Content Include="Content\bower.json" />
     <Content Include="Content\package.json" />
     <Content Include="Content\LICENSE" />
-    <Content Include="Content\app\client-list\client-crud\client-crud.component.js" />
+    <Content Include="Content\app\clientTrip-list\client-crud\client-crud.component.js" />
     <Content Include="Content\app\cities-list\cities-list.component.js" />
     <Content Include="Content\app\reports\reports.component.js" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />

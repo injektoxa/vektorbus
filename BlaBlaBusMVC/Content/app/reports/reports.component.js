@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-// Register `clientList` component, along with its associated controller and template
+// Register `reports` component, along with its associated controller and template
 angular.module('reports')
     .component('reports',
     {

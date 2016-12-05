@@ -31,7 +31,7 @@ angular.module('busList')
             Bus.add(bus,
               function onSuccess(createdBus) {
                 that.buses.push(createdBus);
-                that.bus = {};
+                that.clearBus();
               });
           });
         };
@@ -44,10 +44,9 @@ angular.module('busList')
             that.bus = bus;
             Bus.update({ id: bus.Id },
               bus,
-              function(editedBus) {
-                that.bus = {};
-              });
-          });
+              that.clearBus);
+          },
+          that.clearBus);
         };
 
         that.deleteBus = function(id) {
@@ -58,7 +57,11 @@ angular.module('busList')
                 that.buses.splice(index, 1);
               }
             });
-        }
+        };
+
+        that.clearBus = function () {
+            that.bus = {};
+        };
       }
     ]
   });

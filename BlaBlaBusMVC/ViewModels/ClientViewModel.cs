@@ -1,31 +1,37 @@
-﻿namespace BlaBlaBusMVC.ViewModels
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+using BlaBlaBusMVC.Models;
+
+namespace BlaBlaBusMVC.ViewModels
 {
     public class ClientViewModel
     {
-        public string Name { get; set; }
-
         public int Id { get; set; }
 
-        public string Phone { get; set; }
+        [Required]
+        [MaxLength(200)]
+        public string Name { get; set; }
 
-        public string Comments { get; set; }
+        [Required]
+        [MaxLength(200)]
+        public string Phone { get; set; }
 
         public bool HasDiscount { get; set; }
 
-        public double Price { get; set; }
+        public ClientViewModel()
+        {
 
-        public string From { get; set; }
+        }
 
-        public string To { get; set; }
-
-        public int? AgentId { get; set; }
-
-        public double? AgentPrice { get; set; }
-
-        public double? AdditionalExpenses { get; set; }
-
-        public bool IsStayInBus { get; set; }
-
-        public bool HasBaggage { set; get; }
-  }
+        public ClientViewModel(Client client)
+        {
+            Id = client.Id;
+            Name = client.Name;
+            Phone = client.Phone;
+            HasDiscount = client.HasDiscount;
+        }
+    }
 }

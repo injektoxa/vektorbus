@@ -145,7 +145,7 @@ table.clients-trip td.options {
   width: 60%;
   float: right;
 }
-.options input[type='checkbox']{
+.options input[type='checkbox'], .add-edit input[type='checkbox']{
   width: initial;
   float: left;
   margin: 10px 0 0;

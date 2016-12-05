@@ -18,16 +18,9 @@ namespace BlaBlaBusMVC.Controllers
         // GET: api/Clients
         public IEnumerable<ClientViewModel> GetClients()
         {
-            var clients = db.Clients.Select(s => new ClientViewModel()
-            {
-                Phone = s.Phone,
-                Name = s.Name,
-                Id = s.Id,
-                Comments = s.Comments,
-                HasDiscount = s.HasDiscount
-            }).ToList();
-
-            return clients;
+            var clients = db.Clients.ToList();
+            var models = clients.Select(x => new ClientViewModel(x)).ToList();
+            return models;
         }
 
         // GET: api/Clients/5

@@ -9,7 +9,7 @@ namespace BlaBlaBusMVC.ViewModels
     {
         public TripsViewModel() { }
 
-        public List<ClientViewModel> clients { set; get; }
+        public List<ClientTripViewModel> clients { set; get; }
 
         public DateTime date { get; set; }
 
