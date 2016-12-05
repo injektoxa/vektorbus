@@ -3,7 +3,7 @@
 angular.
   module('clientCrud').
   component('clientCrud', {
-  	templateUrl: 'client-list/client-crud/client-crud.template.html',
+  	templateUrl: 'clientTrip-list/client-crud/client-crud.template.html',
   	controller: ['Client', '$scope', function ClientCrudController(Client, $scope) {
   	        var self = this;
   	        self.client = {};

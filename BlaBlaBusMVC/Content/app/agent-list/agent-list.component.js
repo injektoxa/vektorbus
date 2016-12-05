@@ -31,7 +31,7 @@ angular.module('agentList')
             Agent.add(agent,
               function onSuccess(createdAgent) {
                 that.agents.push(createdAgent);
-                that.agent = {};
+                  that.clearAgent();
               });
           });
         };
@@ -44,10 +44,9 @@ angular.module('agentList')
             that.agent = agent;
             Agent.update({ id: agent.Id },
               agent,
-              function(editedAgent) {
-                that.agent = {};
-              });
-          });
+              that.clearAgent);
+          },
+          that.clearAgent);
         };
 
         that.deleteAgent = function(id) {
@@ -58,7 +57,11 @@ angular.module('agentList')
                 that.agents.splice(index, 1);
               }
             });
-        }
+        };
+
+        that.clearAgent = function () {
+            that.agent = {};
+        };
       }
     ]
   });

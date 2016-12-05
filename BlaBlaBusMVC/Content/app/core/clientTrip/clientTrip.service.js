@@ -1,23 +1,20 @@
 'use strict';
 
 angular.
-  module('core.client').
-  factory('Client', ['$resource',
+  module('core.clientTrip').
+  factory('ClientTrip', ['$resource',
     function ($resource) {
-        return $resource('/api/clients/:Id', {}, {
+        return $resource('/api/clientTrips/:Id', {}, {
             query: {
                 method: 'GET',
                 isArray: true
             },
             add: {
-                method: 'POST'
-            },
-            update: {
-                method: 'PUT'
+                method: 'POST',
             },
             remove: {
                 method: 'DELETE',
-                params: { Id: 'id' }
+                params: { Id: 'id' },
             }
         });
     }
