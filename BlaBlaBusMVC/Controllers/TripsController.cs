@@ -43,6 +43,7 @@ namespace BlaBlaBusMVC.Controllers
                         IsStayInBus = i.IsStayInBus,
                         HasBaggage = i.HasBaggage,
                         AgentId = i.Agent?.Id,
+                        AgentName = i.Agent?.FullName,
                         AgentPrice = i.AgentPrice,
                         AdditionalExpenses = i.AdditionalExpenses,
                         HasDisability = i.Client.HasDisability,

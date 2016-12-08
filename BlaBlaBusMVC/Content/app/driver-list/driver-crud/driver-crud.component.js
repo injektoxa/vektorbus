@@ -15,7 +15,6 @@ angular.module('driverCrud')
         };
 
         that.save = function (driver) {
-          debugger;
           that.driver = driver;
           if (driver.Id > 0) {
             Driver.update({ id: driver.Id },

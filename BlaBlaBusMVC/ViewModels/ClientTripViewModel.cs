@@ -20,6 +20,8 @@
 
         public int? AgentId { get; set; }
 
+        public string AgentName { get; set; }
+
         public double? AgentPrice { get; set; }
 
         public double? AdditionalExpenses { get; set; }

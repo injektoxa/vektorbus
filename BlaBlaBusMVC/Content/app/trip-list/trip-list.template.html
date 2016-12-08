@@ -148,27 +148,35 @@
                     <table class="table table-hover table-bordered">
                         <thead>
                             <tr>
-                                <td> Комментарий маршрута </td>
-                                <td> Имя </td>
-                                <td> Телефон </td>
-                                <td> Скидка </td>
-                                <td> Комментарий </td>
-                                <td> Цена </td>
-                                <td> Маршрут </td>
+                                <td>Комментарий маршрута</td>
+                                <td>Клиент</td>
+                                <td>Телефон</td>
+                                <td>Скидка</td>
+                                <td>Комментарий клиента</td>
+                                <td>Цена</td>
+                                <td>Агент</td>
+                                <td>Цена агента</td>
+                                <td>Маршрут</td>
                                 <td>Не выходит</td>
                                 <td>Багаж</td>
+                                <td>Ребенок</td>
+                                <td>Инвалид</td>
                             </tr>
                         </thead>
                         <tr ng-repeat="client in trip.clients">
                             <td>{{trip.comments}}</td>
                             <td>{{client.Name}}</td>
                             <td>{{client.Phone}}</td>
-                            <td ng-class="client.HasDiscount ? 'highlighting' : ''">{{client.HasDiscount ? 'Есть скидка' : ''}}</td>
+                            <td ng-class="client.HasDiscount ? 'highlighting' : ''">{{client.HasDiscount ? 'Есть' : ''}}</td>
                             <td>{{client.Comments}}</td>
                             <td>{{client.Price}}</td>
+                            <td>{{client.AgentName}}</td>
+                            <td>{{client.AgentPrice}}</td>
                             <td>{{client.From}} --> {{client.To}}</td>
                             <td ng-class="client.IsStayInBus ? 'highlighting' : ''">{{client.IsStayInBus ? 'Да' : ''}}</td>
                             <td>{{client.HasBaggage ? 'Есть' : ''}}</td>
+                            <td>{{client.HasMinorChild ? 'Да' : ''}}</td>
+                            <td>{{client.HasDisability ? 'Да' : ''}}</td>
                         </tr>
                     </table>
                 </div>
