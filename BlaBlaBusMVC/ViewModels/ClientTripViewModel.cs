@@ -27,5 +27,9 @@
         public bool IsStayInBus { get; set; }
 
         public bool HasBaggage { set; get; }
-  }
+
+        public bool HasDisability { get; set; }
+
+        public bool HasMinorChild { get; set; }
+    }
 }

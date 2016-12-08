@@ -231,3 +231,10 @@ form.add-edit tr > td:last-child {
     font-weight: bold;
     font-size: larger;
 }
+
+.button-area label {
+    width: 100%;
+}
+.button-area input {
+    float: right;
+} 

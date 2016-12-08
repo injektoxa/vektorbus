@@ -25,7 +25,7 @@ namespace BlaBlaBusMVC.Controllers
             {
                 trips.Add(new TripsViewModel()
                 {
-                    busName = item.Bus.FriendlyName,
+                    busName = item.Bus != null ? item.Bus.FriendlyName : string.Empty,
                     cityFromName = item.CityFrom.Name,
                     cityToName = item.CityTo.Name,
                     date = item.Date,
@@ -44,7 +44,9 @@ namespace BlaBlaBusMVC.Controllers
                         HasBaggage = i.HasBaggage,
                         AgentId = i.Agent?.Id,
                         AgentPrice = i.AgentPrice,
-                        AdditionalExpenses = i.AdditionalExpenses
+                        AdditionalExpenses = i.AdditionalExpenses,
+                        HasDisability = i.Client.HasDisability,
+                        HasMinorChild = i.Client.HasMinorChild
                     }).ToList(),
                     comments = item.Comments
                 });
