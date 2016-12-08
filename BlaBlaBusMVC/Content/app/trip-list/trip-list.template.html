@@ -3,8 +3,7 @@
     <div class="row" ng-show="$ctrl.showAddTripForm">
         <div class="col-md-6">
             <form name="form" novalidate>
-
-                <table>
+                <table class="trip-info">
                     <tr>
                         <td>Автобус: </td>
                         <td>
@@ -29,47 +28,63 @@
                         <td><input class="form-control" type="text" ng-model="trip.comments" /></td>
                     </tr>
                     <tr>
-                        <td>Дата/время: </td>
+                        <td>Дата отправления: </td>
                         <td>
-                            <datetimepicker hour-step="$ctrl.hourStep"
-                                            minute-step="$ctrl.minuteStep"
-                                            ng-model="trip.date"
-                                            show-meridian="$ctrl.showMeridian"
-                                            date-format="{{format}}"
-                                            date-options="$ctrl.dateOptions"
-                                            datepicker-append-to-body="false"
-                                            readonly-date="false"
-                                            disabled-date="false"
-                                            hidden-time="false"
-                                            hidden-date="false"
-                                            name="datetimepicker"
-                                            show-spinners="true"
-                                            readonly-time="false"
-                                            date-opened="$ctrl.dateOpened"
-                                            show-button-bar="false"
-                                            data-on-set-time="onTimeSet(newDate, oldDate)">
-                            </datetimepicker>
+                            <p class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" 
+                                       ng-model="trip.startDate" datepicker-options="$ctrl.dateOptions" ng-required="true"
+                                       close-text="Close" name="startDate" is-open="$ctrl.startDatePopup.opened"/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="$ctrl.startDateOpen()">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                </span>
+                            </p>
+                            <div ng-show="form.$submitted || form.datetimepicker.$touched">
+                                <span class="error" ng-show="form.startDate.$error.required">Это поле обязательное</span>
+                            </div>
                         </td>
                     </tr>
-                    <tr ng-show="$ctrl.isShowingArrivalDatePicker">
-                        <td>Время прибытия </td> 
+                    <tr>
+                        <td>Время отправления: </td>
                         <td>
-                            <datetimepicker hour-step="$ctrl.hourStep"
-                                            minute-step="$ctrl.minuteStep"
-                                            ng-model="trip.arrivalDate"
-                                            show-meridian="$ctrl.showMeridian"
-                                            date-format="{{format}}"
-                                            date-options="$ctrl.arrivalDateOptions"
-                                            datepicker-append-to-body="false"
-                                            readonly-date="false"
-                                            disabled-date="false"
-                                            hidden-time="false"
-                                            hidden-date="false"
-                                            name="datetimepicker"
-                                            show-spinners="true"
-                                            readonly-time="false"
-                                            show-button-bar="false" >
-                            </datetimepicker>
+                            <div uib-timepicker ng-model="trip.startTime" name="startTime"
+                                 minute-step="$ctrl.timeOptions.minuteStep"
+                                 show-meridian="ismeridian" ng-required="true">
+                            </div>
+                            <div ng-show="form.$submitted || form.startTime.$touched">
+                                <span class="error" ng-show="form.startTime.$error.required">Это поле обязательное</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Дата прибытия: </td> 
+                        <td>
+                            <p class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}"
+                                       ng-model="trip.endDate" datepicker-options="$ctrl.dateOptions" ng-required="true"
+                                       close-text="Close" name="endDate" is-open="$ctrl.endDatePopup.opened" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="$ctrl.endDateOpen()">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                </span>
+                            </p>
+                            <div ng-show="form.$submitted || form.endDate.$touched">
+                                <span class="error" ng-show="form.endDate.$error.required">Это поле обязательное</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Время прибытия: </td>
+                        <td>
+                            <div uib-timepicker ng-model="trip.endTime" name="endTime"
+                                 minute-step="$ctrl.timeOptions.minuteStep"
+                                 show-meridian="ismeridian" ng-required="true">
+                            </div>
+                            <div ng-show="form.$submitted || form.endTime.$touched">
+                                <span class="error" ng-show="form.endTime.$error.required">Это поле обязательное</span>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -78,30 +93,42 @@
                             <select class="form-control" name="repeatFrom" id="repeatFrom" ng-model="trip.cityFrom" required>
                                 <option ng-repeat="city in $ctrl.cities" value="{{city.Id}}">{{city.Name}}</option>
                             </select>
+                            <div ng-show="form.$submitted || form.repeatFrom.$touched">
+                                <span class="error" 
+                                      ng-show="form.repeatFrom.$error.required">Это поле обязательное</span>
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <td>Куда: </td>
                         <td>
                             <div class="control-group" ng-class="{true: 'error'}[submitted && form.repeatTo.$invalid]">
-                                <select class="form-control" name="repeatTo" id="repeatTo" ng-model="trip.cityTo" ng-options="city.Id as city.Name for city in $ctrl.cities" required>
+                                <select class="form-control" name="repeatTo" id="repeatTo" ng-model="trip.cityTo" 
+                                        ng-options="city.Id as city.Name for city in $ctrl.cities" required>
                                     <option ng-repeat="city in $ctrl.cities" value="{{city.Id}}">
                                         {{city.Name}}
                                     </option>
                                     <option></option>
                                 </select>
-                                <span class="error" ng-show="form.repeatTo.$dirty && form.repeatTo.$invalid">Это поле необходимо заполнить</span>
+                                <div ng-show="form.$submitted || form.repeatFrom.$touched">
+                                    <span class="error" ng-show="form.repeatTo.$error.required">Это поле обязательное</span>
+                                </div>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <button type="submit" class="btn btn-primary" ng-click="$ctrl.add(trip);submitted=true">Добавить</button>
+                            <button type="submit" class="btn btn-primary"
+                                    ng-click="$ctrl.add(trip)">
+                                Добавить
+                            </button>
+                            <div ng-show="form.$submitted">
+                                <span class="error" ng-show="form.$error.isAnyClient">Необходимо выбрать хотя бы одного клиента</span>
+                            </div>
                         </td>
                     </tr>
                 </table>
                 <!--<button ng-click="$ctrl.add(client)">Добавить</button>-->
-
             </form>
         </div>
         <client-trip-list></client-trip-list>
