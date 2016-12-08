@@ -7,8 +7,6 @@ namespace BlaBlaBusMVC.ViewModels
 {
     public class TripsViewModel
     {
-        public TripsViewModel() { }
-
         public List<ClientTripViewModel> clients { set; get; }
 
         public DateTime date { get; set; }
@@ -28,5 +26,11 @@ namespace BlaBlaBusMVC.ViewModels
         public string busName { set; get; }
 
         public string comments { get; set; }
+
+        public double compulsoryExpenses { get; set; }
+
+        public double? unexpectedExpenses { get; set; }
+
+        public string unexpectedExpensesComments { get; set; }
     }
 }

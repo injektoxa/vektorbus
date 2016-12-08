@@ -15,23 +15,23 @@
                     <tr>
                         <td>Водитель: </td>
                         <td>
-                          <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="trip.driverId">
-                            <option ng-repeat="driver in $ctrl.drivers" value="{{driver.Id}}">{{driver.Name}} {{driver.Sername}}</option>
-                          </select>
+                            <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="trip.driverId">
+                                <option ng-repeat="driver in $ctrl.drivers" value="{{driver.Id}}">{{driver.Name}} {{driver.Sername}}</option>
+                            </select>
                         </td>
                         <td>
-                          <button class="btn btn-default" ng-click="$ctrl.openDriversList()"> + </button>
+                            <button class="btn btn-default" ng-click="$ctrl.openDriversList()"> + </button>
                         </td>
                     </tr>
                     <tr>
                         <td>Комментарий: </td>
-                        <td><input class="form-control" type="text" ng-model="trip.comments" /></td>
+                        <td><input class="form-control" type="text" ng-model="trip.comments"/></td>
                     </tr>
                     <tr>
                         <td>Дата отправления: </td>
                         <td>
                             <p class="input-group">
-                                <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" 
+                                <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}"
                                        ng-model="trip.startDate" datepicker-options="$ctrl.dateOptions" ng-required="true"
                                        close-text="Close" name="startDate" is-open="$ctrl.startDatePopup.opened"/>
                                 <span class="input-group-btn">
@@ -58,12 +58,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Дата прибытия: </td> 
+                        <td>Дата прибытия: </td>
                         <td>
                             <p class="input-group">
                                 <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}"
                                        ng-model="trip.endDate" datepicker-options="$ctrl.dateOptions" ng-required="true"
-                                       close-text="Close" name="endDate" is-open="$ctrl.endDatePopup.opened" />
+                                       close-text="Close" name="endDate" is-open="$ctrl.endDatePopup.opened"/>
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="$ctrl.endDateOpen()">
                                         <i class="glyphicon glyphicon-calendar"></i>
@@ -103,7 +103,7 @@
                         <td>Куда: </td>
                         <td>
                             <div class="control-group" ng-class="{true: 'error'}[submitted && form.repeatTo.$invalid]">
-                                <select class="form-control" name="repeatTo" id="repeatTo" ng-model="trip.cityTo" 
+                                <select class="form-control" name="repeatTo" id="repeatTo" ng-model="trip.cityTo"
                                         ng-options="city.Id as city.Name for city in $ctrl.cities" required>
                                     <option ng-repeat="city in $ctrl.cities" value="{{city.Id}}">
                                         {{city.Name}}
@@ -114,6 +114,34 @@
                                     <span class="error" ng-show="form.repeatTo.$error.required">Это поле обязательное</span>
                                 </div>
                             </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <<td>
+                            <div class="trip-separator"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Обязательные расходы: </td>
+                        <td>
+                            <input type="number" class="form-control" name="compulsoryExpenses"
+                                   ng-model="trip.compulsoryExpenses" required/>
+                            <div ng-show="form.$submitted || form.compulsoryExpenses.$touched">
+                                <span class="error"
+                                      ng-show="form.compulsoryExpenses.$error.required">Это поле обязательное</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Дополнительные расходы: </td>
+                        <td>
+                            <input type="number" class="form-control" ng-model="trip.unexpectedExpenses" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Коментарий (доп. расходы): </td>
+                        <td>
+                            <input type="text" class="form-control" ng-model="trip.unexpectedExpensesComments" />
                         </td>
                     </tr>
                     <tr>
@@ -128,7 +156,6 @@
                         </td>
                     </tr>
                 </table>
-                <!--<button ng-click="$ctrl.add(client)">Добавить</button>-->
             </form>
         </div>
         <client-trip-list></client-trip-list>

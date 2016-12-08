@@ -49,7 +49,10 @@ namespace BlaBlaBusMVC.Controllers
                         HasDisability = i.Client.HasDisability,
                         HasMinorChild = i.Client.HasMinorChild
                     }).ToList(),
-                    comments = item.Comments
+                    comments = item.Comments,
+                    compulsoryExpenses = item.CompulsoryExpenses,
+                    unexpectedExpenses = item.UnexpectedExpenses,
+                    unexpectedExpensesComments = item.UnexpectedExpensesComments
                 });
             }
 
@@ -139,6 +142,9 @@ namespace BlaBlaBusMVC.Controllers
             tripdb.CityFrom = db.Cities.First(c => c.Id == trip.cityFrom);
             tripdb.CityTo = db.Cities.First(c => c.Id == trip.cityTo);
             tripdb.Comments = trip.comments;
+            tripdb.CompulsoryExpenses = trip.compulsoryExpenses;
+            tripdb.UnexpectedExpenses = trip.unexpectedExpenses;
+            tripdb.UnexpectedExpensesComments = trip.unexpectedExpensesComments;
 
             db.Trips.Add(tripdb);
             db.SaveChanges();

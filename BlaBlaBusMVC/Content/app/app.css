@@ -238,3 +238,8 @@ form.add-edit tr > td:last-child {
 .button-area input {
     float: right;
 } 
+
+.trip-separator {
+    width: 100%;
+    height: 50px;
+}
