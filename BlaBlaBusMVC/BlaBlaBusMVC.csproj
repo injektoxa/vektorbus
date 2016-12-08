@@ -251,6 +251,10 @@
     <Compile Include="Migrations\201612021203385_AddDriverToTrip.Designer.cs">
       <DependentUpon>201612021203385_AddDriverToTrip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612081040142_AddFieldsToClient.cs" />
+    <Compile Include="Migrations\201612081040142_AddFieldsToClient.Designer.cs">
+      <DependentUpon>201612081040142_AddFieldsToClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Agent.cs" />
     <Compile Include="Models\Bus.cs" />
@@ -538,6 +542,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612021203385_AddDriverToTrip.resx">
       <DependentUpon>201612021203385_AddDriverToTrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612081040142_AddFieldsToClient.resx">
+      <DependentUpon>201612081040142_AddFieldsToClient.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
