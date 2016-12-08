@@ -17,7 +17,7 @@ angular.
 
             this.removeFromTrip = function (client) {
                 var index = $scope.$parent.$ctrl.trip.tripClients.indexOf(client);
-                $scope.$parent.trip.tripClients.splice(index, 1);
+                $scope.$parent.$ctrl.trip.tripClients.splice(index, 1);
             }
 
             this.addToTrip = function (client) {
