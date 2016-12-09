@@ -98,6 +98,11 @@ namespace BlaBlaAgentMVC.Controllers
                 return NotFound();
             }
 
+            if(agent.ClientTrips.Any())
+            {
+                return BadRequest("Клиент не может быть удален, т.к. у него есть маршрут.");
+            }
+
             db.Agents.Remove(agent);
             db.SaveChanges();
 
