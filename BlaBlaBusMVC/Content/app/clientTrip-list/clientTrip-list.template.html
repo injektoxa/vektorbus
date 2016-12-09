@@ -97,6 +97,14 @@
                             Скидка:
                             <input type="checkbox" ng-disabled="true" ng-model="client.HasDiscount">
                         </label>
+                        <label>
+                            Ребенок:
+                            <input type="checkbox" ng-disabled="true" ng-model="client.HasMinorChild">
+                        </label>
+                        <label>
+                            Инвалид:
+                            <input type="checkbox" ng-disabled="true" ng-model="client.HasDisability">
+                        </label>
                         <button class="btn btn-success" ng-click="$ctrl.addToTrip(client)">Добавить</button>
                     </td>
                 </tr>

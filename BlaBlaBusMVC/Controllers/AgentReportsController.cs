@@ -35,8 +35,12 @@ namespace BlaBlaBusMVC.Controllers
                 .Select(group => new AgentReportViewModel()
                 {
                     TripDate = group.Key.Date.ToString("yyyy-MM-dd hh:mm"),
-                    BusInfo = group.Key.Bus.FriendlyName + " " + group.Key.Bus.RegistrationNumber,
-                    DriverInfo = group.Key.Driver.FullName,
+                    BusInfo = group.Key.Bus!= null 
+                        ? group.Key.Bus.FriendlyName + " " + group.Key.Bus.RegistrationNumber 
+                        : string.Empty,
+                    DriverInfo = group.Key.Driver != null 
+                        ? group.Key.Driver.FullName
+                        : string.Empty,
                     CityFrom = group.Key.CityFrom.Name,
                     CityTo = group.Key.CityTo.Name,
                     ClientsCount = group.Count(),

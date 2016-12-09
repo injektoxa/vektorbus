@@ -20,6 +20,8 @@
 
         public int? AgentId { get; set; }
 
+        public string AgentName { get; set; }
+
         public double? AgentPrice { get; set; }
 
         public double? AdditionalExpenses { get; set; }
@@ -27,5 +29,9 @@
         public bool IsStayInBus { get; set; }
 
         public bool HasBaggage { set; get; }
-  }
+
+        public bool HasDisability { get; set; }
+
+        public bool HasMinorChild { get; set; }
+    }
 }

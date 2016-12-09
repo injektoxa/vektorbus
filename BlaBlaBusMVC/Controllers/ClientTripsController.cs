@@ -25,7 +25,9 @@ namespace BlaBlaBusMVC.Controllers
                 Name = s.Name,
                 Id = s.Id,
                 Comments = s.Comments,
-                HasDiscount = s.HasDiscount
+                HasDiscount = s.HasDiscount,
+                HasDisability = s.HasDisability,
+                HasMinorChild = s.HasMinorChild
             }).ToList();
 
             return clients;

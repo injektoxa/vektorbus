@@ -18,5 +18,9 @@ namespace BlaBlaBusMVC.Models
         public bool HasDiscount { get; set; }
 
         public string Comments { get; set; }
+
+        public bool HasDisability { get; set; }
+
+        public bool HasMinorChild { get; set; }
     }
 }

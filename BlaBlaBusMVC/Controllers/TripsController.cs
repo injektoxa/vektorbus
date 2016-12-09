@@ -25,7 +25,7 @@ namespace BlaBlaBusMVC.Controllers
             {
                 trips.Add(new TripsViewModel()
                 {
-                    busName = item.Bus.FriendlyName,
+                    busName = item.Bus != null ? item.Bus.FriendlyName : string.Empty,
                     cityFromName = item.CityFrom.Name,
                     cityToName = item.CityTo.Name,
                     date = item.Date,
@@ -43,10 +43,16 @@ namespace BlaBlaBusMVC.Controllers
                         IsStayInBus = i.IsStayInBus,
                         HasBaggage = i.HasBaggage,
                         AgentId = i.Agent?.Id,
+                        AgentName = i.Agent?.FullName,
                         AgentPrice = i.AgentPrice,
-                        AdditionalExpenses = i.AdditionalExpenses
+                        AdditionalExpenses = i.AdditionalExpenses,
+                        HasDisability = i.Client.HasDisability,
+                        HasMinorChild = i.Client.HasMinorChild
                     }).ToList(),
-                    comments = item.Comments
+                    comments = item.Comments,
+                    compulsoryExpenses = item.CompulsoryExpenses,
+                    unexpectedExpenses = item.UnexpectedExpenses,
+                    unexpectedExpensesComments = item.UnexpectedExpensesComments
                 });
             }
 
@@ -136,6 +142,9 @@ namespace BlaBlaBusMVC.Controllers
             tripdb.CityFrom = db.Cities.First(c => c.Id == trip.cityFrom);
             tripdb.CityTo = db.Cities.First(c => c.Id == trip.cityTo);
             tripdb.Comments = trip.comments;
+            tripdb.CompulsoryExpenses = trip.compulsoryExpenses;
+            tripdb.UnexpectedExpenses = trip.unexpectedExpenses;
+            tripdb.UnexpectedExpensesComments = trip.unexpectedExpensesComments;
 
             db.Trips.Add(tripdb);
             db.SaveChanges();

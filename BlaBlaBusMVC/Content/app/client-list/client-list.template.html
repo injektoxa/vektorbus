@@ -1,4 +1,4 @@
-﻿<div class="clientes col-md-8 row gridContainer">
+﻿<div class="clientes col-md-10 row gridContainer">
   <a ng-click="$ctrl.addClient()">Добавить клиента</a>
   <div>
     <table class="table table-striped table-condensed">
@@ -6,14 +6,20 @@
         <tr>
             <th>Имя</th>
             <th>Телефон</th>
+            <th>Комментарий</th>
             <th>Скидка</th>
+            <th>Несоверш. ребенок</th>
+            <th>Инвалид</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="client in $ctrl.clients" class="repeat-animation">
             <td><a ng-click="$ctrl.editClient(client)">{{client.Name}}</a></td>
             <td>{{client.Phone}}</td>
-            <td>{{client.HasDiscount ? 'Есть скидка' : ''}}</td>
+            <td>{{client.Comments}}</td>
+            <td>{{client.HasDiscount ? 'Есть' : ''}}</td>
+            <td>{{client.HasMinorChild ? 'Есть' : ''}}</td>
+            <td>{{client.HasDisability ? 'Да' : ''}}</td>
           <td><button class="btn btn-primary" ng-click="$ctrl.deleteClient(client.Id)">Delete</button></td>
         </tr>
       </tbody>

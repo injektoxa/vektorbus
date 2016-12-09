@@ -32,8 +32,24 @@
                 </td>
             </tr>
             <tr>
+                <td>Комментарий:</td>
+                <td>
+                    <div>
+                        <input type="text" name="comments" class="form-control" ng-model="$ctrl.client.Comments" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
                 <td>Скидка: </td>
-                <td><input type="checkbox" ng-model="$ctrl.client.hasDiscount" /></td>
+                <td><input type="checkbox" ng-model="$ctrl.client.HasDiscount" value="" /></td>
+            </tr>
+            <tr>
+                <td>Несовершеннолетний ребенок: </td>
+                <td><input type="checkbox" ng-model="$ctrl.client.HasMinorChild" /></td>
+            </tr>
+            <tr>
+                <td>Инвалид: </td>
+                <td><input type="checkbox" ng-model="$ctrl.client.HasDisability" /></td>
             </tr>
         </table>
       </div>

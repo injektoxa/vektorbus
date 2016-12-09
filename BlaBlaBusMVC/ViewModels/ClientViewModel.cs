@@ -20,6 +20,12 @@ namespace BlaBlaBusMVC.ViewModels
         public string Phone { get; set; }
 
         public bool HasDiscount { get; set; }
+        
+        public bool HasDisability { get; set; }
+
+        public bool HasMinorChild { get; set; }
+
+        public string Comments { get; set; }
 
         public ClientViewModel()
         {
@@ -32,6 +38,9 @@ namespace BlaBlaBusMVC.ViewModels
             Name = client.Name;
             Phone = client.Phone;
             HasDiscount = client.HasDiscount;
+            HasDisability = client.HasDisability;
+            HasMinorChild = client.HasMinorChild;
+            Comments = client.Comments;
         }
     }
 }
