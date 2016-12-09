@@ -102,7 +102,7 @@
                 });
             };
 
-            $scope.$watchCollection('trip.tripClients', function (newValue, previousValue) {
+            $scope.$watchCollection('$ctrl.trip.tripClients', function (newValue, previousValue) {
                 if (newValue && newValue.length > 0) {
                     $scope.form.$setValidity('isAnyClient', false);
                 }
