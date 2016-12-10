@@ -2,37 +2,29 @@
     <div class="reports-header">
         <div>
             <label>Начало периода: </label>
-            <datetimepicker ng-model="$ctrl.dateFrom"
-                            show-meridian="true"
-                            date-format="{{$ctrl.format}}"
-                            date-options="$ctrl.dateOptions"
-                            datepicker-append-to-body="false"
-                            readonly-date="false"
-                            disabled-date="false"
-                            hidden-time="true"
-                            hidden-date="false"
-                            name="datetimepicker"
-                            show-spinners="true"
-                            readonly-time="false"
-                            show-button-bar="false">
-            </datetimepicker>
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{$ctrl.format}}"
+                       ng-model="$ctrl.dateFrom" datepicker-options="$ctrl.dateOptions"
+                       close-text="Close" name="dateFrom" is-open="$ctrl.startDatePopup.opened" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.startDateOpen()">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+            </p>
         </div>
         <div>
             <label>Конец периода: </label>
-            <datetimepicker ng-model="$ctrl.dateTo"
-                            show-meridian="true"
-                            date-format="{{$ctrl.format}}"
-                            date-options="$ctrl.dateOptions"
-                            datepicker-append-to-body="false"
-                            readonly-date="false"
-                            disabled-date="false"
-                            hidden-time="true"
-                            hidden-date="false"
-                            name="datetimepicker"
-                            show-spinners="true"
-                            readonly-time="false"
-                            show-button-bar="false">
-            </datetimepicker>
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{$ctrl.format}}"
+                       ng-model="$ctrl.dateTo" datepicker-options="$ctrl.dateOptions"
+                       close-text="Close" name="endDate" is-open="$ctrl.endDatePopup.opened" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.endDateOpen()">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+            </p>
         </div>
         <div>
             <label>

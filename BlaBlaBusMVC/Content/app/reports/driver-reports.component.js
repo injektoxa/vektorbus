@@ -2,16 +2,16 @@
 
 // Register `reports` component, along with its associated controller and template
 angular.module('reports')
-    .component('reports',
+    .component('driverReports',
     {
-    	templateUrl: 'reports/reports.template.html',
+    	templateUrl: 'reports/driver-reports.template.html',
         controller: [
-            'Agent', 'Report', '$filter',
-            function (Agent, Report, $filter) {
+            'Driver', 'DriverReport', '$filter',
+            function (Driver, DriverReport, $filter) {
             	var that = this;
 		
-            	that.agents = Agent.query();
-            	that.agent = {};
+            	that.drivers = Driver.query();
+            	that.driver = {};
                 that.dateTimeFormat = "dd/MM/yyyy";
             	that.dateFrom = new Date();
             	that.dateTo = new Date();
@@ -25,17 +25,36 @@ angular.module('reports')
                 that.totalTitle = '';
                 that.totalPrice = '';
 
+                that.startDatePopup = {
+                    opened: false
+                };
+                that.startDateOpen = function () {
+                    that.startDatePopup.opened = true;
+                };
+
+                that.endDatePopup = {
+                    opened: false
+                };
+                that.endDateOpen = function () {
+                    that.endDatePopup.opened = true;
+                };
+
                 that.onGetReports = function(reports) {
                     that.reports = reports;
-                    that.reportTitle = 'Отчет по агенту ' + that.agent.FullName;
+                    that.reportTitle = 'Отчет по водителю ' + that.driver.FullName;
                     that.totalTitle = 'Итого за период с ' +
                         $filter('date')(that.dateFrom, "yyyy-MM-dd") +
                         ' по ' +
                         $filter('date')(that.dateTo, "yyyy-MM-dd") +
                         ': ';
-                    that.totalPrice = reports.reduce(function(previousValue, currentValue) {
-                        return previousValue.AgentCompensation + currentValue.AgentCompensation;
-                    });
+
+                    that.totalPrice = 0;
+                    for (var i = 0; i < reports.length; i++) {
+                        that.totalPrice += reports[i].CompulsoryExpenses;
+                        if (reports[i].UnexpectedExpenses != null) {
+                            that.totalPrice += reports[i].UnexpectedExpenses;
+                        }
+                    }
                 };
 
                 that.createReport = function () {
@@ -44,12 +63,12 @@ angular.module('reports')
                     that.totalPrice = '';
 
                     var options = {
-                        id: that.agent.Id,
+                        id: that.driver.Id,
                         dateFrom: $filter('date')(that.dateFrom, "yyyy-MM-dd"),
                         dateTo: $filter('date')(that.dateTo, "yyyy-MM-dd")
                     };
 
-                    Report.query(options, that.onGetReports);
+                    DriverReport.query(options, that.onGetReports);
                 };
             }
         ]
