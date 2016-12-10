@@ -24,8 +24,8 @@ angular.
         when('/agents', {
             template: '<agent-list></agent-list>'
         }).
-        when('/reports', {
-            template: '<reports></reports>'
+        when('/agentReports', {
+            template: '<agent-reports></agent-reports>'
         }).
         otherwise('/clients');
     }

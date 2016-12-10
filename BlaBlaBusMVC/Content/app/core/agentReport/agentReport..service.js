@@ -1,8 +1,8 @@
 ﻿'use strict';
 
 angular.
-  module('core.report').
-  factory('Report', ['$resource',
+  module('core.agentReport').
+  factory('AgentReport', ['$resource',
     function ($resource) {
         return $resource('/api/agentReports/', {}, {
             query: {

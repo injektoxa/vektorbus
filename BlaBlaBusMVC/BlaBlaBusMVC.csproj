@@ -339,8 +339,8 @@
     <Content Include="Content\app\core\client\client.service.js" />
     <Content Include="Content\app\core\driver\driver.module.js" />
     <Content Include="Content\app\core\driver\driver.service.js" />
-    <Content Include="Content\app\core\report\report.service.js" />
-    <Content Include="Content\app\core\report\report.module.js" />
+    <Content Include="Content\app\core\agentReport\agentReport..service.js" />
+    <Content Include="Content\app\core\agentReport\agentReport.module.js" />
     <Content Include="Content\app\core\trip\trip.module.js" />
     <Content Include="Content\app\core\trip\trip.service.js" />
     <Content Include="Content\app\driver-list\driver-crud\driver-crud.component.js" />
@@ -497,6 +497,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\app\core\driverReport\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

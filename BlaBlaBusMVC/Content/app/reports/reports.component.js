@@ -2,12 +2,12 @@
 
 // Register `reports` component, along with its associated controller and template
 angular.module('reports')
-    .component('reports',
+    .component('agentReports',
     {
     	templateUrl: 'reports/reports.template.html',
         controller: [
-            'Agent', 'Report', '$filter',
-            function (Agent, Report, $filter) {
+            'Agent', 'AgentReport', '$filter',
+            function (Agent, AgentReport, $filter) {
             	var that = this;
 		
             	that.agents = Agent.query();
@@ -25,6 +25,20 @@ angular.module('reports')
                 that.totalTitle = '';
                 that.totalPrice = '';
 
+                that.startDatePopup = {
+                    opened: false
+                };
+                that.startDateOpen = function () {
+                    that.startDatePopup.opened = true;
+                };
+
+                that.endDatePopup = {
+                    opened: false
+                };
+                that.endDateOpen = function () {
+                    that.endDatePopup.opened = true;
+                };
+
                 that.onGetReports = function(reports) {
                     that.reports = reports;
                     that.reportTitle = 'Отчет по агенту ' + that.agent.FullName;
@@ -33,9 +47,10 @@ angular.module('reports')
                         ' по ' +
                         $filter('date')(that.dateTo, "yyyy-MM-dd") +
                         ': ';
-                    that.totalPrice = reports.reduce(function(previousValue, currentValue) {
-                        return previousValue.AgentCompensation + currentValue.AgentCompensation;
-                    });
+                    that.totalPrice = 0;
+                    for (var i = 0; i < reports.length; i++) {
+                        that.totalPrice += reports[i].AgentCompensation;
+                    }
                 };
 
                 that.createReport = function () {
@@ -49,7 +64,7 @@ angular.module('reports')
                         dateTo: $filter('date')(that.dateTo, "yyyy-MM-dd")
                     };
 
-                    Report.query(options, that.onGetReports);
+                    AgentReport.query(options, that.onGetReports);
                 };
             }
         ]
