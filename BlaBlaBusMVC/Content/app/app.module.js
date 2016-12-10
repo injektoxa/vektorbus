@@ -5,6 +5,7 @@ angular.module('VektorApp', [
   'ngRoute',
   'ui.bootstrap',
   'core',
+  'pdfMaker',
   'clientDetail',
   'clientList',
   'clientTripList',

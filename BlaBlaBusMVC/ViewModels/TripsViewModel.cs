@@ -25,6 +25,8 @@ namespace BlaBlaBusMVC.ViewModels
 
         public string busName { set; get; }
 
+        public string busRegistrationNumber { set; get; }
+
         public string comments { get; set; }
 
         public double compulsoryExpenses { get; set; }
