@@ -481,6 +481,9 @@
     <Content Include="Content\app\bower_components\jquery\src\var\support.js" />
     <Content Include="Content\app\bower_components\jquery\src\var\toString.js" />
     <Content Include="Content\app\bower_components\jquery\src\wrap.js" />
+    <Content Include="Content\app\bower_components\pdfmake\build\pdfmake.js" />
+    <Content Include="Content\app\bower_components\pdfmake\build\pdfmake.min.js" />
+    <Content Include="Content\app\bower_components\pdfmake\build\vfs_fonts.js" />
     <Content Include="Content\app\bus-list\bus-list.component.js" />
     <Content Include="Content\app\bus-list\bus-list.module.js" />
     <Content Include="Content\app\bus-list\bus-list.template.html" />
@@ -748,6 +751,10 @@
     <Content Include="Content\app\bower_components\jquery\README.md" />
     <Content Include="Content\app\bower_components\jquery\src\.jshintrc" />
     <Content Include="Content\app\reports\agent-reports.component.js" />
+    <Content Include="Content\app\bower_components\pdfmake\.bower.json" />
+    <Content Include="Content\app\bower_components\pdfmake\bower.json" />
+    <Content Include="Content\app\bower_components\pdfmake\build\pdfmake.min.js.map" />
+    <Content Include="Content\app\bower_components\pdfmake\LICENSE" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -828,6 +835,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\app\bower_components\pdfmake\libs\FileSaver.js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
