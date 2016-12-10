@@ -356,6 +356,8 @@
     <Content Include="Content\app\driver-list\driver-list.component.js" />
     <Content Include="Content\app\driver-list\driver-list.module.js" />
     <Content Include="Content\app\driver-list\driver-list.template.html" />
+    <Content Include="Content\app\pdfMaker\pdfMaker.module.js" />
+    <Content Include="Content\app\pdfMaker\pdfMaker.service.js" />
     <Content Include="Content\app\reports\reports.module.js" />
     <Content Include="Content\app\reports\reports.template.html" />
     <Content Include="Content\app\trip-list\trip-list.component.js" />
