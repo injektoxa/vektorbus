@@ -1,0 +1,70 @@
+﻿<div>
+    <div class="reports-header">
+        <div>
+            <label>Начало периода: </label>
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{$ctrl.format}}"
+                       ng-model="$ctrl.dateFrom" datepicker-options="$ctrl.dateOptions"
+                       close-text="Close" name="dateFrom" is-open="$ctrl.startDatePopup.opened" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.startDateOpen()">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+            </p>
+        </div>
+        <div>
+            <label>Конец периода: </label>
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{$ctrl.format}}"
+                       ng-model="$ctrl.dateTo" datepicker-options="$ctrl.dateOptions"
+                       close-text="Close" name="endDate" is-open="$ctrl.endDatePopup.opened" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.endDateOpen()">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+            </p>
+        </div>
+        <div>
+            <label>
+                Водитель:
+            </label>
+            <select class="form-control"
+                    ng-model="$ctrl.driver"
+                    required
+                    ng-options="driver.FullName for driver in $ctrl.drivers"></select>
+        </div>
+        <div class="button-wrapper">
+            <button class="btn btn-primary" ng-click="$ctrl.createReport()">Сформировать отчет</button>
+        </div>
+    </div>
+    <div class="report-body">
+        <h4>{{$ctrl.reportTitle}}</h4>
+        <table class="table table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th>Дата отправления</th>
+                    <th>Откуда</th>
+                    <th>Куда</th>
+                    <th>Автобус</th>
+                    <th>Кол-во пассажиров</th>
+                    <th>Постоянные расходы</th>
+                    <th>Непредвиденные расходы</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="report in $ctrl.reports" class="repeat-animation">
+                    <td>{{report.TripDate}}</td>
+                    <td>{{report.CityFrom}}</td>
+                    <td>{{report.CityTo}}</td>
+                    <td>{{report.BusInfo}}</td>
+                    <td>{{report.ClientsCount}}</td>
+                    <td>{{report.CompulsoryExpenses}}</td>
+                    <td>{{report.UnexpectedExpenses}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>{{$ctrl.totalTitle}}<span>{{$ctrl.totalPrice}}</span></h4>
+    </div>
+</div>
