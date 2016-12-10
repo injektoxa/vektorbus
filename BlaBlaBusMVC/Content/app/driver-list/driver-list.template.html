@@ -25,7 +25,7 @@
           <tr ng-repeat="driver in $ctrl.drivers" class="repeat-animation">
             <td><a ng-click="$ctrl.editDriver(driver)">{{driver.Name}} {{driver.Sername}}</a></td>
             <td>{{driver.Phone}}</td>
-            <td><button class="btn btn-primary" ng-click="$ctrl.deleteDriver(driver.Id)">Delete</button></td>
+            <td><button class="btn btn-primary" ng-click="$ctrl.deleteDriver(driver.Id)">Удалить</button></td>
           </tr>
           </tbody>
         </table>

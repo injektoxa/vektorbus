@@ -12,7 +12,7 @@
         <tr ng-repeat="agent in $ctrl.agents" class="repeat-animation">
           <td><a ng-click="$ctrl.editAgent(agent)">{{agent.Name}} {{agent.Sername}}</a></td>
           <td>{{agent.Phone}}</td>
-          <td><button class="btn btn-primary" ng-click="$ctrl.deleteAgent(agent.Id)">Delete</button></td>
+          <td><button class="btn btn-primary" ng-click="$ctrl.deleteAgent(agent.Id)">Удалить</button></td>
         </tr>
       </tbody>
     </table>
