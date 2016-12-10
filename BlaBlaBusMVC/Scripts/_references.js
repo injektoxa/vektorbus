@@ -188,6 +188,7 @@
 /// <reference path="../Content/app/driver-list/driver-crud/driver-crud.module.js" />
 /// <reference path="../Content/app/driver-list/driver-list.component.js" />
 /// <reference path="../Content/app/driver-list/driver-list.module.js" />
+/// <reference path="../content/app/pdfmaker/pdfmaker.module.js" />
 /// <reference path="../content/app/pdfmaker/pdfmaker.service.js" />
 /// <reference path="../content/app/reports/agent-reports.component.js" />
 /// <reference path="../content/app/reports/driver-reports.component.js" />
