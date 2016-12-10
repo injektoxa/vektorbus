@@ -44,8 +44,11 @@
     <script src="core/agent/agent.module.js"></script>
     <script src="core/agent/agent.service.js"></script>
     
-    <script src="core/report/report.module.js"></script>
-    <script src="core/report/report.service.js"></script>
+    <script src="core/agentReport/agentReport.module.js"></script>
+    <script src="core/agentReport/agentReport..service.js"></script>
+    
+    <script src="core/driverReport/driverReport.module.js"></script>
+    <script src="core/driverReport/driverReport.service.js"></script>
     
     <script src="clientTrip-list/clientTrip-list.module.js"></script>
     <script src="clientTrip-list/clientTrip-list.component.js"></script>
@@ -75,7 +78,9 @@
     <script src="agent-list/modal/modalAgent.component.js"></script>
 
     <script src="reports/reports.module.js"></script>
-    <script src="reports/reports.component.js"></script>
+    <script src="reports/agent-reports.component.js"></script>
+    <script src="reports/driver-reports.component.js"></script>
+
     
     <script src="client-list/client-list.module.js"></script>
     <script src="client-list/client-list.component.js"></script>
@@ -104,7 +109,8 @@
                 <li><a ng-href="#buses">Автобусы</a></li>
                 <li><a ng-href="#cities">Города</a></li>
                 <li><a ng-href="#agents">Агенты</a></li>
-                <li><a ng-href="#reports">Отчеты по агентам</a></li>
+                <li><a ng-href="#agentReports">Отчеты по агентам</a></li>
+                <li><a ng-href="#driverReports">Отчеты по водителям</a></li>
             </ul>
         </div>
     </nav>

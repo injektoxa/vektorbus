@@ -181,6 +181,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DriverReportsController.cs" />
     <Compile Include="Controllers\AgentReportsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AgentsController.cs" />
@@ -269,6 +270,7 @@
     <Compile Include="Models\Driver.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Trip.cs" />
+    <Compile Include="ViewModels\DriverReportViewModel.cs" />
     <Compile Include="ViewModels\AgentReportViewModel.cs" />
     <Compile Include="ViewModels\AgentViewModel.cs" />
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
@@ -325,6 +327,8 @@
     <Content Include="Content\app\client-list\modal\modalClient.component.js" />
     <Content Include="Content\app\client-list\modal\modalClient.module.js" />
     <Content Include="Content\app\clientTrip-list\client-crud\client-crud.module.js" />
+    <Content Include="Content\app\core\driverReport\driverReport.service.js" />
+    <Content Include="Content\app\core\driverReport\driverReport.module.js" />
     <Content Include="Content\app\core\agent\agent.module.js" />
     <Content Include="Content\app\core\agent\agent.service.js" />
     <Content Include="Content\app\core\bus\bus.module.js" />
@@ -339,8 +343,8 @@
     <Content Include="Content\app\core\client\client.service.js" />
     <Content Include="Content\app\core\driver\driver.module.js" />
     <Content Include="Content\app\core\driver\driver.service.js" />
-    <Content Include="Content\app\core\report\report.service.js" />
-    <Content Include="Content\app\core\report\report.module.js" />
+    <Content Include="Content\app\core\agentReport\agentReport..service.js" />
+    <Content Include="Content\app\core\agentReport\agentReport.module.js" />
     <Content Include="Content\app\core\trip\trip.module.js" />
     <Content Include="Content\app\core\trip\trip.service.js" />
     <Content Include="Content\app\driver-list\driver-crud\driver-crud.component.js" />
@@ -356,8 +360,10 @@
     <Content Include="Content\app\driver-list\driver-list.component.js" />
     <Content Include="Content\app\driver-list\driver-list.module.js" />
     <Content Include="Content\app\driver-list\driver-list.template.html" />
+    <Content Include="Content\app\reports\driver-reports.template.html" />
+    <Content Include="Content\app\reports\driver-reports.component.js" />
     <Content Include="Content\app\reports\reports.module.js" />
-    <Content Include="Content\app\reports\reports.template.html" />
+    <Content Include="Content\app\reports\agent-reports.template.html" />
     <Content Include="Content\app\trip-list\trip-list.component.js" />
     <Content Include="Content\app\trip-list\trip-list.module.js" />
     <Content Include="Content\app\trip-list\trip-list.template.html" />
@@ -404,6 +410,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Docs\TechnicalBackLog.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -415,7 +422,7 @@
     <Content Include="Content\LICENSE" />
     <Content Include="Content\app\clientTrip-list\client-crud\client-crud.component.js" />
     <Content Include="Content\app\cities-list\cities-list.component.js" />
-    <Content Include="Content\app\reports\reports.component.js" />
+    <Content Include="Content\app\reports\agent-reports.component.js" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />

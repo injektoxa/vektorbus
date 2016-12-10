@@ -1,10 +1,10 @@
 ﻿'use strict';
 
 angular.
-  module('core.report').
-  factory('Report', ['$resource',
+  module('core.driverReport').
+  factory('DriverReport', ['$resource',
     function ($resource) {
-        return $resource('/api/agentReports/', {}, {
+        return $resource('/api/driverReports/', {}, {
             query: {
                 method: 'GET',
                 isArray: true,

@@ -56,6 +56,10 @@ angular.module('agentList')
               if (index > -1) {
                 that.agents.splice(index, 1);
               }
+            },
+            function onError(error) {
+                var errorMessage = error.data.Message;
+                alert(errorMessage);
             });
         };
 
