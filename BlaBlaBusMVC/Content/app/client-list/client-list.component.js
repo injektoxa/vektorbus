@@ -6,8 +6,8 @@ angular.module('clientList')
   {
     templateUrl: 'client-list/client-list.template.html',
     controller: [
-      'Client', '$scope', '$uibModal',
-      function (Client, $scope, $uibModal) {
+      'Client', 'Trip', '$scope', '$uibModal',
+      function (Client,Trip, $scope, $uibModal) {
         var that = this;
         that.clients = Client.query();
         that.client = {};
@@ -55,6 +55,30 @@ angular.module('clientList')
               if (index > -1) {
                 that.clients.splice(index, 1);
               }
+            });
+        };
+
+        that.clientInfo = function(client) {
+            Trip.query({ clientId: client.Id }, function (clientTrips) {
+                var options = {
+                    animation: true,
+                    backdrop: 'static',
+                    component: 'modalClientTrips',
+                    size: 'lg',
+                    resolve: {
+                        info: function () {
+                            return {
+                                client: client,
+                                trips: clientTrips
+                            };
+                        }
+                    }
+                };
+                var modalInstance = $uibModal.open(options);
+
+                modalInstance.result.then(function () {
+                    debugger;
+                });
             });
         };
 

@@ -18,6 +18,7 @@
 /// <reference path="../content/app/client-list/client-list.module.js" />
 /// <reference path="../content/app/client-list/modal/modalclient.component.js" />
 /// <reference path="../content/app/client-list/modal/modalclient.module.js" />
+/// <reference path="../content/app/client-list/modal/modalclienttrips.component.js" />
 /// <reference path="../content/app/clienttrip-list/client-crud/client-crud.component.js" />
 /// <reference path="../content/app/clienttrip-list/client-crud/client-crud.module.js" />
 /// <reference path="../content/app/clienttrip-list/clienttrip-list.component.js" />

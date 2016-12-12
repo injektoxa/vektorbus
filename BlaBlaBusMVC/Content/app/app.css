@@ -243,3 +243,7 @@ form.add-edit tr > td:last-child {
     width: 100%;
     height: 50px;
 }
+
+.gridContainer {
+    width: 100%;
+}
