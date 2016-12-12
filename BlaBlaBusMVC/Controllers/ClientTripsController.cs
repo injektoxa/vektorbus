@@ -17,9 +17,14 @@ namespace BlaBlaBusMVC.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/ClientTrips
-        public IEnumerable<ClientTripViewModel> GetClientTrips()
+        public IEnumerable<ClientTripViewModel> GetClientTrips(string filterByName = null)
         {
-            var clients = db.Clients.Select(s => new ClientTripViewModel()
+            var query = string.IsNullOrEmpty(filterByName)
+                ? db.Clients
+                : db.Clients.Where(x => x.Name.Contains(filterByName));
+
+
+            var clients = query.Select(s => new ClientTripViewModel()
             {
                 Phone = s.Phone,
                 Name = s.Name,
