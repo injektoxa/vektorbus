@@ -326,6 +326,8 @@
     <Content Include="Content\app\client-list\modal\modalClient-template.html" />
     <Content Include="Content\app\client-list\modal\modalClient.component.js" />
     <Content Include="Content\app\client-list\modal\modalClient.module.js" />
+    <Content Include="Content\app\client-list\modal\modalClientTrips.component.js" />
+    <Content Include="Content\app\client-list\modal\modalClientTrips-template.html" />
     <Content Include="Content\app\clientTrip-list\client-crud\client-crud.module.js" />
     <Content Include="Content\app\core\driverReport\driverReport.service.js" />
     <Content Include="Content\app\core\driverReport\driverReport.module.js" />
