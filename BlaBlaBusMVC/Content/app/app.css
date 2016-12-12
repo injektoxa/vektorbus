@@ -159,7 +159,7 @@ table.clients-trip td.button-area {
   padding-left: 0;
 }
 
-.gridContainer thead {
+.grid-container thead {
       border-bottom: 2px solid #ddd;
 }
 .table > tbody > tr > td {
@@ -244,7 +244,7 @@ form.add-edit tr > td:last-child {
     height: 50px;
 }
 
-.gridContainer {
+.grid-container {
     width: 100%;
 }
 
