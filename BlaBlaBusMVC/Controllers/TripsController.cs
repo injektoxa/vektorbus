@@ -16,10 +16,13 @@ namespace BlaBlaBusMVC.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Trips
-        public IEnumerable<TripsViewModel> GetTrips()
+        public IEnumerable<TripsViewModel> GetTrips(int? clientId = null)
         {
             List<TripsViewModel> trips = new List<TripsViewModel>();
-            var tripsdb = db.Trips;
+            var tripsdb = clientId == null
+                ? db.Trips
+                : db.Trips.Where(x => x.ClientTrip.Any(y => y.Client.Id == clientId));
+
 
             foreach (var item in tripsdb)
             {
@@ -34,6 +37,8 @@ namespace BlaBlaBusMVC.Controllers
                     clients = item.ClientTrip.Select(i =>
                     new ClientTripViewModel()
                     {
+                        Id = i.Id,
+                        ClientId = i.Client.Id,
                         Name = i.Client.Name,
                         Comments = i.Client.Comments,
                         HasDiscount = i.Client.HasDiscount,
