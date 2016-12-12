@@ -29,6 +29,7 @@ namespace BlaBlaBusMVC.Controllers
                 trips.Add(new TripsViewModel()
                 {
                     busName = item.Bus != null ? item.Bus.FriendlyName : string.Empty,
+                    busRegistrationNumber = item.Bus != null ? item.Bus.RegistrationNumber : string.Empty,
                     cityFromName = item.CityFrom.Name,
                     cityToName = item.CityTo.Name,
                     date = item.Date,

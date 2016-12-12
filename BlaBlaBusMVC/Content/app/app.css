@@ -247,3 +247,9 @@ form.add-edit tr > td:last-child {
 .gridContainer {
     width: 100%;
 }
+
+a.create-trip {
+    float: right;
+    margin-bottom: 10px;
+    font-size: 16px;
+}

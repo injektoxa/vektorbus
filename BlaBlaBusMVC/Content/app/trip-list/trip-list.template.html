@@ -169,26 +169,27 @@
             </span>
             <br />
             <uib-accordion close-others="oneAtATime" ng-repeat="trip in $ctrl.trips | filter:$ctrl.query">
-                <div uib-accordion-group class="panel-default" 
-                     heading="{{trip.date | date:$ctrl.dateTimeFormat }} - {{trip.arrivalDate| date:$ctrl.dateTimeFormat}}, {{trip.busName}}, Маршрут: {{trip.cityFromName}} ----> {{trip.cityToName}}" 
+                <div uib-accordion-group class="panel-default"
+                     heading="{{trip.date | date:$ctrl.dateTimeFormat }} - {{trip.arrivalDate| date:$ctrl.dateTimeFormat}}, {{trip.busName}}, Маршрут: {{trip.cityFromName}} ----> {{trip.cityToName}}"
                      is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                    <a class="create-trip" ng-click="$ctrl.createPDF(trip)">Сформировать рейс</a>
                     <table class="table table-hover table-bordered">
                         <thead>
-                            <tr>
-                                <td>Комментарий маршрута</td>
-                                <td>Клиент</td>
-                                <td>Телефон</td>
-                                <td>Скидка</td>
-                                <td>Комментарий клиента</td>
-                                <td>Цена</td>
-                                <td>Агент</td>
-                                <td>Цена агента</td>
-                                <td>Маршрут</td>
-                                <td>Не выходит</td>
-                                <td>Багаж</td>
-                                <td>Ребенок</td>
-                                <td>Инвалид</td>
-                            </tr>
+                        <tr>
+                            <td>Комментарий маршрута</td>
+                            <td>Клиент</td>
+                            <td>Телефон</td>
+                            <td>Скидка</td>
+                            <td>Комментарий клиента</td>
+                            <td>Цена</td>
+                            <td>Агент</td>
+                            <td>Цена агента</td>
+                            <td>Маршрут</td>
+                            <td>Не выходит</td>
+                            <td>Багаж</td>
+                            <td>Ребенок</td>
+                            <td>Инвалид</td>
+                        </tr>
                         </thead>
                         <tr ng-repeat="client in trip.clients">
                             <td>{{trip.comments}}</td>

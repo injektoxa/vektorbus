@@ -4,8 +4,8 @@
     module('tripList').
     component('tripList', {
         templateUrl: 'trip-list/trip-list.template.html',
-        controller: ['Trip', 'Bus','City','Driver', '$uibModal', '$scope',
-        function (Trip, Bus, City, Driver, $uibModal, $scope) {
+        controller: ['Trip', 'Bus', 'City', 'Driver', '$uibModal', '$scope', 'PdfMaker',
+        function (Trip, Bus, City, Driver, $uibModal, $scope, PdfMaker) {
             var that = this;
 
             this.showAddTripForm = false;
@@ -41,6 +41,7 @@
             };
             this.startDateOpen = function() {
                 that.startDatePopup.opened = true;
+                that.createPDF();
             };
 
             this.endDatePopup = {
@@ -102,7 +103,50 @@
                 });
             };
 
-            $scope.$watchCollection('$ctrl.trip.tripClients', function (newValue, previousValue) {
+            this.createPDF = function (trip) {
+                var tableBody = [[
+                    { text: 'Имя Фамилия', style: 'tableHeader' },
+                    { text: 'Телефон', style: 'tableHeader' },
+                    { text: 'Куда', style: 'tableHeader' },
+                    { text: 'Откуда', style: 'tableHeader' },
+                    { text: 'Стоимость', style: 'tableHeader' },
+                    { text: 'Не выходит', style: 'tableHeader' },
+                    { text: 'Статус', style: 'tableHeader' }]];
+
+                for (var i = 0; i < trip.clients.length; i++) {
+                    tableBody.push([
+                        trip.clients[i].Name,
+                        trip.clients[i].Phone,
+                        trip.clients[i].To,
+                        trip.clients[i].From,
+                        trip.clients[i].Price.toString(),
+                        trip.clients[i].IsStayInBus ? 'Да' : '',
+                        (trip.clients[i].HasMinorChild ? 'С ребенком; ' : '') + (trip.clients[i].HasDisability ? 'Инвалид' : '')
+                    ]);
+                }
+                var options = {
+                    docDefinition: {
+                        pageOrientation: 'portrait',
+                        fontSize: 12,
+                        content: [
+                            {
+                                text:
+                                  trip.cityFromName.concat(' --> ', trip.cityToName, ' ', trip.busRegistrationNumber, ' ', trip.date)
+                            },
+                            {
+                                table: {
+                                    headerRows: 1,
+                                    body: tableBody
+                                }
+                            }
+                            ]
+                    }
+                }
+
+                PdfMaker.createAndDownload(options);
+            }
+
+            $scope.$watchCollection('trip.tripClients', function (newValue, previousValue) {
                 if (newValue && newValue.length > 0) {
                     $scope.form.$setValidity('isAnyClient', false);
                 }
