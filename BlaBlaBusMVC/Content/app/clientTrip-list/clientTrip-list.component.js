@@ -38,10 +38,8 @@ angular.
             $scope.$watch('$ctrl.clientFilter', function(newValue, oldValue) {
                 if (newValue.length > 1) {
                     ClientTrip.query({ filterByName: newValue }, function (clientTrips) {
-                        debugger 
                         that.clients = clientTrips;
                     });
-
                 }
             });
         }
