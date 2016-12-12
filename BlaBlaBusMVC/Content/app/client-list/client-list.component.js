@@ -74,11 +74,7 @@ angular.module('clientList')
                         }
                     }
                 };
-                var modalInstance = $uibModal.open(options);
-
-                modalInstance.result.then(function () {
-                    debugger;
-                });
+                $uibModal.open(options);
             });
         };
 
