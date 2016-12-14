@@ -10,7 +10,8 @@ angular.
             var that = this;
 
             this.addClientBlockVisible = false;
-            this.clients = ClientTrip.query();
+            this.clientFilter = '';
+            this.clients = [];
             this.cities = City.query();
             this.agents = Agent.query();
             this.orderProp = 'Id';
@@ -33,14 +34,18 @@ angular.
                 that.addClientBlockVisible = !that.addClientBlockVisible;
             }
 
-            this.remove = function (id) {
-                ClientTrip.remove({ Id: id });
+            $scope.$watch('$ctrl.clientFilter', function(newValue, oldValue) {
+                if (newValue.length > 1) {
+                    ClientTrip.query({ filter: newValue }, function (clientTrips) {
+                        that.clients = clientTrips;
+                    });
+                }
+            });
 
-              setTimeout(function() {
-                  that.clients = ClientTrip.query();
-                },
-                1000);
-            }
+            $scope.$on('clearClientTripsEvent', function (event, params) {
+                that.clientFilter = '';
+                that.clients = [];
+            });
         }
       ]
   });
