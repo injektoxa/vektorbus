@@ -28,7 +28,7 @@ namespace BlaBlaBusMVC.Controllers
             {
                 Phone = s.Phone,
                 Name = s.Name,
-                Id = s.Id,
+                ClientId = s.Id,
                 Comments = s.Comments,
                 HasDiscount = s.HasDiscount,
                 HasDisability = s.HasDisability,

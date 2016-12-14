@@ -7,12 +7,19 @@ angular.
                 method: 'GET',
                 isArray: true
             },
+            get: {
+                method: 'GET',
+                params: { Id: 'id' }
+            },
             add: {
-                method: 'POST',
+                method: 'POST'
+            },
+            update: {
+                method: 'PUT'
             },
             remove: {
                 method: 'DELETE',
-                params: { Id: 'id' },
+                params: { Id: 'id' }
             }
         });
     }

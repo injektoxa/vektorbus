@@ -11,7 +11,6 @@ angular.
 
             this.addClientBlockVisible = false;
             this.clientFilter = '';
-            //this.clients = ClientTrip.query();
             this.clients = [];
             this.cities = City.query();
             this.agents = Agent.query();
@@ -41,6 +40,11 @@ angular.
                         that.clients = clientTrips;
                     });
                 }
+            });
+
+            $scope.$on('clearClientTripsEvent', function (event, params) {
+                that.clientFilter = '';
+                that.clients = [];
             });
         }
       ]
