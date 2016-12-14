@@ -36,7 +36,7 @@ angular.
 
             $scope.$watch('$ctrl.clientFilter', function(newValue, oldValue) {
                 if (newValue.length > 1) {
-                    ClientTrip.query({ filterByName: newValue }, function (clientTrips) {
+                    ClientTrip.query({ filter: newValue }, function (clientTrips) {
                         that.clients = clientTrips;
                     });
                 }
