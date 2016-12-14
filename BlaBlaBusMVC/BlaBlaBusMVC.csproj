@@ -501,7 +501,6 @@
     <Content Include="Content\app\client-list\modal\modalClient.module.js" />
     <Content Include="Content\app\client-list\modal\modalClientTrips.component.js" />
     <Content Include="Content\app\client-list\modal\modalClientTrips-template.html" />
-    <Content Include="Content\app\clientTrip-list\client-crud\client-crud.module.js" />
     <Content Include="Content\app\core\driverReport\driverReport.service.js" />
     <Content Include="Content\app\core\driverReport\driverReport.module.js" />
     <Content Include="Content\app\core\agent\agent.module.js" />
@@ -528,7 +527,6 @@
     <Content Include="Content\app\index.html" />
     <Content Include="Content\app\client-detail\client-detail.component.js" />
     <Content Include="Content\app\client-detail\client-detail.module.js" />
-    <Content Include="Content\app\clientTrip-list\client-crud\client-crud.template.html" />
     <Content Include="Content\app\clientTrip-list\clientTrip-list.component.js" />
     <Content Include="Content\app\clientTrip-list\clientTrip-list.module.js" />
     <Content Include="Content\app\clientTrip-list\clientTrip-list.template.html" />
@@ -595,7 +593,6 @@
     <Content Include="Content\bower.json" />
     <Content Include="Content\package.json" />
     <Content Include="Content\LICENSE" />
-    <Content Include="Content\app\clientTrip-list\client-crud\client-crud.component.js" />
     <Content Include="Content\app\cities-list\cities-list.component.js" />
     <Content Include="Content\app\bower_components\angular-animate\.bower.json" />
     <Content Include="Content\app\bower_components\angular-animate\angular-animate.min.js.map" />

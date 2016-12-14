@@ -9,7 +9,6 @@ angular.
         function (ClientTrip, $scope, City, Agent) {
             var that = this;
 
-            this.addClientBlockVisible = false;
             this.clientFilter = '';
             this.clients = [];
             this.cities = City.query();
@@ -28,10 +27,6 @@ angular.
                 else {
                     console.log("This item already exists");
                 }
-            }
-
-            this.showAddClientBlock = function () {
-                that.addClientBlockVisible = !that.addClientBlockVisible;
             }
 
             $scope.$watch('$ctrl.clientFilter', function(newValue, oldValue) {
