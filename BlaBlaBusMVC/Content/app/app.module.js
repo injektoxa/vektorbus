@@ -9,7 +9,6 @@ angular.module('VektorApp', [
   'clientDetail',
   'clientList',
   'clientTripList',
-  'clientCrud',
   'tripList',
   'busList',
   'modalBus',

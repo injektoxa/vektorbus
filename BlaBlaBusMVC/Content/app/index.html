@@ -2,103 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="app.css" />
-    <link rel="stylesheet" href="app.animations.css" />
-    <link rel="stylesheet" href="bower_components/angular-google-places-autocomplete/src/autocomplete.css" />
-
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
+    <link rel="stylesheet" href="all.css" />
+    <script src="all.js"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBkEIsxJ1ZqsEBPUYsef_jF2ajuSkmbxJ4&libraries=places"></script>
-    <script src="bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
-    <script src="bower_components/pdfmake/build/pdfmake.min.js"></script>
-    <script src="bower_components/pdfmake/build/vfs_fonts.js"></script>
-
-
-    <script src="app.module.js"></script>
-    <script src="app.config.js"></script>
-    <script src="app.animations.js"></script>
-    <script src="core/core.module.js"></script>
-    <script src="core/checkmark/checkmark.filter.js"></script>
-    <script src="core/client/client.module.js"></script>
-    <script src="core/client/client.service.js"></script>
-    
-    <script src="core/clientTrip/clientTrip.module.js"></script>
-    <script src="core/clientTrip/clientTrip.service.js"></script>
-
-    <script src="core/trip/trip.module.js"></script>
-    <script src="core/trip/trip.service.js"></script>
-
-    <script src="core/driver/driver.module.js"></script>
-    <script src="core/driver/driver.service.js"></script>
-
-    <script src="core/bus/bus.module.js"></script>
-    <script src="core/bus/bus.service.js"></script>
-
-    <script src="core/city/city.module.js"></script>
-    <script src="core/city/city.service.js"></script>
-    
-    <script src="core/agent/agent.module.js"></script>
-    <script src="core/agent/agent.service.js"></script>
-    
-    <script src="core/agentReport/agentReport.module.js"></script>
-    <script src="core/agentReport/agentReport..service.js"></script>
-    
-    <script src="core/driverReport/driverReport.module.js"></script>
-    <script src="core/driverReport/driverReport.service.js"></script>
-    
-    <script src="clientTrip-list/clientTrip-list.module.js"></script>
-    <script src="clientTrip-list/clientTrip-list.component.js"></script>
-
-    <script src="client-detail/client-detail.module.js"></script>
-    <script src="client-detail/client-detail.component.js"></script>
-
-    <script src="clientTrip-list/client-crud/client-crud.module.js"></script>
-    <script src="clientTrip-list/client-crud/client-crud.component.js"></script>
-
-    <script src="trip-list/trip-list.module.js"></script>
-    <script src="trip-list/trip-list.component.js"></script>
-
-    <script src="driver-list/driver-list.module.js"></script>
-    <script src="driver-list/driver-list.component.js"></script>
-    <script src="driver-list/driver-crud/driver-crud.module.js"></script>
-    <script src="driver-list/driver-crud/driver-crud.component.js"></script>
-
-    <script src="bus-list/modal/modalBus.module.js"></script>
-    <script src="bus-list/modal/modalBus.component.js"></script>
-    <script src="bus-list/bus-list.module.js"></script>
-    <script src="bus-list/bus-list.component.js"></script>
-  
-    <script src="agent-list/agent-list.module.js"></script>
-    <script src="agent-list/agent-list.component.js"></script>
-    <script src="agent-list/modal/modalAgent.module.js"></script>
-    <script src="agent-list/modal/modalAgent.component.js"></script>
-
-    <script src="reports/reports.module.js"></script>
-    <script src="reports/agent-reports.component.js"></script>
-    <script src="reports/driver-reports.component.js"></script>
-
-    
-    <script src="client-list/client-list.module.js"></script>
-    <script src="client-list/client-list.component.js"></script>
-    <script src="client-list/modal/modalClient.module.js"></script>
-    <script src="client-list/modal/modalClient.component.js"></script>
-    <script src="client-list/modal/modalClientTrips.component.js"></script>
-   
-    <script src="cities-list/cities-list.module.js"></script>
-    <script src="cities-list/cities-list.component.js"></script>
-
-    <script src="pdfMaker/pdfMaker.module.js"></script>
-    <script src="pdfMaker/pdfMaker.service.js"></script>
-
     <script>
-        $(document).ready(function () {
+        document.addEventListener('load', function () {
             $('ul.nav > li').click(function (e) {
                 $('ul.nav > li').removeClass('active');
                 $(this).addClass('active');
