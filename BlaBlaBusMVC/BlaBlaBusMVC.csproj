@@ -300,6 +300,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\.gitignore" />
+    <Content Include="Content\app\all.css" />
+    <Content Include="Content\app\all.js" />
     <Content Include="Content\app\app.animations.css" />
     <Content Include="Content\app\app.animations.js" />
     <Content Include="Content\app\app.config.js" />
@@ -542,8 +544,7 @@
     <Content Include="Content\app\trip-list\trip-list.component.js" />
     <Content Include="Content\app\trip-list\trip-list.module.js" />
     <Content Include="Content\app\trip-list\trip-list.template.html" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\gulpfile.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -589,10 +590,8 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Content\bower.json" />
     <Content Include="Content\package.json" />
-    <Content Include="Content\LICENSE" />
     <Content Include="Content\app\cities-list\cities-list.component.js" />
     <Content Include="Content\app\bower_components\angular-animate\.bower.json" />
     <Content Include="Content\app\bower_components\angular-animate\angular-animate.min.js.map" />
