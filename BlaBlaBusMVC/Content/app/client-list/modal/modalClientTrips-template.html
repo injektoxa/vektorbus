@@ -24,11 +24,11 @@
             <tbody>
                 <tr ng-repeat="trip in $ctrl.trips" class="repeat-animation">
                     <td>{{trip.date}}</td>
-                    <td>{{trip.cityFromName}}</td>
-                    <td>{{trip.cityToName}}</td>
-                    <td>{{trip.busName}}</td>
-                    <td>{{$ctrl.getClienPrice(trip.clients)}}</td>
-                    <td>{{$ctrl.getClienAdditionalExpenses(trip.clients)}}</td>
+                    <td>{{trip.cityFrom.Name}}</td>
+                    <td>{{trip.cityTo.Name}}</td>
+                    <td>{{trip.bus.Name}}</td>
+                    <td>{{$ctrl.getClienPrice(trip.tripClients)}}</td>
+                    <td>{{$ctrl.getClienAdditionalExpenses(trip.tripClients)}}</td>
                 </tr>
             </tbody>
         </table>
