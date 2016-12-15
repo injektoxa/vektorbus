@@ -36,7 +36,7 @@ gulp.task('scripts', function () {
         'app/core/agent/agent.module.js',
         'app/core/agent/agent.service.js',
         'app/core/agentReport/agentReport.module.js',
-        'app/core/agentReport/agentReport..service.js',
+        'app/core/agentReport/agentReport.service.js',
         'app/core/driverReport/driverReport.module.js',
         'app/core/driverReport/driverReport.service.js',
         'app/clientTrip-list/clientTrip-list.module.js',
