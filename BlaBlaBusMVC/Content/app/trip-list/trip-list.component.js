@@ -61,6 +61,9 @@
                     $scope.form.$setValidity('isAnyClient', false);
                     return;
                 }
+                if ($scope.form.$invalid) {
+                    return;
+                }
 
                 if (that.isEditMode) {
                     that.update();
