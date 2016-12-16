@@ -301,7 +301,7 @@
   <ItemGroup>
     <Content Include="Content\.gitignore" />
     <Content Include="Content\app\all.css" />
-    <Content Include="Content\app\all.js" />
+    <Content Include="Content\app\all.min.js" />
     <Content Include="Content\app\app.animations.css" />
     <Content Include="Content\app\app.animations.js" />
     <Content Include="Content\app\app.config.js" />
@@ -368,6 +368,7 @@
     <Content Include="Content\app\reports\driver-reports.component.js" />
     <Content Include="Content\app\reports\reports.module.js" />
     <Content Include="Content\app\reports\agent-reports.template.html" />
+    <Content Include="Content\app\scripts.min.js" />
     <Content Include="Content\app\trip-list\trip-list.component.js" />
     <Content Include="Content\app\trip-list\trip-list.module.js" />
     <Content Include="Content\app\trip-list\trip-list.template.html" />
