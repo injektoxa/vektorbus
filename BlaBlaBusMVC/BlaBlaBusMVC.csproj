@@ -346,7 +346,7 @@
     <Content Include="Content\app\core\client\client.service.js" />
     <Content Include="Content\app\core\driver\driver.module.js" />
     <Content Include="Content\app\core\driver\driver.service.js" />
-    <Content Include="Content\app\core\agentReport\agentReport..service.js" />
+    <Content Include="Content\app\core\agentReport\agentReport.service.js" />
     <Content Include="Content\app\core\agentReport\agentReport.module.js" />
     <Content Include="Content\app\core\trip\trip.module.js" />
     <Content Include="Content\app\core\trip\trip.service.js" />
