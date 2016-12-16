@@ -4,6 +4,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var babel = require('gulp-babel');
+var cleanCSS = require('gulp-clean-css');
 
 //The order of loading files is important!!!
 gulp.task('bower_components', function () {
@@ -96,14 +97,17 @@ gulp.task('app_scripts', function() {
 
 gulp.task('styles', function () {
     return gulp.src([
-        'app/bower_components/bootstrap/dist/css/bootstrap.css',
+        'app/bower_components/bootstrap/dist/css/bootstrap.min.css',
         'app/app.css',
         'app/app.animations.css',
-        'app/bower_components/angular-google-places-autocomplete/src/autocomplete.css'
+        'app/bower_components/angular-google-places-autocomplete/dist/autocomplete.min.css'
     ], { base: 'app/' })
-      .pipe(sourcemaps.init())
+      //.pipe(sourcemaps.init())
       .pipe(concat('all.css'))
-      .pipe(sourcemaps.write())
+      .pipe(gulp.dest('app/dist'))
+      .pipe(cleanCSS())
+      .pipe(rename('all.min.css'))
+      //.pipe(sourcemaps.write('maps'))
       .pipe(gulp.dest('app'));
 });
 

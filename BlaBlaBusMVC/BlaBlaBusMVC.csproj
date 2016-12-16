@@ -300,7 +300,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\.gitignore" />
-    <Content Include="Content\app\all.css" />
+    <Content Include="Content\app\all.min.css" />
     <Content Include="Content\app\all.min.js" />
     <Content Include="Content\app\app.animations.css" />
     <Content Include="Content\app\app.animations.js" />
