@@ -300,8 +300,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\.gitignore" />
-    <Content Include="Content\app\all.css" />
-    <Content Include="Content\app\all.js" />
+    <Content Include="Content\app\all.min.css" />
+    <Content Include="Content\app\all.min.js" />
     <Content Include="Content\app\app.animations.css" />
     <Content Include="Content\app\app.animations.js" />
     <Content Include="Content\app\app.config.js" />
@@ -346,7 +346,7 @@
     <Content Include="Content\app\core\client\client.service.js" />
     <Content Include="Content\app\core\driver\driver.module.js" />
     <Content Include="Content\app\core\driver\driver.service.js" />
-    <Content Include="Content\app\core\agentReport\agentReport..service.js" />
+    <Content Include="Content\app\core\agentReport\agentReport.service.js" />
     <Content Include="Content\app\core\agentReport\agentReport.module.js" />
     <Content Include="Content\app\core\trip\trip.module.js" />
     <Content Include="Content\app\core\trip\trip.service.js" />
@@ -368,6 +368,7 @@
     <Content Include="Content\app\reports\driver-reports.component.js" />
     <Content Include="Content\app\reports\reports.module.js" />
     <Content Include="Content\app\reports\agent-reports.template.html" />
+    <Content Include="Content\app\scripts.min.js" />
     <Content Include="Content\app\trip-list\trip-list.component.js" />
     <Content Include="Content\app\trip-list\trip-list.module.js" />
     <Content Include="Content\app\trip-list\trip-list.template.html" />
