@@ -16,6 +16,7 @@
     "jquery": "2.2.x",
     "angular-bootstrap": "2.2.x",
     "angular-google-places-autocomplete": "^0.2.7",
-    "pdfmake": ""
+    "pdfmake": "",
+    "underscore" : "" 
   }
 }
