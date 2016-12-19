@@ -25,7 +25,7 @@
         </span>
     </p>
     <ul class="Clients">
-        <li ng-repeat="client in $ctrl.clients | filter:$ctrl.query | orderBy:$ctrl.orderProp" class="thumbnail client-list-item">
+        <li ng-repeat="client in $ctrl.clients | orderBy:$ctrl.orderProp" class="thumbnail client-list-item">
             <table class="clients-trip">
                 <tr>
                     <td class="info">

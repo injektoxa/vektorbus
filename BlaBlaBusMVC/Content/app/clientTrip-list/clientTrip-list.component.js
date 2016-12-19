@@ -29,13 +29,20 @@ angular.
                 }
             }
 
-            $scope.$watch('$ctrl.clientFilter', function(newValue, oldValue) {
-                if (newValue.length > 1) {
-                    ClientTrip.query({ filter: newValue }, function (clientTrips) {
-                        that.clients = clientTrips;
-                    });
+            this.clientFilterAction = function () {
+                if (that.clientFilter.length > 1) {
+                    ClientTrip.query({ filter: that.clientFilter },
+                        function(clientTrips) {
+                            that.clients = clientTrips;
+                        });
+                } else {
+                    that.clients = [];
                 }
-            });
+            };
+
+            this.filterThrottled = _.debounce(that.clientFilterAction, 500);
+
+            $scope.$watch('$ctrl.clientFilter', that.filterThrottled);
 
             $scope.$on('clearClientTripsEvent', function (event, params) {
                 that.clientFilter = '';
