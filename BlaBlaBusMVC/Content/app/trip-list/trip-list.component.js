@@ -152,15 +152,15 @@
                     { text: 'Не выходит', style: 'tableHeader' },
                     { text: 'Статус', style: 'tableHeader' }]];
 
-                for (var i = 0; i < trip.clients.length; i++) {
+                for (var i = 0; i < trip.tripClients.length; i++) {
                     tableBody.push([
-                        trip.clients[i].Name,
-                        trip.clients[i].Phone,
-                        trip.clients[i].To,
-                        trip.clients[i].From,
-                        trip.clients[i].Price.toString(),
-                        trip.clients[i].IsStayInBus ? 'Да' : '',
-                        (trip.clients[i].HasMinorChild ? 'С ребенком; ' : '') + (trip.clients[i].HasDisability ? 'Инвалид' : '')
+                        trip.tripClients[i].Name,
+                        trip.tripClients[i].Phone,
+                        trip.tripClients[i].To,
+                        trip.tripClients[i].From,
+                        trip.tripClients[i].Price.toString(),
+                        trip.tripClients[i].IsStayInBus ? 'Да' : '',
+                        (trip.tripClients[i].HasMinorChild ? 'С ребенком; ' : '') + (trip.tripClients[i].HasDisability ? 'Инвалид' : '')
                     ]);
                 }
                 var options = {
@@ -170,7 +170,7 @@
                         content: [
                             {
                                 text:
-                                  trip.cityFromName.concat(' --> ', trip.cityToName, ' ', trip.busRegistrationNumber, ' ', trip.date)
+                                  trip.cityFrom.Name.concat(' --> ', trip.cityTo.Name, ' ', trip.bus != null ? trip.bus.RegistrationNumber : '', ' ', trip.date)
                             },
                             {
                                 table: {
