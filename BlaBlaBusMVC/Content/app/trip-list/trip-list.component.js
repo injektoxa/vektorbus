@@ -163,6 +163,9 @@
                         (trip.tripClients[i].HasMinorChild ? 'С ребенком; ' : '') + (trip.tripClients[i].HasDisability ? 'Инвалид' : '')
                     ]);
                 }
+                var bus = trip.bus != null ? trip.bus.FriendlyName + ' ' + trip.bus.RegistrationNumber + ', ' : '';
+                var driver = trip.driver != null ? 'Водитель: ' + trip.driver.FullName : '';
+
                 var options = {
                     docDefinition: {
                         pageOrientation: 'portrait',
@@ -170,7 +173,19 @@
                         content: [
                             {
                                 text:
-                                  trip.cityFrom.Name.concat(' --> ', trip.cityTo.Name, ' ', trip.bus != null ? trip.bus.RegistrationNumber : '', ' ', trip.date)
+                                  trip.cityFrom.Name.concat(' --> ', trip.cityTo.Name, ' ', trip.date)
+                            },
+                            {
+                                text: bus + driver
+                            },
+                            {
+                                text: 'Обязательные расходы: ' + trip.compulsoryExpenses
+                            },
+                            {
+                                text: 'Дополнительные расходы: ' + trip.unexpectedExpenses + ' (' + trip.unexpectedExpensesComments + ')'
+                            },
+                            {
+                                text: ' '
                             },
                             {
                                 table: {
