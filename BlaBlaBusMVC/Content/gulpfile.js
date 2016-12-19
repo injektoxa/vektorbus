@@ -19,7 +19,8 @@ gulp.task('bower_components', function () {
                     'app/bower_components/angular-sanitize/angular-sanitize.min.js',
                     'app/bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js',
                     'app/bower_components/pdfmake/build/pdfmake.min.js',
-                    'app/bower_components/pdfmake/build/vfs_fonts.js'
+                    'app/bower_components/pdfmake/build/vfs_fonts.js',
+                    'app/bower_components/pdfmake/underscore/underscore-min.js'
         ], { base: 'app/' })
             .pipe(concat('scripts.min.js'))
             .pipe(gulp.dest('app'));

@@ -49,7 +49,6 @@
                 that.endDatePopup.opened = true;
             };
 
-
             this.showAddForm = function () {
                 that.showAddTripForm = !that.showAddTripForm;
             }
