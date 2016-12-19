@@ -38,6 +38,7 @@
             this.startDatePopup = {
                 opened: false
             };
+
             this.startDateOpen = function() {
                 that.startDatePopup.opened = true;
             };
@@ -45,6 +46,7 @@
             this.endDatePopup = {
                 opened: false
             };
+
             this.endDateOpen = function () {
                 that.endDatePopup.opened = true;
             };
@@ -211,6 +213,23 @@
                 that.trip.endTime = endDate;
                 that.showAddTripForm = true;
             };
+
+            this.delete = function (trip) {
+                var msg = 'Вы уверены, что хотите удалить маршрут ' + trip.cityFrom.Name + '---->' + trip.cityTo.Name + ', ' + trip.date + '?';
+                if (confirm(msg)) {
+                    Trip.remove({ id: trip.id },
+                        function onSuccess(deletedTrip) {
+                            var index = that.trips.map(function (e) { return e.id }).indexOf(deletedTrip.id);
+                            if (index > -1) {
+                                that.trips.splice(index, 1);
+                            }
+                        },
+                        function onError(error) {
+                            var errorMessage = 'Маршрут не удален. Ошибка удаления: ' + error.data.Message;
+                            alert(errorMessage);
+                        });
+                }
+            }
 
             $scope.$watchCollection('$ctrl.trip.tripClients', function (newValue, previousValue) {
                 if (newValue && newValue.length > 0) {
