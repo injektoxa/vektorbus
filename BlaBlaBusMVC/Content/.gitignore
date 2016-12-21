@@ -5,3 +5,6 @@ tmp
 .idea
 .DS_Store
 angular-phonecat-snapshots
+app/bower_components
+app/dist
+app/maps

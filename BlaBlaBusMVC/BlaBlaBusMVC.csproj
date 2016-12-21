@@ -185,12 +185,15 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DriverReportsController.cs" />
+    <Compile Include="Controllers\AgentReportsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\BusesController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\CityPricesController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\ClientTripsController.cs" />
     <Compile Include="Controllers\DriversController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
@@ -251,6 +254,18 @@
     <Compile Include="Migrations\201612010858003_AddFieldToClientTrip.Designer.cs">
       <DependentUpon>201612010858003_AddFieldToClientTrip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612021203385_AddDriverToTrip.cs" />
+    <Compile Include="Migrations\201612021203385_AddDriverToTrip.Designer.cs">
+      <DependentUpon>201612021203385_AddDriverToTrip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612081040142_AddFieldsToClient.cs" />
+    <Compile Include="Migrations\201612081040142_AddFieldsToClient.Designer.cs">
+      <DependentUpon>201612081040142_AddFieldsToClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612081545498_AddExpensesToTrip.cs" />
+    <Compile Include="Migrations\201612081545498_AddExpensesToTrip.Designer.cs">
+      <DependentUpon>201612081545498_AddExpensesToTrip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Agent.cs" />
     <Compile Include="Models\Bus.cs" />
@@ -261,8 +276,11 @@
     <Compile Include="Models\Driver.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Trip.cs" />
+    <Compile Include="ViewModels\DriverReportViewModel.cs" />
+    <Compile Include="ViewModels\AgentReportViewModel.cs" />
     <Compile Include="ViewModels\AgentViewModel.cs" />
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\ClientTripViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\FactorViewModel.cs" />
     <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
@@ -288,6 +306,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\.gitignore" />
+    <Content Include="Content\app\all.min.css" />
+    <Content Include="Content\app\all.min.js" />
     <Content Include="Content\app\app.animations.css" />
     <Content Include="Content\app\app.animations.js" />
     <Content Include="Content\app\app.config.js" />
@@ -311,7 +331,16 @@
     <Content Include="Content\app\cities-list\cities-list.module.js" />
     <Content Include="Content\app\cities-list\cities-list.template.html" />
     <Content Include="Content\app\client-detail\client-detail.template.html" />
-    <Content Include="Content\app\client-list\client-crud\client-crud.module.js" />
+    <Content Include="Content\app\client-list\client-list.component.js" />
+    <Content Include="Content\app\client-list\client-list.module.js" />
+    <Content Include="Content\app\client-list\client-list.template.html" />
+    <Content Include="Content\app\client-list\modal\modalClient-template.html" />
+    <Content Include="Content\app\client-list\modal\modalClient.component.js" />
+    <Content Include="Content\app\client-list\modal\modalClient.module.js" />
+    <Content Include="Content\app\client-list\modal\modalClientTrips.component.js" />
+    <Content Include="Content\app\client-list\modal\modalClientTrips-template.html" />
+    <Content Include="Content\app\core\driverReport\driverReport.service.js" />
+    <Content Include="Content\app\core\driverReport\driverReport.module.js" />
     <Content Include="Content\app\core\agent\agent.module.js" />
     <Content Include="Content\app\core\agent\agent.service.js" />
     <Content Include="Content\app\core\bus\bus.module.js" />
@@ -319,6 +348,8 @@
     <Content Include="Content\app\core\checkmark\checkmark.filter.js" />
     <Content Include="Content\app\core\city\city.module.js" />
     <Content Include="Content\app\core\city\city.service.js" />
+    <Content Include="Content\app\core\clientTrip\clientTrip.module.js" />
+    <Content Include="Content\app\core\clientTrip\clientTrip.service.js" />
     <Content Include="Content\app\core\core.module.js" />
     <Content Include="Content\app\core\client\client.module.js" />
     <Content Include="Content\app\core\client\client.service.js" />
@@ -326,6 +357,8 @@
     <Content Include="Content\app\core\driver\driver.service.js" />
     <Content Include="Content\app\core\authentication\authentication.module.js" />
     <Content Include="Content\app\core\authentication\authentication.service.js" />
+    <Content Include="Content\app\core\agentReport\agentReport.service.js" />
+    <Content Include="Content\app\core\agentReport\agentReport.module.js" />
     <Content Include="Content\app\core\trip\trip.module.js" />
     <Content Include="Content\app\core\trip\trip.service.js" />
     <Content Include="Content\app\driver-list\driver-crud\driver-crud.component.js" />
@@ -334,18 +367,28 @@
     <Content Include="Content\app\index.html" />
     <Content Include="Content\app\client-detail\client-detail.component.js" />
     <Content Include="Content\app\client-detail\client-detail.module.js" />
-    <Content Include="Content\app\client-list\client-crud\client-crud.template.html" />
-    <Content Include="Content\app\client-list\client-list.component.js" />
-    <Content Include="Content\app\client-list\client-list.module.js" />
-    <Content Include="Content\app\client-list\client-list.template.html" />
+    <Content Include="Content\app\clientTrip-list\clientTrip-list.component.js" />
+    <Content Include="Content\app\clientTrip-list\clientTrip-list.module.js" />
+    <Content Include="Content\app\clientTrip-list\clientTrip-list.template.html" />
     <Content Include="Content\app\driver-list\driver-list.component.js" />
     <Content Include="Content\app\driver-list\driver-list.module.js" />
     <Content Include="Content\app\driver-list\driver-list.template.html" />
+    <Content Include="Content\app\pdfMaker\pdfMaker.module.js" />
+    <Content Include="Content\app\pdfMaker\pdfMaker.service.js" />
+    <Content Include="Content\app\reports\driver-reports.template.html" />
+    <Content Include="Content\app\reports\driver-reports.component.js" />
+    <Content Include="Content\app\reports\reports.module.js" />
+    <Content Include="Content\app\reports\agent-reports.template.html" />
+    <Content Include="Content\app\scripts.min.js" />
     <Content Include="Content\app\trip-list\trip-list.component.js" />
     <Content Include="Content\app\trip-list\trip-list.module.js" />
     <Content Include="Content\app\trip-list\trip-list.template.html" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\gulpfile.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -387,32 +430,18 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Docs\TechnicalBackLog.txt" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\bower.json" />
     <Content Include="Content\package.json" />
-    <Content Include="Content\LICENSE" />
-    <Content Include="Content\app\client-list\client-crud\client-crud.component.js" />
     <Content Include="Content\app\cities-list\cities-list.component.js" />
-    <None Include="Scripts\jquery-1.12.4.intellisense.js" />
-    <Content Include="Scripts\jquery-1.12.4.js" />
-    <Content Include="Scripts\jquery-1.12.4.min.js" />
-    <Content Include="Scripts\jquery-1.12.4.min.map" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\_references.js" />
+    <Content Include="Content\app\reports\agent-reports.component.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -480,9 +509,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
@@ -526,6 +552,15 @@
     <EmbeddedResource Include="Migrations\201612010858003_AddFieldToClientTrip.resx">
       <DependentUpon>201612010858003_AddFieldToClientTrip.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612021203385_AddDriverToTrip.resx">
+      <DependentUpon>201612021203385_AddDriverToTrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612081040142_AddFieldsToClient.resx">
+      <DependentUpon>201612081040142_AddFieldsToClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612081545498_AddExpensesToTrip.resx">
+      <DependentUpon>201612081545498_AddExpensesToTrip.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -545,7 +580,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53061</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53061/</IISUrl>
+          <IISUrl>http://localhost:53062/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

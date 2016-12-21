@@ -11,10 +11,12 @@
     "angular-mocks": "1.5.x",
     "angular-resource": "1.5.x",
     "angular-route": "1.5.x",
+    "angular-sanitize": "1.5.x",
     "bootstrap": "3.3.x",
     "jquery": "2.2.x",
-    "angular-ui-bootstrap-datetimepicker": "^2.0.2",
     "angular-bootstrap": "2.2.x",
-    "angular-google-places-autocomplete": "^0.2.7"
+    "angular-google-places-autocomplete": "^0.2.7",
+    "pdfmake": "",
+    "underscore" : "" 
   }
 }

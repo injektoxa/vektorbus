@@ -6,15 +6,12 @@
 /// <reference path="../content/app/app.animations.js" />
 /// <reference path="../content/app/app.config.js" />
 /// <reference path="../content/app/app.module.js" />
-<<<<<<< HEAD
 /// <reference path="../content/app/authentication/signup/signup.component.js" />
 /// <reference path="../content/app/authentication/signup/signup.module.js" />
-=======
 /// <reference path="../content/app/bus-list/bus-list.component.js" />
 /// <reference path="../content/app/bus-list/bus-list.module.js" />
 /// <reference path="../Content/app/bus-list/modal/modalBus.component.js" />
 /// <reference path="../Content/app/bus-list/modal/modalBus.module.js" />
->>>>>>> d6fa69cf4b254763be525b767679aa4ab9848f61
 /// <reference path="../content/app/cities-list/cities-list.component.js" />
 /// <reference path="../content/app/cities-list/cities-list.module.js" />
 /// <reference path="../content/app/client-detail/client-detail.component.js" />
@@ -23,13 +20,10 @@
 /// <reference path="../content/app/client-list/client-crud/client-crud.module.js" />
 /// <reference path="../content/app/client-list/client-list.component.js" />
 /// <reference path="../content/app/client-list/client-list.module.js" />
-<<<<<<< HEAD
 /// <reference path="../content/app/core/authentication/authentication.module.js" />
 /// <reference path="../content/app/core/authentication/authentication.service.js" />
-=======
 /// <reference path="../content/app/core/agent/agent.module.js" />
 /// <reference path="../content/app/core/agent/agent.service.js" />
->>>>>>> d6fa69cf4b254763be525b767679aa4ab9848f61
 /// <reference path="../content/app/core/bus/bus.module.js" />
 /// <reference path="../content/app/core/bus/bus.service.js" />
 /// <reference path="../Content/app/core/checkmark/checkmark.filter.js" />

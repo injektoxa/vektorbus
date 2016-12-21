@@ -1,111 +1,31 @@
-﻿<div class="col-md-6">
-    <table>
-        <tr ng-repeat="client in $parent.$ctrl.trip.tripClients">
-            <td class="col-md-4"> {{client.Name}} </td>
-            <td class="col-md-4"> {{client.Phone}} </td>
-            <td class="col-md-4"> {{client.From}} </td>
-            <td class="col-md-4"> {{client.To}} </td>
-            <td class="col-md-4"> {{client.price}} </td>
-            <td class="col-md-4">
-                <a ng-click="$ctrl.removeFromTrip(client)">Удалить </a>
-            </td>
+﻿<div class="clients col-md-10 row grid-container">
+  <a ng-click="$ctrl.addClient()">Добавить клиента</a>
+  <div>
+    <table class="table table-striped table-condensed">
+      <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Телефон</th>
+            <th>Комментарий</th>
+            <th>Скидка</th>
+            <th>Несоверш. ребенок</th>
+            <th>Инвалид</th>
+            <th></th>
+            <th></th>
         </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="client in $ctrl.clients" class="repeat-animation">
+            <td><a ng-click="$ctrl.editClient(client)">{{client.Name}}</a></td>
+            <td>{{client.Phone}}</td>
+            <td>{{client.Comments}}</td>
+            <td>{{client.HasDiscount ? 'Есть' : ''}}</td>
+            <td>{{client.HasMinorChild ? 'Есть' : ''}}</td>
+            <td>{{client.HasDisability ? 'Да' : ''}}</td>
+            <td><button class="btn btn-primary" ng-click="$ctrl.deleteClient(client.Id)">Удалить</button></td>
+            <td><button class="btn btn-primary" ng-click="$ctrl.clientInfo(client)">Информация</button></td>
+        </tr>
+      </tbody>
     </table>
-    <span>
-        <a ng-click="$ctrl.showAddClientBlock()">Добавить клиента</a>
-    </span>
-    <client-crud ng-show="$ctrl.addClientBlockVisible"></client-crud>
-    <p>
-        <span>
-            Поиск:
-            <input class="form-control" ng-model="$ctrl.query" />
-        </span>
-        <span>
-            Сортировать:
-            <select class="form-control" ng-model="$ctrl.orderProp">
-                <option value="Name">По алфавиту</option>
-                <option value="Id">По дате добавления</option>
-            </select>
-        </span>
-    </p>
-    <ul class="Clients">
-        <li ng-repeat="client in $ctrl.clients | filter:$ctrl.query | orderBy:$ctrl.orderProp" class="thumbnail client-list-item">
-            <table class="clients-trip">
-                <tr>
-                    <td class="info">
-                        <a href="#/clients/{{client.Id}}">{{client.Name}}</a>
-                        <p>{{client.Phone}}</p>
-                    </td>
-                  <td class="options">
-                    <div>
-                      <label>
-                        Откуда:
-                      </label>
-                      <select class="form-control" name="repeatFrom" id="repeatFrom" ng-model="client.From" required>
-                        <option ng-repeat="city in $ctrl.cities" value="{{city.Name}}">{{city.Name}}</option>
-                      </select>                      
-                    </div>
-                    <div>
-                      <label>
-                        Куда:
-                      </label>
-                      <select class="form-control" name="repeatTo" id="repeatTo" ng-model="client.To" required>
-                        <option ng-repeat="city in $ctrl.cities" value="{{city.Name}}">{{city.Name}}</option>
-                      </select>
-                    </div>
-                      <div>
-                          <label>
-                              Цена:
-                          </label>
-                          <input type="number" class="form-control" name="Price" ng-model="client.Price" required />                      
-                      </div>
-                      <div>
-                          <label>
-                              Доп. расходы:
-                          </label>
-                          <input type="number" class="form-control" name="AdditionalExpenses" ng-model="client.AdditionalExpenses" required />
-                      </div>
-                      <div>
-                          <label>
-                              Агент:
-                          </label>
-                          <select class="form-control" name="repeatAgent" id="repeatAgent" ng-model="client.AgentId" required>
-                              <option ng-repeat="agent in $ctrl.agents" value="{{agent.Id}}">{{agent.FullName}}</option>
-                          </select>
-                      </div>
-                      <div>
-                          <label>
-                              Цена агента:
-                          </label>
-                          <input type="number" class="form-control" name="AgentPrice" ng-model="client.AgentPrice" required />
-                      </div>
-                    <div>
-                      <label>
-                        Не выходит:
-                      </label>
-                      <input type="checkbox" name="IsStayInBus" ng-model="client.IsStayInBus" required />
-                    </div>
-                    <div>
-                      <label>
-                        Багаж:
-                      </label>
-                      <input type="checkbox" name="HasBaggage" ng-model="client.HasBaggage" required />
-                    </div>
-                  </td>
-                    <td class="button-area">
-                        <label>
-                            Скидка:
-                            <input type="checkbox" ng-disabled="true" ng-model="client.HasDiscount">
-                        </label>
-                        <button class="btn btn-success" ng-click="$ctrl.addToTrip(client)">Добавить</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <p>{{client.Comments}}</p>
-                    </td>
-                </tr>
-            </table>
-        </li>
-    </ul>
+  </div>
 </div>

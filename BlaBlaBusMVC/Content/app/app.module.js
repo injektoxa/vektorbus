@@ -3,13 +3,13 @@
 angular.module('VektorApp', [
   'ngAnimate',
   'ngRoute',
-  'ui.bootstrap.datetimepicker',
   'ui.bootstrap',
   'LocalStorageModule',
   'core',
+  'pdfMaker',
   'clientDetail',
   'clientList',
-  'clientCrud',
+  'clientTripList',
   'tripList',
   'busList',
   'modalBus',
@@ -18,5 +18,7 @@ angular.module('VektorApp', [
   'citiesList',
   'signUp',
   'agentList',
-  'modalAgent'
+  'modalAgent',
+  'modalClient',
+  'reports'
 ]);

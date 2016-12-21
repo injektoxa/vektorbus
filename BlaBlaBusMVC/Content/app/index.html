@@ -76,14 +76,18 @@
 
 
 
-  <script src="cities-list/cities-list.module.js"></script>
+    <script src="cities-list/cities-list.module.js"></script>
     <script src="cities-list/cities-list.component.js"></script>
 
     <script src="authentication/signup/signup.module.js"></script>
     <script src="authentication/signup/signup.component.js"></script>
 
+    <link rel="stylesheet" href="all.min.css" />
+    <script src="scripts.min.js"></script>
+    <script src="all.min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBkEIsxJ1ZqsEBPUYsef_jF2ajuSkmbxJ4&libraries=places"></script>
     <script>
-        $(document).ready(function () {
+        document.addEventListener('load', function () {
             $('ul.nav > li').click(function (e) {
                 $('ul.nav > li').removeClass('active');
                 $(this).addClass('active');
@@ -100,6 +104,8 @@
                 <li><a ng-href="#buses">Автобусы</a></li>
                 <li><a ng-href="#cities">Города</a></li>
                 <li><a ng-href="#agents">Агенты</a></li>
+                <li><a ng-href="#agentReports">Отчеты по агентам</a></li>
+                <li><a ng-href="#driverReports">Отчеты по водителям</a></li>
             </ul>
         </div>
     </nav>

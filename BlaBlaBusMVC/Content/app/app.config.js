@@ -6,7 +6,7 @@ angular.
     function config($locationProvider, $routeProvider) {
       $routeProvider.   
         when('/clients', {
-          template: '<client-list></client-list>'
+            template: '<client-list></client-list>'
         }).
         when('/clients/:clientId', {
           template: '<client-detail></client-detail>'
@@ -26,6 +26,12 @@ angular.
         }).
         when('/agents', {
             template: '<agent-list></agent-list>'
+        }).
+        when('/agentReports', {
+            template: '<agent-reports></agent-reports>'
+        }).
+        when('/driverReports', {
+            template: '<driver-reports></driver-reports>'
         }).
         otherwise('/clients');
     }
