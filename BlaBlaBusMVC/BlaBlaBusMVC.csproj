@@ -186,6 +186,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\BusesController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\CityPricesController.cs" />
@@ -234,7 +235,24 @@
     <Compile Include="Migrations\201611221021289_AddBaggageFieldToClientTrip.Designer.cs">
       <DependentUpon>201611221021289_AddBaggageFieldToClientTrip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611251027241_Trip arrival date.cs" />
+    <Compile Include="Migrations\201611251027241_Trip arrival date.Designer.cs">
+      <DependentUpon>201611251027241_Trip arrival date.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611301353360_AgentTableCreate.cs" />
+    <Compile Include="Migrations\201611301353360_AgentTableCreate.Designer.cs">
+      <DependentUpon>201611301353360_AgentTableCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611301405127_AgentAddedToClientTrip.cs" />
+    <Compile Include="Migrations\201611301405127_AgentAddedToClientTrip.Designer.cs">
+      <DependentUpon>201611301405127_AgentAddedToClientTrip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612010858003_AddFieldToClientTrip.cs" />
+    <Compile Include="Migrations\201612010858003_AddFieldToClientTrip.Designer.cs">
+      <DependentUpon>201612010858003_AddFieldToClientTrip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Agent.cs" />
     <Compile Include="Models\Bus.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\CityPrice.cs" />
@@ -243,6 +261,7 @@
     <Compile Include="Models\Driver.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Trip.cs" />
+    <Compile Include="ViewModels\AgentViewModel.cs" />
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\FactorViewModel.cs" />
@@ -277,10 +296,24 @@
     <Content Include="Content\app\authentication\signup\signup.template.html" />
     <Content Include="Content\app\authentication\signup\signup.component.js" />
     <Content Include="Content\app\authentication\signup\signup.module.js" />
+    <Content Include="Content\app\agent-list\agent-list.component.js" />
+    <Content Include="Content\app\agent-list\agent-list.module.js" />
+    <Content Include="Content\app\agent-list\agent-list.template.html" />
+    <Content Include="Content\app\agent-list\modal\modalAgent-template.html" />
+    <Content Include="Content\app\agent-list\modal\modalAgent.component.js" />
+    <Content Include="Content\app\agent-list\modal\modalAgent.module.js" />
+    <Content Include="Content\app\bus-list\bus-list.component.js" />
+    <Content Include="Content\app\bus-list\bus-list.module.js" />
+    <Content Include="Content\app\bus-list\bus-list.template.html" />
+    <Content Include="Content\app\bus-list\modal\modalBus-template.html" />
+    <Content Include="Content\app\bus-list\modal\modalBus.component.js" />
+    <Content Include="Content\app\bus-list\modal\modalBus.module.js" />
     <Content Include="Content\app\cities-list\cities-list.module.js" />
     <Content Include="Content\app\cities-list\cities-list.template.html" />
     <Content Include="Content\app\client-detail\client-detail.template.html" />
     <Content Include="Content\app\client-list\client-crud\client-crud.module.js" />
+    <Content Include="Content\app\core\agent\agent.module.js" />
+    <Content Include="Content\app\core\agent\agent.service.js" />
     <Content Include="Content\app\core\bus\bus.module.js" />
     <Content Include="Content\app\core\bus\bus.service.js" />
     <Content Include="Content\app\core\checkmark\checkmark.filter.js" />
@@ -295,6 +328,9 @@
     <Content Include="Content\app\core\authentication\authentication.service.js" />
     <Content Include="Content\app\core\trip\trip.module.js" />
     <Content Include="Content\app\core\trip\trip.service.js" />
+    <Content Include="Content\app\driver-list\driver-crud\driver-crud.component.js" />
+    <Content Include="Content\app\driver-list\driver-crud\driver-crud.module.js" />
+    <Content Include="Content\app\driver-list\driver-crud\driver-crud.template.html" />
     <Content Include="Content\app\index.html" />
     <Content Include="Content\app\client-detail\client-detail.component.js" />
     <Content Include="Content\app\client-detail\client-detail.module.js" />
@@ -302,6 +338,9 @@
     <Content Include="Content\app\client-list\client-list.component.js" />
     <Content Include="Content\app\client-list\client-list.module.js" />
     <Content Include="Content\app\client-list\client-list.template.html" />
+    <Content Include="Content\app\driver-list\driver-list.component.js" />
+    <Content Include="Content\app\driver-list\driver-list.module.js" />
+    <Content Include="Content\app\driver-list\driver-list.template.html" />
     <Content Include="Content\app\trip-list\trip-list.component.js" />
     <Content Include="Content\app\trip-list\trip-list.module.js" />
     <Content Include="Content\app\trip-list\trip-list.template.html" />
@@ -474,6 +513,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611221021289_AddBaggageFieldToClientTrip.resx">
       <DependentUpon>201611221021289_AddBaggageFieldToClientTrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611251027241_Trip arrival date.resx">
+      <DependentUpon>201611251027241_Trip arrival date.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611301353360_AgentTableCreate.resx">
+      <DependentUpon>201611301353360_AgentTableCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611301405127_AgentAddedToClientTrip.resx">
+      <DependentUpon>201611301405127_AgentAddedToClientTrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612010858003_AddFieldToClientTrip.resx">
+      <DependentUpon>201612010858003_AddFieldToClientTrip.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

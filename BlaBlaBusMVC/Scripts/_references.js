@@ -1,9 +1,20 @@
 ﻿/// <autosync enabled="true" />
+/// <reference path="../content/app/agent-list/agent-list.component.js" />
+/// <reference path="../content/app/agent-list/agent-list.module.js" />
+/// <reference path="../content/app/agent-list/modal/modalagent.component.js" />
+/// <reference path="../content/app/agent-list/modal/modalagent.module.js" />
 /// <reference path="../content/app/app.animations.js" />
 /// <reference path="../content/app/app.config.js" />
 /// <reference path="../content/app/app.module.js" />
+<<<<<<< HEAD
 /// <reference path="../content/app/authentication/signup/signup.component.js" />
 /// <reference path="../content/app/authentication/signup/signup.module.js" />
+=======
+/// <reference path="../content/app/bus-list/bus-list.component.js" />
+/// <reference path="../content/app/bus-list/bus-list.module.js" />
+/// <reference path="../Content/app/bus-list/modal/modalBus.component.js" />
+/// <reference path="../Content/app/bus-list/modal/modalBus.module.js" />
+>>>>>>> d6fa69cf4b254763be525b767679aa4ab9848f61
 /// <reference path="../content/app/cities-list/cities-list.component.js" />
 /// <reference path="../content/app/cities-list/cities-list.module.js" />
 /// <reference path="../content/app/client-detail/client-detail.component.js" />
@@ -12,8 +23,13 @@
 /// <reference path="../content/app/client-list/client-crud/client-crud.module.js" />
 /// <reference path="../content/app/client-list/client-list.component.js" />
 /// <reference path="../content/app/client-list/client-list.module.js" />
+<<<<<<< HEAD
 /// <reference path="../content/app/core/authentication/authentication.module.js" />
 /// <reference path="../content/app/core/authentication/authentication.service.js" />
+=======
+/// <reference path="../content/app/core/agent/agent.module.js" />
+/// <reference path="../content/app/core/agent/agent.service.js" />
+>>>>>>> d6fa69cf4b254763be525b767679aa4ab9848f61
 /// <reference path="../content/app/core/bus/bus.module.js" />
 /// <reference path="../content/app/core/bus/bus.service.js" />
 /// <reference path="../Content/app/core/checkmark/checkmark.filter.js" />
@@ -26,6 +42,10 @@
 /// <reference path="../content/app/core/driver/driver.service.js" />
 /// <reference path="../content/app/core/trip/trip.module.js" />
 /// <reference path="../content/app/core/trip/trip.service.js" />
+/// <reference path="../Content/app/driver-list/driver-crud/driver-crud.component.js" />
+/// <reference path="../Content/app/driver-list/driver-crud/driver-crud.module.js" />
+/// <reference path="../Content/app/driver-list/driver-list.component.js" />
+/// <reference path="../Content/app/driver-list/driver-list.module.js" />
 /// <reference path="../content/app/trip-list/trip-list.component.js" />
 /// <reference path="../content/app/trip-list/trip-list.module.js" />
 /// <reference path="bootstrap.js" />

@@ -14,11 +14,18 @@ angular.
         when('/trips', {
           template: '<trip-list></trip-list>'
         }).
+        when('/buses',
+          {
+            template: '<bus-list></bus-list>'
+          }).
         when('/cities', {
            template: '<cities-list></cities-list>'
         }).
         when('/signup', {
             template: '<sign-up></signUp>'
+        }).
+        when('/agents', {
+            template: '<agent-list></agent-list>'
         }).
         otherwise('/clients');
     }

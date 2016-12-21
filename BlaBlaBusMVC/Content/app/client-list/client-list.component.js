@@ -5,13 +5,14 @@ angular.
   module('clientList').
   component('clientList', {
       templateUrl: 'client-list/client-list.template.html',
-      controller: ['Client','$scope', 'City',
-        function ClientListController(Client, $scope, City) {
+      controller: ['Client','$scope', 'City', 'Agent',
+        function ClientListController(Client, $scope, City, Agent) {
             var that = this;
 
             this.addClientBlockVisible = false;
             this.clients = Client.query();
             this.cities = City.query();
+            this.agents = Agent.query();
             this.orderProp = 'Id';
 
             this.removeFromTrip = function (client) {
@@ -35,9 +36,10 @@ angular.
             this.remove = function (id) {
                 Client.remove({ Id: id });
 
-                setTimeout(function () {
-                    that.clients = Client.query();
-                }, 1000)
+              setTimeout(function() {
+                  that.clients = Client.query();
+                },
+                1000);
             }
         }
       ]

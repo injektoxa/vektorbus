@@ -27,7 +27,7 @@ h1 {
 }
 
 .thumbnail {
-    height: 220px;
+    height: 330px;
 }
 
 .client {
@@ -157,4 +157,40 @@ table.clients-trip td.button-area {
 
 .Clients {
   padding-left: 0;
+}
+
+.gridContainer thead {
+      border-bottom: 2px solid #ddd;
+}
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+.modal-body {
+  display:block;
+  overflow:auto;
+}
+.modal-body table {
+  width: 80%;
+}
+
+.modal-body input {
+  width: 100%;
+  margin-bottom: 10px;
+  float: left;
+}
+
+form.add-edit tr > td:first-child {
+  width: 40%;
+  vertical-align: text-top;
+  padding-top: 7px;
+}
+
+form.add-edit tr > td:last-child {
+  width: 60%;
+}
+
+.not-active {
+   pointer-events: none;
+   cursor: default;
 }

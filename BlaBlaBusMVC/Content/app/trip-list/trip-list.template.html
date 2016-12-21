@@ -12,16 +12,16 @@
                                 <option ng-repeat="bus in $ctrl.buses" value="{{bus.Id}}">{{bus.FriendlyName}}</option>
                             </select>
                         </td>
-                        <td>
-                            <button class="btn btn-default" ng-click="$ctrl.open()()"> + </button>
-                        </td>
                     </tr>
                     <tr>
                         <td>Водитель: </td>
                         <td>
-                            <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="trip.driverId">
-                                <option ng-repeat="driver in $ctrl.drivers" value="{{driver.Id}}">{{driver.Name}}</option>
-                            </select>
+                          <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="trip.driverId">
+                            <option ng-repeat="driver in $ctrl.drivers" value="{{driver.Id}}">{{driver.Name}} {{driver.Sername}}</option>
+                          </select>
+                        </td>
+                        <td>
+                          <button class="btn btn-default" ng-click="$ctrl.openDriversList()"> + </button>
                         </td>
                     </tr>
                     <tr>
@@ -46,7 +46,29 @@
                                             show-spinners="true"
                                             readonly-time="false"
                                             date-opened="$ctrl.dateOpened"
-                                            show-button-bar="false">
+                                            show-button-bar="false"
+                                            data-on-set-time="onTimeSet(newDate, oldDate)">
+                            </datetimepicker>
+                        </td>
+                    </tr>
+                    <tr ng-show="$ctrl.isShowingArrivalDatePicker">
+                        <td>Время прибытия </td> 
+                        <td>
+                            <datetimepicker hour-step="$ctrl.hourStep"
+                                            minute-step="$ctrl.minuteStep"
+                                            ng-model="trip.arrivalDate"
+                                            show-meridian="$ctrl.showMeridian"
+                                            date-format="{{format}}"
+                                            date-options="$ctrl.arrivalDateOptions"
+                                            datepicker-append-to-body="false"
+                                            readonly-date="false"
+                                            disabled-date="false"
+                                            hidden-time="false"
+                                            hidden-date="false"
+                                            name="datetimepicker"
+                                            show-spinners="true"
+                                            readonly-time="false"
+                                            show-button-bar="false" >
                             </datetimepicker>
                         </td>
                     </tr>
@@ -94,7 +116,9 @@
             </span>
             <br />
             <uib-accordion close-others="oneAtATime" ng-repeat="trip in $ctrl.trips | filter:$ctrl.query">
-                <div uib-accordion-group class="panel-default" heading="{{trip.date}}, {{trip.busName}}, Маршрут: {{trip.cityFromName}} ----> {{trip.cityToName}}" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                <div uib-accordion-group class="panel-default" 
+                     heading="{{trip.date | date:$ctrl.dateTimeFormat }} - {{trip.arrivalDate| date:$ctrl.dateTimeFormat}}, {{trip.busName}}, Маршрут: {{trip.cityFromName}} ----> {{trip.cityToName}}" 
+                     is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
                     <table class="table table-hover table-bordered">
                         <thead>
                             <tr>

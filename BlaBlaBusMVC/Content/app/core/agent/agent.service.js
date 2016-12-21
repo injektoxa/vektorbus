@@ -1,23 +1,23 @@
 'use strict';
 
 angular.
-  module('core.driver').
-  factory('Driver', ['$resource',
+  module('core.agent').
+  factory('Agent', ['$resource',
     function ($resource) {
-        return $resource('/api/drivers/:Id', {}, {
+        return $resource('/api/agents/:Id', {}, {
             query: {
                 method: 'GET',
                 isArray: true
             },
             add: {
-                method: 'POST',
+                method: 'POST'
             },
             update: {
               method: 'PUT'
             },
             remove: {
                 method: 'DELETE',
-                params: { Id: 'id' },
+                params: { Id: 'id' }
             }
         });
     }

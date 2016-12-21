@@ -29,6 +29,7 @@ namespace BlaBlaBusMVC.Controllers
                     cityFromName = item.CityFrom.Name,
                     cityToName = item.CityTo.Name,
                     date = item.Date,
+                    arrivalDate = item.ArrivalDate,
                     clients = item.ClientTrip.Select(i =>
                     new ClientViewModel()
                     {
@@ -40,7 +41,10 @@ namespace BlaBlaBusMVC.Controllers
                         To = i.To.Name,
                         Price = i.Price,
                         IsStayInBus = i.IsStayInBus,
-                        HasBaggage = i.HasBaggage
+                        HasBaggage = i.HasBaggage,
+                        AgentId = i.Agent?.Id,
+                        AgentPrice = i.AgentPrice,
+                        AdditionalExpenses = i.AdditionalExpenses
                     }).ToList(),
                     comments = item.Comments
                 });
@@ -109,6 +113,7 @@ namespace BlaBlaBusMVC.Controllers
             Trip tripdb = new Trip();
             tripdb.Bus = db.Buses.First(b => b.Id == trip.busId);
             tripdb.Date = trip.date;
+            tripdb.ArrivalDate = trip.arrivalDate;
 
             List<ClientTrip> clientsDb = new List<ClientTrip>();
             foreach (var item in trip.clients)
@@ -120,6 +125,9 @@ namespace BlaBlaBusMVC.Controllers
                 clientTrip.Price = item.Price;
                 clientTrip.IsStayInBus = item.IsStayInBus;
                 clientTrip.HasBaggage = item.HasBaggage;
+                clientTrip.Agent = db.Agents.First(x => x.Id == item.AgentId);
+                clientTrip.AgentPrice = item.AgentPrice;
+                clientTrip.AdditionalExpenses = item.AdditionalExpenses;
 
                 clientsDb.Add(clientTrip);
             }
