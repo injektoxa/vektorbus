@@ -4,7 +4,6 @@ angular.module('VektorApp', [
   'ngAnimate',
   'ngRoute',
   'ui.bootstrap',
-  'LocalStorageModule',
   'core',
   'pdfMaker',
   'clientDetail',
@@ -16,9 +15,10 @@ angular.module('VektorApp', [
   'driverList',
   'driverCrud',
   'citiesList',
-  'signUp',
   'agentList',
   'modalAgent',
   'modalClient',
-  'reports'
+  'reports',
+  'signUp',
+  'LocalStorageModule'
 ]);

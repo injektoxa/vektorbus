@@ -9,12 +9,11 @@ using System.Net.Http;
 using System.Security.Claims;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Web;
 using Microsoft.Owin.Security.OAuth;
 
 namespace BlaBlaBusMVC.Controllers
 {
-    [Authorize]
-    [Route("api/Account")]
     public class AccountController : ApiController
     {
         private ApplicationSignInManager _signInManager;
@@ -46,7 +45,7 @@ namespace BlaBlaBusMVC.Controllers
         {
             get
             {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
@@ -57,7 +56,6 @@ namespace BlaBlaBusMVC.Controllers
         //
         // POST: /Account/Login
         [HttpPost]
-        [AllowAnonymous]
         public IHttpActionResult Login(LoginViewModel model, string returnUrl)
         {
             // This doesn't count login failures towards account lockout
@@ -79,8 +77,6 @@ namespace BlaBlaBusMVC.Controllers
 
         //
         // POST: /Account/Register
-        [AllowAnonymous]
-        [Route("Register")]
         [HttpPost]
         public IHttpActionResult Register(RegisterViewModel model)
         {
@@ -91,29 +87,15 @@ namespace BlaBlaBusMVC.Controllers
 
                 if (!result.Succeeded)
                 {
-                    return GetErrorResult(result);
+                    var errorResult = GetErrorResult(result);
+                    return errorResult;
                 }
 
-                if (result.Succeeded)
-                {
-                    SignInManager.SignIn(user, isPersistent:false, rememberBrowser:false);
-
-                    return StatusCode(HttpStatusCode.OK);
-                }
+                return StatusCode(HttpStatusCode.OK);
             }
 
             // If we got this far, something failed, redisplay form
-            return StatusCode(HttpStatusCode.Unauthorized);
-        }
-
-        //
-        // POST: /Account/LogOff
-        [HttpPost]
-        public IHttpActionResult LogOff()
-        {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-
-            return StatusCode(HttpStatusCode.OK);
+            return BadRequest(ModelState);
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

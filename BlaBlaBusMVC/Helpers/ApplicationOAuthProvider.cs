@@ -1,5 +1,4 @@
-﻿using BlaBlaBusMVC.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using System.Collections.Generic;
@@ -15,9 +14,8 @@ namespace BlaBlaBusMVC.Helpers
     {
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-            string clientId = string.Empty;
-            string clientSecret = string.Empty;
-            ApplicationUser client = null;
+            string clientId;
+            string clientSecret;
 
             if (!context.TryGetBasicCredentials(out clientId, out clientSecret))
             {
@@ -29,15 +27,16 @@ namespace BlaBlaBusMVC.Helpers
                 //Remove the comments from the below line context.SetError, and invalidate context 
                 //if you want to force sending clientId/secrects once obtain access tokens. 
                 context.Validated();
+
                 //context.SetError("invalid_clientId", "ClientId should be sent.");
                 return Task.FromResult<object>(null);
             }
 
-            client = context.OwinContext.GetUserManager<ApplicationUserManager>().FindById(context.ClientId);
+            var client = context.OwinContext.GetUserManager<ApplicationUserManager>().FindById(context.ClientId);
 
             if (client == null)
             {
-                context.SetError("invalid_clientId", string.Format("Client '{0}' is not registered in the system.", context.ClientId));
+                context.SetError("invalid_clientId", $"Client '{context.ClientId}' is not registered in the system.");
                 return Task.FromResult<object>(null);
             }
 
@@ -49,26 +48,19 @@ namespace BlaBlaBusMVC.Helpers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
-
-            if (allowedOrigin == null)
-            {
-                allowedOrigin = "*";
-            }
-
+            var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin") ?? "*";
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
-            using (ApplicationDbContext dbContext = new ApplicationDbContext())
-            {
-                IdentityUser user = context.OwinContext.GetUserManager<ApplicationUserManager>().FindById(context.ClientId);
 
-                if (user == null)
-                {
-                    context.SetError("invalid_grant", "The user name or password is incorrect.");
-                    return;
-                }
+            IdentityUser user = context.OwinContext.GetUserManager<ApplicationUserManager>().FindById(context.ClientId);
+
+            if (user == null)
+            {
+                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                return;
             }
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
             identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
             identity.AddClaim(new Claim("sub", context.UserName));
@@ -76,7 +68,7 @@ namespace BlaBlaBusMVC.Helpers
             var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
                     {
-                        "as:client_id", (context.ClientId == null) ? string.Empty : context.ClientId
+                        "as:client_id", context.ClientId ?? string.Empty
                     },
                     {
                         "userName", context.UserName
@@ -101,11 +93,12 @@ namespace BlaBlaBusMVC.Helpers
             // Change auth ticket for refresh token requests
             var newIdentity = new ClaimsIdentity(context.Ticket.Identity);
 
-            var newClaim = newIdentity.Claims.Where(c => c.Type == "newClaim").FirstOrDefault();
+            var newClaim = newIdentity.Claims.FirstOrDefault(c => c.Type == "newClaim");
             if (newClaim != null)
             {
                 newIdentity.RemoveClaim(newClaim);
             }
+
             newIdentity.AddClaim(new Claim("newClaim", "newValue"));
 
             var newTicket = new AuthenticationTicket(newIdentity, context.Ticket.Properties);
@@ -116,7 +109,7 @@ namespace BlaBlaBusMVC.Helpers
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
         {
-            foreach (KeyValuePair<string, string> property in context.Properties.Dictionary)
+            foreach (var property in context.Properties.Dictionary)
             {
                 context.AdditionalResponseParameters.Add(property.Key, property.Value);
             }

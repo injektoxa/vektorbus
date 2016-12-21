@@ -7,13 +7,13 @@ angular.
 
           authServiceFactory.authentication = {
               isAuth: false,
-              userName: "",
+              email: "",
           };
 
           authServiceFactory.saveRegistration = function (registration) {
               authServiceFactory.logOut();
 
-              return $http.post('/api/register', registration).then(function (response) {
+              return $http.post('/api/Account/Register', registration).then(function (response) {
                   return response;
               });
           };
@@ -22,11 +22,11 @@ angular.
             localStorageService.remove('authorizationData');
 
             authServiceFactory.isAuth = false;
-            authServiceFactory.userName = "";
+            authServiceFactory.email = "";
           };
 
           authServiceFactory.login = function (loginData) {
-              var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
+              var data = "grant_type=password&email=" + loginData.emai9l + "&password=" + loginData.password;
 
               if (loginData.useRefreshTokens) {
                   data = data + "&client_id=" + ngAuthSettings.clientId;

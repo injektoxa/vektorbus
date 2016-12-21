@@ -26,7 +26,7 @@ namespace BlaBlaBusMVC
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
             OAuthBearerOptions = new OAuthBearerAuthenticationOptions();
 
-            OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
+            var OauthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
@@ -35,7 +35,7 @@ namespace BlaBlaBusMVC
             };
 
             // Token Generation
-            app.UseOAuthAuthorizationServer(OAuthServerOptions);
+            app.UseOAuthAuthorizationServer(OauthServerOptions);
             app.UseOAuthBearerAuthentication(OAuthBearerOptions);
         }
     }
