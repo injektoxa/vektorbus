@@ -38,6 +38,7 @@
             this.startDatePopup = {
                 opened: false
             };
+
             this.startDateOpen = function() {
                 that.startDatePopup.opened = true;
             };
@@ -45,6 +46,7 @@
             this.endDatePopup = {
                 opened: false
             };
+
             this.endDateOpen = function () {
                 that.endDatePopup.opened = true;
             };
@@ -152,17 +154,20 @@
                     { text: 'Не выходит', style: 'tableHeader' },
                     { text: 'Статус', style: 'tableHeader' }]];
 
-                for (var i = 0; i < trip.clients.length; i++) {
+                for (var i = 0; i < trip.tripClients.length; i++) {
                     tableBody.push([
-                        trip.clients[i].Name,
-                        trip.clients[i].Phone,
-                        trip.clients[i].To,
-                        trip.clients[i].From,
-                        trip.clients[i].Price.toString(),
-                        trip.clients[i].IsStayInBus ? 'Да' : '',
-                        (trip.clients[i].HasMinorChild ? 'С ребенком; ' : '') + (trip.clients[i].HasDisability ? 'Инвалид' : '')
+                        trip.tripClients[i].Name,
+                        trip.tripClients[i].Phone,
+                        trip.tripClients[i].To,
+                        trip.tripClients[i].From,
+                        trip.tripClients[i].Price.toString(),
+                        trip.tripClients[i].IsStayInBus ? 'Да' : '',
+                        (trip.tripClients[i].HasMinorChild ? 'С ребенком; ' : '') + (trip.tripClients[i].HasDisability ? 'Инвалид' : '')
                     ]);
                 }
+                var bus = trip.bus != null ? trip.bus.FriendlyName + ' ' + trip.bus.RegistrationNumber + ', ' : '';
+                var driver = trip.driver != null ? 'Водитель: ' + trip.driver.FullName : '';
+
                 var options = {
                     docDefinition: {
                         pageOrientation: 'portrait',
@@ -170,7 +175,19 @@
                         content: [
                             {
                                 text:
-                                  trip.cityFromName.concat(' --> ', trip.cityToName, ' ', trip.busRegistrationNumber, ' ', trip.date)
+                                  trip.cityFrom.Name.concat(' --> ', trip.cityTo.Name, ' ', trip.date)
+                            },
+                            {
+                                text: bus + driver
+                            },
+                            {
+                                text: 'Обязательные расходы: ' + trip.compulsoryExpenses
+                            },
+                            {
+                                text: 'Дополнительные расходы: ' + trip.unexpectedExpenses + ' (' + trip.unexpectedExpensesComments + ')'
+                            },
+                            {
+                                text: ' '
                             },
                             {
                                 table: {
@@ -196,6 +213,23 @@
                 that.trip.endTime = endDate;
                 that.showAddTripForm = true;
             };
+
+            this.delete = function (trip) {
+                var msg = 'Вы уверены, что хотите удалить маршрут ' + trip.cityFrom.Name + '---->' + trip.cityTo.Name + ', ' + trip.date + '?';
+                if (confirm(msg)) {
+                    Trip.remove({ id: trip.id },
+                        function onSuccess(deletedTrip) {
+                            var index = that.trips.map(function (e) { return e.id }).indexOf(deletedTrip.id);
+                            if (index > -1) {
+                                that.trips.splice(index, 1);
+                            }
+                        },
+                        function onError(error) {
+                            var errorMessage = 'Маршрут не удален. Ошибка удаления: ' + error.data.Message;
+                            alert(errorMessage);
+                        });
+                }
+            }
 
             $scope.$watchCollection('$ctrl.trip.tripClients', function (newValue, previousValue) {
                 if (newValue && newValue.length > 0) {
