@@ -171,7 +171,9 @@
             <br />
             <uib-accordion close-others="oneAtATime" ng-repeat="trip in $ctrl.trips | filter:$ctrl.query">
                 <div uib-accordion-group class="panel-default"
-                     heading="{{trip.date | date:$ctrl.dateTimeFormat }} - {{trip.arrivalDate| date:$ctrl.dateTimeFormat}}, {{trip.bus.FriendlyName}}, Маршрут: {{trip.cityFrom.Name}} ----> {{trip.cityTo.Name}}"
+                     heading="{{trip.date | date:$ctrl.dateTimeFormat }} - {{trip.arrivalDate| date:$ctrl.dateTimeFormat}}, 
+                     {{trip.bus.FriendlyName}} {{trip.bus.RegistrationNumber}}, Водитель: {{trip.driver.FullName}}, 
+                     Маршрут: {{trip.cityFrom.Name}} ----> {{trip.cityTo.Name}}"
                      is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
                     <a ng-click="$ctrl.editTrip(trip)">Редактировать рейс</a>
                     <a class="create-trip" ng-click="$ctrl.createPDF(trip)">Сформировать рейс</a>
@@ -209,6 +211,7 @@
                             <td>{{client.HasDisability ? 'Да' : ''}}</td>
                         </tr>
                     </table>
+                    <a class="delete-trip" ng-click="$ctrl.delete(trip)">Удалить рейс</a>
                 </div>
             </uib-accordion>
         </div>

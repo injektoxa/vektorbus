@@ -97,7 +97,7 @@ namespace BlaBlaBusMVC.Controllers
         }
 
         // DELETE: api/Trips/5
-        [ResponseType(typeof(Trip))]
+        [ResponseType(typeof(TripsViewModel))]
         public IHttpActionResult DeleteTrip(int id)
         {
             Trip trip = db.Trips.Find(id);
@@ -105,11 +105,14 @@ namespace BlaBlaBusMVC.Controllers
             {
                 return NotFound();
             }
-
+            trip.ClientTrip.Clear();
+            db.Entry(trip).State = EntityState.Modified;
+            db.SaveChanges();
             db.Trips.Remove(trip);
             db.SaveChanges();
 
-            return Ok(trip);
+            var model = new TripsViewModel(trip);
+            return Ok(model);
         }
 
         protected override void Dispose(bool disposing)
