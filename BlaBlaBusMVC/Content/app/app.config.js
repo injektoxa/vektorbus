@@ -4,6 +4,10 @@ angular.
   module('VektorApp').
   config(['$locationProvider' ,'$routeProvider',
     function config($locationProvider, $routeProvider) {
+      $locationProvider.html5Mode({
+         enabled: true
+      });
+
       $routeProvider.   
         when('/clients', {
             template: '<client-list></client-list>'
