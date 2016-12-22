@@ -7,7 +7,7 @@ angular.
 
           authServiceFactory.authentication = {
               isAuth: false,
-              email: "",
+              email: ""
           };
 
           authServiceFactory.saveRegistration = function (registration) {
@@ -26,26 +26,23 @@ angular.
           };
 
           authServiceFactory.login = function (loginData) {
-              var data = "grant_type=password&email=" + loginData.emai9l + "&password=" + loginData.password;
-
-              if (loginData.useRefreshTokens) {
-                  data = data + "&client_id=" + ngAuthSettings.clientId;
-              }
+              var data = "grant_type=password&username=" + loginData.email + "&password=" + loginData.password;
 
               var deferred = $q.defer();
 
-              //TODO: Test this block of code
-              $http.post('/api/login' + token, data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
-                  localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, refreshToken: ""});
+              $http.post('/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' }})
+                   .then(function (response) {
+                      localStorageService.set('authorizationData', { token: response.access_token, email: loginData.email});
 
-                  authServiceFactory.authentication.isAuth = true;
-                  authServiceFactory.authentication.userName = loginData.userName;
+                      authServiceFactory.authentication.isAuth = true;
+                      authServiceFactory.authentication.email = loginData.email;
 
-                  deferred.resolve(response);
-              }).error(function (err, status) {
-                  authServiceFactory.logOut();
-                  deferred.reject(err);
-              });
+                      deferred.resolve(response);
+                   },
+                   function (err, status) {
+                      authServiceFactory.logOut();
+                      deferred.reject(err);
+                   });   
 
               return deferred.promise;
           };

@@ -10,6 +10,7 @@ using System.Security.Claims;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Web;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security.OAuth;
 
 namespace BlaBlaBusMVC.Controllers
@@ -53,30 +54,8 @@ namespace BlaBlaBusMVC.Controllers
             }
         }
 
-        //
-        // POST: /Account/Login
-        [HttpPost]
-        public IHttpActionResult Login(LoginViewModel model, string returnUrl)
-        {
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = SignInManager.PasswordSignIn(model.Email, model.Password, model.RememberMe, shouldLockout: false);
 
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return StatusCode(HttpStatusCode.OK);
-                case SignInStatus.LockedOut:
-                    return StatusCode(HttpStatusCode.Conflict);
-                case SignInStatus.Failure:
-
-                default:
-                    return StatusCode(HttpStatusCode.Unauthorized);
-            }
-        }
-
-        //
-        // POST: /Account/Register
+        // POST: api/Account/Register
         [HttpPost]
         public IHttpActionResult Register(RegisterViewModel model)
         {
@@ -144,7 +123,7 @@ namespace BlaBlaBusMVC.Controllers
             var ticket = new AuthenticationTicket(identity, props);
             var accessToken = Startup.OAuthBearerOptions.AccessTokenFormat.Protect(ticket);
 
-            JObject tokenResponse = new JObject(
+            var tokenResponse = new JObject(
                                         new JProperty("userName", userName),
                                         new JProperty("access_token", accessToken),
                                         new JProperty("token_type", "bearer"),

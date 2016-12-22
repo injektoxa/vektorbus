@@ -25,7 +25,10 @@ angular.
            template: '<cities-list></cities-list>'
         }).
         when('/signup', {
-            template: '<sign-up></signUp>'
+            template: '<sign-up></sign-up>'
+        }).
+        when('/login', {
+            template: '<sign-in></sign-in>'
         }).
         when('/agents', {
             template: '<agent-list></agent-list>'
@@ -36,6 +39,6 @@ angular.
         when('/driverReports', {
             template: '<driver-reports></driver-reports>'
         }).
-        otherwise('/clients');
+        otherwise('/login');
     }
   ]);

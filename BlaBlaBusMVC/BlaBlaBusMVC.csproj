@@ -315,6 +315,9 @@
     <Content Include="Content\app\app.config.js" />
     <Content Include="Content\app\app.css" />
     <Content Include="Content\app\app.module.js" />
+    <Content Include="Content\app\authentication\signin\signin.component.js" />
+    <Content Include="Content\app\authentication\signin\signin.module.js" />
+    <Content Include="Content\app\authentication\signin\signin.template.html" />
     <Content Include="Content\app\authentication\signup\signup.template.html" />
     <Content Include="Content\app\authentication\signup\signup.component.js" />
     <Content Include="Content\app\authentication\signup\signup.module.js" />

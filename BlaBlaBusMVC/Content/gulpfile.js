@@ -86,7 +86,10 @@ gulp.task('app_scripts', function() {
                     'app/pdfMaker/pdfMaker.module.js',
                     'app/pdfMaker/pdfMaker.service.js',
                     'app/authentication/signup/signup.module.js',
-                    'app/authentication/signup/signup.component.js'
+                    'app/authentication/signup/signup.component.js',
+                    'app/authentication/signin/signin.module.js',
+                    'app/authentication/signin/signin.component.js'
+
                 ],
              { base: 'app/' })
             .pipe(sourcemaps.init())

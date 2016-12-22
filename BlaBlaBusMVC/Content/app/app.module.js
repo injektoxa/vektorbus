@@ -20,5 +20,6 @@ angular.module('VektorApp', [
   'modalClient',
   'reports',
   'signUp',
+  'signIn',
   'LocalStorageModule'
 ]);

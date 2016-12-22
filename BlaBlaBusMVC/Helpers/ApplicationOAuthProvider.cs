@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 
@@ -14,44 +15,14 @@ namespace BlaBlaBusMVC.Helpers
     {
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-            string clientId;
-            string clientSecret;
-
-            if (!context.TryGetBasicCredentials(out clientId, out clientSecret))
-            {
-                context.TryGetFormCredentials(out clientId, out clientSecret);
-            }
-
-            if (context.ClientId == null)
-            {
-                //Remove the comments from the below line context.SetError, and invalidate context 
-                //if you want to force sending clientId/secrects once obtain access tokens. 
-                context.Validated();
-
-                //context.SetError("invalid_clientId", "ClientId should be sent.");
-                return Task.FromResult<object>(null);
-            }
-
-            var client = context.OwinContext.GetUserManager<ApplicationUserManager>().FindById(context.ClientId);
-
-            if (client == null)
-            {
-                context.SetError("invalid_clientId", $"Client '{context.ClientId}' is not registered in the system.");
-                return Task.FromResult<object>(null);
-            }
-
-            context.OwinContext.Set<string>("as:clientAllowedOrigin", client.AllowedOrigin);
-
             context.Validated();
             return Task.FromResult<object>(null);
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin") ?? "*";
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
-
-            IdentityUser user = context.OwinContext.GetUserManager<ApplicationUserManager>().FindById(context.ClientId);
+            IdentityUser user = await HttpContext.Current.GetOwinContext()
+                .GetUserManager<ApplicationUserManager>().FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {
@@ -63,7 +34,6 @@ namespace BlaBlaBusMVC.Helpers
 
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
             identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
-            identity.AddClaim(new Claim("sub", context.UserName));
 
             var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
