@@ -1,45 +1,29 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using BlaBlaBusMVC.Models;
+using BlaBlaBusMVC.ViewModels;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using BlaBlaBusMVC.Models;
-using BlaBlaBusMVC.ViewModels;
-using System.Web.Http;
-using System.Net;
-using System.Net.Http;
-using System.Security.Claims;
+using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Net;
+using System.Security.Claims;
 using System.Web;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin.Security.OAuth;
+using System.Web.Http;
 
 namespace BlaBlaBusMVC.Controllers
 {
     public class AccountController : ApiController
     {
-        private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager)
         {
             UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? Request.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
         }
 
         public ApplicationUserManager UserManager
@@ -53,7 +37,6 @@ namespace BlaBlaBusMVC.Controllers
                 _userManager = value;
             }
         }
-
 
         // POST: api/Account/Register
         [HttpPost]
@@ -143,29 +126,9 @@ namespace BlaBlaBusMVC.Controllers
                     _userManager.Dispose();
                     _userManager = null;
                 }
-
-                if (_signInManager != null)
-                {
-                    _signInManager.Dispose();
-                    _signInManager = null;
-                }
             }
 
             base.Dispose(disposing);
         }
-
-        #region Helpers
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return Request.GetOwinContext().Authentication;
-            }
-        }
-
-        #endregion
     }
 }

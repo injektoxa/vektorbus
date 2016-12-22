@@ -204,6 +204,7 @@
     </Compile>
     <Compile Include="Helpers\ApplicationDBContext.cs" />
     <Compile Include="Helpers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Helpers\ApplicationRoleManager.cs" />
     <Compile Include="Migrations\201609210729349_init.cs" />
     <Compile Include="Migrations\201609210729349_init.Designer.cs">
       <DependentUpon>201609210729349_init.cs</DependentUpon>

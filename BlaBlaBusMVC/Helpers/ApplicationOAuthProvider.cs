@@ -13,6 +13,32 @@ namespace BlaBlaBusMVC.Helpers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
+        private ApplicationUserManager _userManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        private ApplicationRoleManager _roleManager;
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
+        }
+
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
@@ -21,8 +47,7 @@ namespace BlaBlaBusMVC.Helpers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            IdentityUser user = await HttpContext.Current.GetOwinContext()
-                .GetUserManager<ApplicationUserManager>().FindAsync(context.UserName, context.Password);
+            IdentityUser user = await UserManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {
@@ -32,49 +57,20 @@ namespace BlaBlaBusMVC.Helpers
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
 
+            //we will have only one role per each User
+            var role = RoleManager.FindById(user.Roles.First().RoleId).Name;
+
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-            identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
+            identity.AddClaim(new Claim(ClaimTypes.Role, role));
 
             var props = new AuthenticationProperties(new Dictionary<string, string>
-                {
-                    {
-                        "as:client_id", context.ClientId ?? string.Empty
-                    },
-                    {
-                        "userName", context.UserName
-                    }
-                });
+            {
+                { "role", role},
+                { "userName", context.UserName }
+            });
 
             var ticket = new AuthenticationTicket(identity, props);
             context.Validated(ticket);
-        }
-
-        public override Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
-        {
-            var originalClient = context.Ticket.Properties.Dictionary["as:client_id"];
-            var currentClient = context.ClientId;
-
-            if (originalClient != currentClient)
-            {
-                context.SetError("invalid_clientId", "Refresh token is issued to a different clientId.");
-                return Task.FromResult<object>(null);
-            }
-
-            // Change auth ticket for refresh token requests
-            var newIdentity = new ClaimsIdentity(context.Ticket.Identity);
-
-            var newClaim = newIdentity.Claims.FirstOrDefault(c => c.Type == "newClaim");
-            if (newClaim != null)
-            {
-                newIdentity.RemoveClaim(newClaim);
-            }
-
-            newIdentity.AddClaim(new Claim("newClaim", "newValue"));
-
-            var newTicket = new AuthenticationTicket(newIdentity, context.Ticket.Properties);
-            context.Validated(newTicket);
-
-            return Task.FromResult<object>(null);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
