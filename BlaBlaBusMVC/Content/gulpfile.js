@@ -20,7 +20,8 @@ gulp.task('bower_components', function () {
                     'app/bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js',
                     'app/bower_components/pdfmake/build/pdfmake.min.js',
                     'app/bower_components/pdfmake/build/vfs_fonts.js',
-                    'app/bower_components/pdfmake/underscore/underscore-min.js'
+                    'app/bower_components/pdfmake/underscore/underscore-min.js',
+                    'app/bower_components/angular-local-storage/dist/angular-local-storage.min.js',
         ], { base: 'app/' })
             .pipe(concat('scripts.min.js'))
             .pipe(gulp.dest('app'));
@@ -52,6 +53,9 @@ gulp.task('app_scripts', function() {
                     'app/core/agentReport/agentReport.service.js',
                     'app/core/driverReport/driverReport.module.js',
                     'app/core/driverReport/driverReport.service.js',
+                    'app/core/authentication/authentication.module.js',
+                    'app/core/authentication/authentication.service.js',
+                    'app/core/authentication/authInterceptor.service.js',
                     'app/clientTrip-list/clientTrip-list.module.js',
                     'app/clientTrip-list/clientTrip-list.component.js',
                     'app/client-detail/client-detail.module.js',
@@ -81,7 +85,14 @@ gulp.task('app_scripts', function() {
                     'app/cities-list/cities-list.module.js',
                     'app/cities-list/cities-list.component.js',
                     'app/pdfMaker/pdfMaker.module.js',
-                    'app/pdfMaker/pdfMaker.service.js'
+                    'app/pdfMaker/pdfMaker.service.js',
+                    'app/authentication/signup/signup.module.js',
+                    'app/authentication/signup/signup.component.js',
+                    'app/authentication/signin/signin.module.js',
+                    'app/authentication/signin/signin.component.js',
+                    'app/navbar/navbar.module.js',
+                    'app/navbar/navbar.component.js',
+                    'app/Derectives/compare-passwords.derective.js'
                 ],
              { base: 'app/' })
             .pipe(sourcemaps.init())

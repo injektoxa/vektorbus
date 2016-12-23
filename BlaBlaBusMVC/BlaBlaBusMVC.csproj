@@ -49,6 +49,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -64,6 +72,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.2\lib\net45\System.Web.Http.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -124,9 +136,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -147,9 +156,6 @@
     </Reference>
     <Reference Include="Microsoft.Owin">
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb">
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security">
       <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
@@ -183,7 +189,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DriverReportsController.cs" />
     <Compile Include="Controllers\AgentReportsController.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\BusesController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
@@ -196,6 +202,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ApplicationDBContext.cs" />
+    <Compile Include="Helpers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Helpers\ApplicationRoleManager.cs" />
     <Compile Include="Migrations\201609210729349_init.cs" />
     <Compile Include="Migrations\201609210729349_init.Designer.cs">
       <DependentUpon>201609210729349_init.cs</DependentUpon>
@@ -300,6 +309,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\.gitignore" />
+    <Content Include="Content\app\access-forbidden.html" />
     <Content Include="Content\app\all.min.css" />
     <Content Include="Content\app\all.min.js" />
     <Content Include="Content\app\app.animations.css" />
@@ -307,6 +317,12 @@
     <Content Include="Content\app\app.config.js" />
     <Content Include="Content\app\app.css" />
     <Content Include="Content\app\app.module.js" />
+    <Content Include="Content\app\authentication\signin\signin.component.js" />
+    <Content Include="Content\app\authentication\signin\signin.module.js" />
+    <Content Include="Content\app\authentication\signin\signin.template.html" />
+    <Content Include="Content\app\authentication\signup\signup.template.html" />
+    <Content Include="Content\app\authentication\signup\signup.component.js" />
+    <Content Include="Content\app\authentication\signup\signup.module.js" />
     <Content Include="Content\app\agent-list\agent-list.component.js" />
     <Content Include="Content\app\agent-list\agent-list.module.js" />
     <Content Include="Content\app\agent-list\agent-list.template.html" />
@@ -330,6 +346,7 @@
     <Content Include="Content\app\client-list\modal\modalClient.module.js" />
     <Content Include="Content\app\client-list\modal\modalClientTrips.component.js" />
     <Content Include="Content\app\client-list\modal\modalClientTrips-template.html" />
+    <Content Include="Content\app\core\authentication\authInterceptor.service.js" />
     <Content Include="Content\app\core\driverReport\driverReport.service.js" />
     <Content Include="Content\app\core\driverReport\driverReport.module.js" />
     <Content Include="Content\app\core\agent\agent.module.js" />
@@ -346,10 +363,13 @@
     <Content Include="Content\app\core\client\client.service.js" />
     <Content Include="Content\app\core\driver\driver.module.js" />
     <Content Include="Content\app\core\driver\driver.service.js" />
+    <Content Include="Content\app\core\authentication\authentication.module.js" />
+    <Content Include="Content\app\core\authentication\authentication.service.js" />
     <Content Include="Content\app\core\agentReport\agentReport.service.js" />
     <Content Include="Content\app\core\agentReport\agentReport.module.js" />
     <Content Include="Content\app\core\trip\trip.module.js" />
     <Content Include="Content\app\core\trip\trip.service.js" />
+    <Content Include="Content\app\Derectives\compare-passwords.derective.js" />
     <Content Include="Content\app\driver-list\driver-crud\driver-crud.component.js" />
     <Content Include="Content\app\driver-list\driver-crud\driver-crud.module.js" />
     <Content Include="Content\app\driver-list\driver-crud\driver-crud.template.html" />
@@ -362,6 +382,9 @@
     <Content Include="Content\app\driver-list\driver-list.component.js" />
     <Content Include="Content\app\driver-list\driver-list.module.js" />
     <Content Include="Content\app\driver-list\driver-list.template.html" />
+    <Content Include="Content\app\navbar\navbar.component.js" />
+    <Content Include="Content\app\navbar\navbar.module.js" />
+    <Content Include="Content\app\navbar\navbar.template.html" />
     <Content Include="Content\app\pdfMaker\pdfMaker.module.js" />
     <Content Include="Content\app\pdfMaker\pdfMaker.service.js" />
     <Content Include="Content\app\reports\driver-reports.template.html" />
@@ -499,6 +522,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Content\app\app.run.js" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>

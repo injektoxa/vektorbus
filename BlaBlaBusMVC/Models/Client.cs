@@ -19,6 +19,12 @@ namespace BlaBlaBusMVC.Models
 
         public string Comments { get; set; }
 
+        public object Secret { get; internal set; }
+
+        public string AllowedOrigin { get; internal set; }
+
+        public bool Active { get; internal set; }
+
         public bool HasDisability { get; set; }
 
         public bool HasMinorChild { get; set; }

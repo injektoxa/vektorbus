@@ -1,0 +1,17 @@
+﻿<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li ng-show="$ctrl.isAuth"><a class="active" ng-href="trips">Маршруты</a></li>
+            <li ng-show="$ctrl.hasRole($ctrl.ClientAccessRoles)"><a ng-href="clients">Клиенты</a></li>
+            <li ng-show="$ctrl.hasRole($ctrl.BusesAccessRoles)"><a ng-href="buses">Автобусы</a></li>
+            <li ng-show="$ctrl.hasRole()"><a ng-href="cities">Города</a></li>
+            <li ng-show="$ctrl.hasRole()"><a ng-href="agents">Агенты</a></li>
+            <li ng-show="$ctrl.hasRole()"><a ng-href="agentReports">Отчеты по агентам</a></li>
+            <li ng-show="$ctrl.hasRole()"><a ng-href="driverReports">Отчеты по водителям</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a ng-href="login">{{$ctrl.isAuth ? "Выйти" : "Войти"}}</a></li>
+        </ul>
+    </div>
+</nav>

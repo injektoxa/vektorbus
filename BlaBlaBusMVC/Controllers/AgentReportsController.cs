@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using BlaBlaBusMVC.Models;
 using BlaBlaBusMVC.ViewModels;
-using WebGrease.Css.Extensions;
 
 namespace BlaBlaBusMVC.Controllers
 {
-    public class AgentReportsController : ApiController
+    [Authorize(Roles = "Admin")]
+    public class AgentReportsController : BaseApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
