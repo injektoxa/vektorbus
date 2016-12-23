@@ -32,6 +32,7 @@ gulp.task('app_scripts', function() {
         gulp.src([
                     'app/app.module.js',
                     'app/app.config.js',
+                    'app/app.run.js',
                     'app/app.animations.js',
                     'app/core/core.module.js',
                     'app/core/checkmark/checkmark.filter.js',
@@ -88,8 +89,9 @@ gulp.task('app_scripts', function() {
                     'app/authentication/signup/signup.module.js',
                     'app/authentication/signup/signup.component.js',
                     'app/authentication/signin/signin.module.js',
-                    'app/authentication/signin/signin.component.js'
-
+                    'app/authentication/signin/signin.component.js',
+                    'app/navbar/navbar.module.js',
+                    'app/navbar/navbar.component.js'
                 ],
              { base: 'app/' })
             .pipe(sourcemaps.init())

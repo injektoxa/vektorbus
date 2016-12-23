@@ -1,44 +1,88 @@
 'use strict';
 
 angular.
-  module('VektorApp').
-  config(['$locationProvider' ,'$routeProvider',
-    function config($locationProvider, $routeProvider) {
-      $locationProvider.html5Mode({
-         enabled: true
-      });
+    module('VektorApp')
+    .constant('authConstants',
+    {
+        ClientAccessRoles: ['Driver'],
+        BussesAccessRoles: ['Driver', 'Partner'],
+        TripsAccessRoles: ['User', 'Driver', 'Partner']
+    })
+    .config(['$locationProvider', '$routeProvider', 'authConstants',
+        function config($locationProvider, $routeProvider, authConstants) {
+            $locationProvider.html5Mode({
+                enabled: true
+            });
 
-      $routeProvider.   
-        when('/clients', {
-            template: '<client-list></client-list>'
-        }).
-        when('/clients/:clientId', {
-          template: '<client-detail></client-detail>'
-        }).
-        when('/trips', {
-          template: '<trip-list></trip-list>'
-        }).
-        when('/buses', {
-            template: '<bus-list></bus-list>'
-        }).
-        when('/cities', {
-           template: '<cities-list></cities-list>'
-        }).
-        when('/signup', {
-            template: '<sign-up></sign-up>'
-        }).
-        when('/login', {
-            template: '<sign-in></sign-in>'
-        }).
-        when('/agents', {
-            template: '<agent-list></agent-list>'
-        }).
-        when('/agentReports', {
-            template: '<agent-reports></agent-reports>'
-        }).
-        when('/driverReports', {
-            template: '<driver-reports></driver-reports>'
-        }).
-        otherwise('/login');
-    }
-  ]);
+            $routeProvider.
+                when('/clients',
+                {
+                    template: '<client-list></client-list>',
+                    acceptedRoles: authConstants.ClientAccessRoles
+                }).
+                when('/clients/:clientId',
+                {
+                    template: '<client-detail></client-detail>'
+                }).
+                when('/trips',
+                {
+                    template: '<trip-list></trip-list>',
+                    acceptedRoles: authConstants.TripsAccessRoles
+                }).
+                when('/buses',
+                {
+                    template: '<bus-list></bus-list>',
+                    acceptedRoles: authConstants.BussesAccessRoles
+                }).
+                when('/cities',
+                {
+                    template: '<cities-list></cities-list>'
+                }).
+                when('/signup',
+                {
+                    template: '<sign-up></sign-up>',
+                    allowAnonymus: true
+                }).
+                when('/login',
+                {
+                    template: '<sign-in></sign-in>',
+                    allowAnonymus: true
+                }).
+                when('/agents',
+                {
+                    template: '<agent-list></agent-list>'
+                }).
+                when('/agentReports',
+                {
+                    template: '<agent-reports></agent-reports>'
+                }).
+                when('/driverReports',
+                {
+                    template: '<driver-reports></driver-reports>'
+                }).
+                when('/access-forbidden',
+                {
+                    templateUrl: 'access-forbidden.html',
+                    allowAnonymus: true
+                }).
+                otherwise('/login');
+        }
+    ]).run(['$rootScope', '$location', 'AuthService',
+        function ($rootScope, $location, authService) {
+            $rootScope.$on('$routeChangeStart',
+                function (event, next) {
+                    var currentRole = authService.authData.role;
+
+                    next.acceptedRoles = next.acceptedRoles ? next.acceptedRoles : [];
+
+                    //if current user is not authenticated or his role is not accepted to view particular route
+                    if (next.allowAnonymus) {
+                        return true;
+                    }
+
+                    if (currentRole != "Admin" && next.acceptedRoles.indexOf(currentRole) == -1) {
+                        $location.path('/access-forbidden');
+                    }
+                });
+        }
+    ]);

@@ -29,7 +29,7 @@ namespace BlaBlaBusMVC
             var oauthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/token"),
+                TokenEndpointPath = new PathString("/api/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromHours(24),
                 Provider = new ApplicationOAuthProvider(),
             };

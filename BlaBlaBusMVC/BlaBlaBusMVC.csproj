@@ -379,6 +379,9 @@
     <Content Include="Content\app\driver-list\driver-list.component.js" />
     <Content Include="Content\app\driver-list\driver-list.module.js" />
     <Content Include="Content\app\driver-list\driver-list.template.html" />
+    <Content Include="Content\app\navbar\navbar.component.js" />
+    <Content Include="Content\app\navbar\navbar.module.js" />
+    <Content Include="Content\app\navbar\navbar.template.html" />
     <Content Include="Content\app\pdfMaker\pdfMaker.module.js" />
     <Content Include="Content\app\pdfMaker\pdfMaker.service.js" />
     <Content Include="Content\app\reports\driver-reports.template.html" />
@@ -516,6 +519,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Content\app\app.run.js" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>

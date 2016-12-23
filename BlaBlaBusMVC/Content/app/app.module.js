@@ -21,5 +21,6 @@ angular.module('VektorApp', [
   'reports',
   'signUp',
   'signIn',
-  'LocalStorageModule'
+  'LocalStorageModule',
+  'navBar'
 ]);

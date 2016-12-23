@@ -6,9 +6,9 @@ angular.
     {
         templateUrl: 'authentication/signin/signin.template.html',
         controller: ['AuthService', '$location', function(authService, $location) {
-            var that=this;
+            var that = this;
 
-            if (!authService.authentication.isAuth) {
+            if (authService.authData.isAuth) {
                 authService.logOut();
                 $location.path('/login');
             }
@@ -20,7 +20,7 @@ angular.
 
             this.message="";
 
-            this.login=function() {
+            this.login = function() {
                 authService.login(this.loginData).then(function(response) {
                     $location.path('/clients');
                 },

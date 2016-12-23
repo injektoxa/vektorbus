@@ -1,14 +1,30 @@
 ﻿'use strict';
 
+const authDataResourceKey = "authorizationData";
+
 angular.
   module('core.authentication').
       factory('AuthService', ['localStorageService', '$http', '$q', function (localStorageService, $http, $q) {
           var authServiceFactory = {};
+          var observerCallbacks = [];
 
-          authServiceFactory.authentication = {
-              isAuth: false,
-              email: ""
+          var authData = localStorageService.get(authDataResourceKey);
+          authServiceFactory.authData = {
+              isAuth: authData != null,
+              email: authData ? authData.email : "",
+              role: authData ? authData.role : "guest"
           };
+
+          authServiceFactory.registerObserverCallback = function (callback) {
+              observerCallbacks.push(callback);
+          };
+
+          //call this when you know that authData has been changed
+          var notifyObservers = function () {
+              angular.forEach(observerCallbacks, function (callback) {
+                  callback();
+              });
+          }
 
           authServiceFactory.saveRegistration = function (registration) {
               authServiceFactory.logOut();
@@ -19,10 +35,13 @@ angular.
           };
 
           authServiceFactory.logOut = function () {
-            localStorageService.remove('authorizationData');
+              localStorageService.remove(authDataResourceKey);
 
-            authServiceFactory.isAuth = false;
-            authServiceFactory.email = "";
+              authServiceFactory.authData.isAuth = false;
+              authServiceFactory.authData.role = "";
+              authServiceFactory.authData.email = "";
+
+              notifyObservers();
           };
 
           authServiceFactory.login = function (loginData) {
@@ -30,23 +49,26 @@ angular.
 
               var deferred = $q.defer();
 
-              $http.post('/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' }})
+              $http.post('/api/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
                    .then(function (response) {
-                      localStorageService.set('authorizationData', { token: response.access_token, email: loginData.email});
+                       localStorageService.set(authDataResourceKey, { token: response.data.access_token, email: loginData.email, role: response.data.role });
 
-                      authServiceFactory.authentication.isAuth = true;
-                      authServiceFactory.authentication.email = loginData.email;
+                       authServiceFactory.authData.isAuth = true;
+                       authServiceFactory.authData.email = loginData.email;
+                       authServiceFactory.authData.role = response.data.role;
 
-                      deferred.resolve(response);
+                       notifyObservers();
+
+                       deferred.resolve(response);
                    },
                    function (err, status) {
-                      authServiceFactory.logOut();
-                      deferred.reject(err);
-                   });   
+                       authServiceFactory.logOut();
+                       deferred.reject(err);
+                   });
 
               return deferred.promise;
           };
 
           return authServiceFactory;
-        }
+      }
       ]);
