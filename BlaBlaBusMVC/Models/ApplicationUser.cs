@@ -15,7 +15,5 @@ namespace BlaBlaBusMVC.Models
             // Add custom user claims here
             return userIdentity;
         }
-
-        public string AllowedOrigin { get; set; }
     }
 }
