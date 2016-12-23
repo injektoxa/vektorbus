@@ -8,11 +8,11 @@ angular.
         BussesAccessRoles: ['Driver', 'Partner'],
         TripsAccessRoles: ['User', 'Driver', 'Partner']
     })
-    .config(['$locationProvider', '$routeProvider', 'authConstants',
-        function config($locationProvider, $routeProvider, authConstants) {
-            $locationProvider.html5Mode({
-                enabled: true
-            });
+    .config(['$locationProvider', '$routeProvider', 'authConstants', '$httpProvider',
+        function config($locationProvider, $routeProvider, authConstants, $httpProvider) {
+            $httpProvider.interceptors.push('authInterceptorService');
+
+            $locationProvider.html5Mode(true);
 
             $routeProvider.
                 when('/clients',

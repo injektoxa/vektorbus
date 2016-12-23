@@ -2,12 +2,7 @@
 using BlaBlaBusMVC.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.OAuth;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Net;
-using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 
@@ -15,7 +10,7 @@ namespace BlaBlaBusMVC.Controllers
 {
     public class AccountController : ApiController
     {
-        private ApplicationUserManager _userManager;
+        private ApplicationUserManager userManager;
 
         public AccountController()
         {
@@ -30,11 +25,11 @@ namespace BlaBlaBusMVC.Controllers
         {
             get
             {
-                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
-                _userManager = value;
+                userManager = value;
             }
         }
 
@@ -71,7 +66,7 @@ namespace BlaBlaBusMVC.Controllers
             {
                 if (result.Errors != null)
                 {
-                    foreach (string error in result.Errors)
+                    foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError("", error);
                     }
@@ -89,42 +84,14 @@ namespace BlaBlaBusMVC.Controllers
             return null;
         }
 
-        private JObject GenerateLocalAccessTokenResponse(string userName)
-        {
-            var tokenExpiration = TimeSpan.FromDays(1);
-            ClaimsIdentity identity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
-
-            identity.AddClaim(new Claim(ClaimTypes.Name, userName));
-            identity.AddClaim(new Claim("role", "user"));
-
-            var props = new AuthenticationProperties()
-            {
-                IssuedUtc = DateTime.Now,
-                ExpiresUtc = DateTime.Now.Add(tokenExpiration),
-            };
-
-            var ticket = new AuthenticationTicket(identity, props);
-            var accessToken = Startup.OAuthBearerOptions.AccessTokenFormat.Protect(ticket);
-
-            var tokenResponse = new JObject(
-                                        new JProperty("userName", userName),
-                                        new JProperty("access_token", accessToken),
-                                        new JProperty("token_type", "bearer"),
-                                        new JProperty("expires_in", tokenExpiration.TotalSeconds.ToString()),
-                                        new JProperty(".issued", ticket.Properties.IssuedUtc.ToString()),
-                                        new JProperty(".expires", ticket.Properties.ExpiresUtc.ToString()));
-
-            return tokenResponse;
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                if (_userManager != null)
+                if (userManager != null)
                 {
-                    _userManager.Dispose();
-                    _userManager = null;
+                    userManager.Dispose();
+                    userManager = null;
                 }
             }
 

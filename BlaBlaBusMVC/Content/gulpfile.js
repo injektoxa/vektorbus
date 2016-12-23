@@ -32,7 +32,6 @@ gulp.task('app_scripts', function() {
         gulp.src([
                     'app/app.module.js',
                     'app/app.config.js',
-                    'app/app.run.js',
                     'app/app.animations.js',
                     'app/core/core.module.js',
                     'app/core/checkmark/checkmark.filter.js',
@@ -56,6 +55,7 @@ gulp.task('app_scripts', function() {
                     'app/core/driverReport/driverReport.service.js',
                     'app/core/authentication/authentication.module.js',
                     'app/core/authentication/authentication.service.js',
+                    'app/core/authentication/authInterceptor.service.js',
                     'app/clientTrip-list/clientTrip-list.module.js',
                     'app/clientTrip-list/clientTrip-list.component.js',
                     'app/client-detail/client-detail.module.js',
@@ -91,7 +91,8 @@ gulp.task('app_scripts', function() {
                     'app/authentication/signin/signin.module.js',
                     'app/authentication/signin/signin.component.js',
                     'app/navbar/navbar.module.js',
-                    'app/navbar/navbar.component.js'
+                    'app/navbar/navbar.component.js',
+                    'app/Derectives/compare-passwords.derective.js'
                 ],
              { base: 'app/' })
             .pipe(sourcemaps.init())

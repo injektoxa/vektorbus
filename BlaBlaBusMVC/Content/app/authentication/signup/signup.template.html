@@ -1,11 +1,20 @@
-﻿<form>
+﻿<h2 class="auth-form-title">Register</h2>
+<form class="auth-form col-lg-4 col-md-6 col-sm-8 col-xs-12" name="registrationForm">
     <div class="form-group">
-        <input type="text" class="form-control" placeholder="Email" ng-model="$ctrl.registration.email" required autofocus>
-        <input type="password" class="form-control" placeholder="Password" ng-model="$ctrl.registration.password" required>
-        <input type="password" class="form-control" placeholder="Confirm Password" ng-model="$ctrl.registration.confirmPassword" required>
-        <button class="btn btn-lg btn-info btn-block" type="submit" ng-click="$ctrl.signUp()">Submit</button>
+        <input name="registrationForm" type="email" class="form-control" 
+               placeholder="Email" ng-model="$ctrl.registration.email" required autofocus>
+        <input name="registrationForm" type="password" class="form-control"
+               placeholder="Password" ng-model="$ctrl.registration.password" required>
+        <input name="confirmPassword" type="password" class="form-control"  placeholder="Confirm Password"
+               ng-model="$ctrl.registration.confirmPassword" compare-to="$ctrl.registration.password" required>
+       
+        <span ng-show="registrationForm.confirmPassword.$error.compareTo" class="validation-message">
+            Password and confirmation should be the same.
+        </span> 
+
+        <button class="btn btn-lg btn-info btn-block submin-btn" type="submit" ng-click="$ctrl.signUp(registrationForm.$valid)">Submit</button>
         <div ng-hide="$ctrl.message == ''"
-             ng-class="($ctrl.savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+             ng-class="($ctrl.savedSuccessfully) ? 'alert alert-success validation-alert' : 'alert alert-danger validation-alert'">
             {{$ctrl.message}}
         </div>
     </div>

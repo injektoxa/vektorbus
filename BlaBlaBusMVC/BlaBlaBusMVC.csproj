@@ -189,7 +189,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DriverReportsController.cs" />
     <Compile Include="Controllers\AgentReportsController.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\BusesController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
@@ -309,6 +309,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\.gitignore" />
+    <Content Include="Content\app\access-forbidden.html" />
     <Content Include="Content\app\all.min.css" />
     <Content Include="Content\app\all.min.js" />
     <Content Include="Content\app\app.animations.css" />
@@ -345,6 +346,7 @@
     <Content Include="Content\app\client-list\modal\modalClient.module.js" />
     <Content Include="Content\app\client-list\modal\modalClientTrips.component.js" />
     <Content Include="Content\app\client-list\modal\modalClientTrips-template.html" />
+    <Content Include="Content\app\core\authentication\authInterceptor.service.js" />
     <Content Include="Content\app\core\driverReport\driverReport.service.js" />
     <Content Include="Content\app\core\driverReport\driverReport.module.js" />
     <Content Include="Content\app\core\agent\agent.module.js" />
@@ -367,6 +369,7 @@
     <Content Include="Content\app\core\agentReport\agentReport.module.js" />
     <Content Include="Content\app\core\trip\trip.module.js" />
     <Content Include="Content\app\core\trip\trip.service.js" />
+    <Content Include="Content\app\Derectives\compare-passwords.derective.js" />
     <Content Include="Content\app\driver-list\driver-crud\driver-crud.component.js" />
     <Content Include="Content\app\driver-list\driver-crud\driver-crud.module.js" />
     <Content Include="Content\app\driver-list\driver-crud\driver-crud.template.html" />

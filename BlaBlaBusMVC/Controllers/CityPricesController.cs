@@ -6,7 +6,7 @@ using BlaBlaBusMVC.Models;
 
 namespace BlaBlaBusMVC.Controllers
 {
-    public class CityPricesController : BaseController
+    public class CityPricesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

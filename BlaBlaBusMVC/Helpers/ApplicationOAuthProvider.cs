@@ -13,29 +13,29 @@ namespace BlaBlaBusMVC.Helpers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
-        private ApplicationUserManager _userManager;
+        private ApplicationUserManager userManager;
         public ApplicationUserManager UserManager
         {
             get
             {
-                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
-                _userManager = value;
+                userManager = value;
             }
         }
 
-        private ApplicationRoleManager _roleManager;
+        private ApplicationRoleManager roleManager;
         public ApplicationRoleManager RoleManager
         {
             get
             {
-                return _roleManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+                return roleManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationRoleManager>();
             }
             private set
             {
-                _roleManager = value;
+                roleManager = value;
             }
         }
 

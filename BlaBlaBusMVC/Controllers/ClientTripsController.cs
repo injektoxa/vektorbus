@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
 using BlaBlaBusMVC.Models;
 using BlaBlaBusMVC.ViewModels;
 
 namespace BlaBlaBusMVC.Controllers
 {
-    public class ClientTripsController : ApiController
+    [Authorize(Roles = "Admin")]
+    public class ClientTripsController : BaseApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
