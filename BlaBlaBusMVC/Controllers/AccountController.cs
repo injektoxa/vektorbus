@@ -1,23 +1,29 @@
-﻿using BlaBlaBusMVC.Models;
+﻿using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using BlaBlaBusMVC.Models;
 using BlaBlaBusMVC.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Net;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace BlaBlaBusMVC.Controllers
 {
     public class AccountController : ApiController
     {
+        private ApplicationDbContext db;
         private ApplicationUserManager userManager;
 
         public AccountController()
         {
+            db = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager)
         {
+            db = new ApplicationDbContext();
             UserManager = userManager;
         }
 
@@ -53,6 +59,26 @@ namespace BlaBlaBusMVC.Controllers
 
             // If we got this far, something failed, redisplay form
             return BadRequest(ModelState);
+        }
+
+        [HttpPut]
+        public IHttpActionResult ManageAccount(ApplicationUserViewModel model)
+        {
+            var id = this.User.Identity.GetUserId();
+            var currentUser = UserManager.FindByName(this.User.Identity.GetUserName());
+
+            currentUser.Email = model.Email;
+            currentUser.UserName = model.Name;
+
+            var result = this.UserManager.Update(currentUser);
+
+            if (!result.Succeeded)
+            {
+                var errorResult = GetErrorResult(result);
+                return errorResult;
+            }
+
+            return StatusCode(HttpStatusCode.OK);
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

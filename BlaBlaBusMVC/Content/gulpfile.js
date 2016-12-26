@@ -56,6 +56,8 @@ gulp.task('app_scripts', function() {
                     'app/core/authentication/authentication.module.js',
                     'app/core/authentication/authentication.service.js',
                     'app/core/authentication/authInterceptor.service.js',
+                    'app/core/manageAccount/manageAccount.module.js',
+                    'app/core/manageAccount/manageAccount.service.js',
                     'app/clientTrip-list/clientTrip-list.module.js',
                     'app/clientTrip-list/clientTrip-list.component.js',
                     'app/client-detail/client-detail.module.js',
@@ -92,7 +94,9 @@ gulp.task('app_scripts', function() {
                     'app/authentication/signin/signin.component.js',
                     'app/navbar/navbar.module.js',
                     'app/navbar/navbar.component.js',
-                    'app/Derectives/compare-passwords.derective.js'
+                    'app/Derectives/compare-passwords.derective.js',
+                    'app/manage-account/manage-account.module.js',
+                     'app/manage-account/manage-account.component.js'
                 ],
              { base: 'app/' })
             .pipe(sourcemaps.init())

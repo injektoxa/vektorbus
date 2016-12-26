@@ -1,0 +1,10 @@
+﻿<div>
+    <input type="email" class="form-control" placeholder="Email" ng-model="$ctrl.accountData.email" required autofocus>
+    <input type="text" class="form-control" placeholder="Name" ng-model="$ctrl.accountData.userName" required>
+    <button class="btn btn-lg btn-info btn-block submin-btn" type="submit" ng-click="$ctrl.update()">Submit</button>
+    
+    <div ng-hide="$ctrl.message == ''"
+         ng-class="($ctrl.updateSuccefull) ? 'alert alert-success validation-alert' : 'alert alert-danger validation-alert'">
+        {{$ctrl.message}}
+    </div>
+</div>

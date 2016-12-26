@@ -71,4 +71,4 @@ angular.
 
           return authServiceFactory;
       }
-      ]);
+    ]);
