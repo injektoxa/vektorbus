@@ -4,22 +4,28 @@ using BlaBlaBusMVC.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Net;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Description;
+using BlaBlaBusMVC.Extensions;
 
 namespace BlaBlaBusMVC.Controllers
 {
     public class AccountController : ApiController
     {
+        private ApplicationDbContext db;
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
 
         public AccountController()
         {
+            db = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
         {
+            db = new ApplicationDbContext();
             UserManager = userManager;
             RoleManager = roleManager;
         }
@@ -69,8 +75,54 @@ namespace BlaBlaBusMVC.Controllers
                 return StatusCode(HttpStatusCode.OK);
             }
 
-            // If we got this far, something failed, redisplay form
             return BadRequest(ModelState);
+        }
+
+        [HttpPut]
+        public IHttpActionResult ManageAccount(ApplicationUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentUser = this.UserManager.FindByName(this.User.Identity.GetNameIdentifier());
+
+                //we are using username as main login parameter to use default identity 2 authentication
+                currentUser.Email = model.Email;
+                currentUser.UserName = model.Email;
+
+                currentUser.Name = model.Name;
+
+                var result = this.UserManager.Update(currentUser);
+
+                if (!result.Succeeded)
+                {
+                    var errorResult = GetErrorResult(result);
+                    return errorResult;
+                }
+
+                return StatusCode(HttpStatusCode.OK);
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [HttpGet]
+        [ResponseType(typeof(ApplicationUserViewModel))]
+        public IHttpActionResult ManageAccount()
+        {
+            var currentUser = this.UserManager.FindByName(this.User.Identity.GetNameIdentifier());
+
+            if (currentUser == null)
+            {
+                return Unauthorized();
+            }
+
+            var model = new ApplicationUserViewModel()
+            {
+                Email = currentUser.Email,
+                Name = currentUser.Name,
+            };
+
+            return Ok(model);
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

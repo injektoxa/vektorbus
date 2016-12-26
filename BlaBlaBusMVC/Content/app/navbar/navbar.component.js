@@ -5,11 +5,11 @@ angular.
     component('navbar',
     {
         templateUrl: 'navbar/navbar.template.html',
-        controller: ['AuthService', function (authService) {
+        controller: ['AuthService', 'authConstants', function (authService, authConstants) {
             var that = this;
 
-            this.ClientAccessRoles = ['Driver'];
-            this.BusesAccessRoles = ['Driver', 'Partner'];
+            this.ClientAccessRoles = authConstants.ClientAccessRoles;
+            this.BusesAccessRoles = authConstants.BussesAccessRoles;
 
             this.updateAuthData = function () {
                 that.isAuth = authService.authData.isAuth;

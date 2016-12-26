@@ -6,7 +6,7 @@ angular.
     {
         ClientAccessRoles: ['Driver'],
         BussesAccessRoles: ['Driver', 'Partner'],
-        TripsAccessRoles: ['User', 'Driver', 'Partner']
+        AllRoles: ['User', 'Driver', 'Partner']
     })
     .config(['$locationProvider', '$routeProvider', 'authConstants', '$httpProvider', '$qProvider',
         function config($locationProvider, $routeProvider, authConstants, $httpProvider, $qProvider) {
@@ -28,7 +28,7 @@ angular.
                 when('/trips',
                 {
                     template: '<trip-list></trip-list>',
-                    acceptedRoles: authConstants.TripsAccessRoles
+                    acceptedRoles: authConstants.AllRoles
                 }).
                 when('/buses',
                 {
@@ -66,7 +66,12 @@ angular.
                     templateUrl: 'access-forbidden.html',
                     allowAnonymus: true
                 }).
-                otherwise('/login');
+                when('/manageAccount',
+                {
+                    template: '<manage-account></manage-account>',
+                    acceptedRoles: authConstants.AllRoles
+                }).
+                otherwise('/access-forbidden');
         }
     ]).run(['$rootScope', '$location', 'AuthService',
         function ($rootScope, $location, authService) {

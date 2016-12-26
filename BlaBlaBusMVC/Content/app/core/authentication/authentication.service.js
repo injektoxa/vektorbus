@@ -11,8 +11,8 @@ angular.
           var authData = localStorageService.get(authDataResourceKey);
           authServiceFactory.authData = {
               isAuth: authData != null,
-              email: authData ? authData.email : "",
-              role: authData ? authData.role : "guest"
+              name: authData ? authData.name : "",
+              role: authData ? authData.role : "guest",
           };
 
           authServiceFactory.registerObserverCallback = function (callback) {
@@ -39,7 +39,7 @@ angular.
 
               authServiceFactory.authData.isAuth = false;
               authServiceFactory.authData.role = "";
-              authServiceFactory.authData.email = "";
+              authServiceFactory.authData.name = "";
 
               notifyObservers();
           };
@@ -51,10 +51,10 @@ angular.
 
               $http.post('/api/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
                    .then(function (response) {
-                       localStorageService.set(authDataResourceKey, { token: response.data.access_token, email: loginData.email, role: response.data.role });
+                       localStorageService.set(authDataResourceKey, { token: response.data.access_token, name: response.data.name, role: response.data.role });
 
                        authServiceFactory.authData.isAuth = true;
-                       authServiceFactory.authData.email = loginData.email;
+                       authServiceFactory.authData.name = response.data.name;
                        authServiceFactory.authData.role = response.data.role;
 
                        notifyObservers();
@@ -69,6 +69,21 @@ angular.
               return deferred.promise;
           };
 
+          authServiceFactory.UpdateAuthData = function (email, name) {
+              var previousData = localStorageService.get(authDataResourceKey);
+
+              var newName = name ? name : previousData.name;
+
+              localStorageService.set(authDataResourceKey,
+              {
+                  token: previousData.token,
+                  name: newName
+              });
+
+              authServiceFactory.authData.name = newName;
+              notifyObservers();
+          }
+
           return authServiceFactory;
       }
-      ]);
+    ]);

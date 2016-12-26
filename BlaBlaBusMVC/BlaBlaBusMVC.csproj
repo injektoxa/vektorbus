@@ -199,6 +199,7 @@
     <Compile Include="Controllers\DriversController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
+    <Compile Include="Extensions\IdentityExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -269,8 +270,13 @@
     <Compile Include="Migrations\201612081545498_AddExpensesToTrip.Designer.cs">
       <DependentUpon>201612081545498_AddExpensesToTrip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612261501552_AddNameToUser.cs" />
+    <Compile Include="Migrations\201612261501552_AddNameToUser.Designer.cs">
+      <DependentUpon>201612261501552_AddNameToUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Agent.cs" />
+    <Compile Include="ViewModels\ApplicationUserViewModel.cs" />
     <Compile Include="Models\Bus.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\CityPrice.cs" />
@@ -367,6 +373,8 @@
     <Content Include="Content\app\core\authentication\authentication.service.js" />
     <Content Include="Content\app\core\agentReport\agentReport.service.js" />
     <Content Include="Content\app\core\agentReport\agentReport.module.js" />
+    <Content Include="Content\app\core\manageAccount\manageAccount.module.js" />
+    <Content Include="Content\app\core\manageAccount\manageAccount.service.js" />
     <Content Include="Content\app\core\trip\trip.module.js" />
     <Content Include="Content\app\core\trip\trip.service.js" />
     <Content Include="Content\app\Derectives\compare-passwords.derective.js" />
@@ -382,6 +390,9 @@
     <Content Include="Content\app\driver-list\driver-list.component.js" />
     <Content Include="Content\app\driver-list\driver-list.module.js" />
     <Content Include="Content\app\driver-list\driver-list.template.html" />
+    <Content Include="Content\app\manage-account\manage-account.component.js" />
+    <Content Include="Content\app\manage-account\manage-account.module.js" />
+    <Content Include="Content\app\manage-account\manage-account.template.html" />
     <Content Include="Content\app\navbar\navbar.component.js" />
     <Content Include="Content\app\navbar\navbar.module.js" />
     <Content Include="Content\app\navbar\navbar.template.html" />
@@ -573,6 +584,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612081545498_AddExpensesToTrip.resx">
       <DependentUpon>201612081545498_AddExpensesToTrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612261501552_AddNameToUser.resx">
+      <DependentUpon>201612261501552_AddNameToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

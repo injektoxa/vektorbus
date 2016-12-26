@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using BlaBlaBusMVC.Models;
 
 namespace BlaBlaBusMVC.Helpers
 {
@@ -49,7 +50,7 @@ namespace BlaBlaBusMVC.Helpers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            IdentityUser user = await UserManager.FindAsync(context.UserName, context.Password);
+            var user = await UserManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {
@@ -62,13 +63,14 @@ namespace BlaBlaBusMVC.Helpers
             //we will have only one role per each User
             var role = RoleManager.FindById(user.Roles.First().RoleId).Name;
 
-            identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.UserName));
             identity.AddClaim(new Claim(ClaimTypes.Role, role));
 
             var props = new AuthenticationProperties(new Dictionary<string, string>
             {
                 { "role", role},
-                { "userName", context.UserName }
+                { "userName", context.UserName },
+                { "name", user.Name ?? "" }
             });
 
             var ticket = new AuthenticationTicket(identity, props);
