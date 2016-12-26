@@ -2,7 +2,7 @@
 
 angular.module('manageAccount').component('manageAccount', {
     templateUrl: 'manage-account/manage-account.template.html',
-    controller: ['ManageAccountService', function (manageAccountService) {
+    controller: ['ManageAccountService', 'AuthSerivce', function (manageAccountService, authService) {
         var that = this;
 
         this.message = "";
@@ -18,19 +18,21 @@ angular.module('manageAccount').component('manageAccount', {
             if (formValid) {
                 manageAccountService.updateAccount(this.accountData)
                     .then(function () {
-                        that.message="Account has been successfully updated";
-                        that.updateSuccefull=true;
+                        that.message = "Account has been successfully updated";
+                        that.updateSuccefull = true;
+
+                        authService.UpdateAuthData(that.accountData.email, that.accounData.name);
                     },
-                    function(response) {
-                        var errors=[];
+                    function (response) {
+                        var errors = [];
                         for (var key in response.data.ModelState) {
-                            for (var i=0; i < response.data.ModelState[key].length; i++) {
+                            for (var i = 0; i < response.data.ModelState[key].length; i++) {
                                 errors.push(response.data.ModelState[key][i]);
                             }
                         }
 
-                        that.message=errors.join('\n');
-                        that.updateSuccefull=false;
+                        that.message = errors.join('\n');
+                        that.updateSuccefull = false;
                     });
             }
         }

@@ -69,6 +69,21 @@ angular.
               return deferred.promise;
           };
 
+          authServiceFactory.UpdateAuthData = function (email, name) {
+              var previousData = localStorageService.get(authDataResourceKey);
+
+              var newName = name ? name : previousData.name;
+
+              localStorageService.set(authDataResourceKey,
+              {
+                  token: previousData.token,
+                  name: newName
+              });
+
+              authServiceFactory.authData.name = newName;
+              notifyObservers();
+          }
+
           return authServiceFactory;
       }
     ]);
