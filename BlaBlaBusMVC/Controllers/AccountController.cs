@@ -1,4 +1,5 @@
-﻿using BlaBlaBusMVC.Models;
+﻿using BlaBlaBusMVC.Helpers;
+using BlaBlaBusMVC.Models;
 using BlaBlaBusMVC.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -11,14 +12,16 @@ namespace BlaBlaBusMVC.Controllers
     public class AccountController : ApiController
     {
         private ApplicationUserManager userManager;
+        private ApplicationRoleManager roleManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
         {
             UserManager = userManager;
+            RoleManager = roleManager;
         }
 
         public ApplicationUserManager UserManager
@@ -33,6 +36,18 @@ namespace BlaBlaBusMVC.Controllers
             }
         }
 
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return roleManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            }
+            private set
+            {
+                roleManager = value;
+            }
+        }
+
         // POST: api/Account/Register
         [HttpPost]
         public IHttpActionResult Register(RegisterViewModel model)
@@ -40,13 +55,16 @@ namespace BlaBlaBusMVC.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = UserManager.Create(user, model.Password);
+                var result = this.UserManager.Create(user, model.Password);
 
                 if (!result.Succeeded)
                 {
-                    var errorResult = GetErrorResult(result);
+                    var errorResult = this.GetErrorResult(result);
                     return errorResult;
                 }
+
+                //add default role to registered user
+                this.UserManager.AddToRole(user.Id, "User");
 
                 return StatusCode(HttpStatusCode.OK);
             }

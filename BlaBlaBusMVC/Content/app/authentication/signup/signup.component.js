@@ -17,12 +17,12 @@ angular.
           };
 
           this.signUp = function (formValid) {
-              if (Boolean(formValid)) {
+              if (formValid) {
                   authService.saveRegistration(this.registration).then(function (response) {
                       that.savedSuccessfully = true;
-                      that.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
+                      that.message = "User has been registered successfully, you will be redirected to login page in 2 seconds.";
 
-                      $location.push('/login');
+                      $location.path('/login');
                   },
                   function (response) {
                       var errors = [];
