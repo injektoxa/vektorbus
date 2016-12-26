@@ -8,11 +8,12 @@ angular.
         BussesAccessRoles: ['Driver', 'Partner'],
         AllRoles: ['User', 'Driver', 'Partner']
     })
-    .config(['$locationProvider', '$routeProvider', 'authConstants', '$httpProvider',
-        function config($locationProvider, $routeProvider, authConstants, $httpProvider) {
-            $httpProvider.interceptors.push('authInterceptorService');
+    .config(['$locationProvider', '$routeProvider', 'authConstants', '$httpProvider', '$qProvider',
+        function config($locationProvider, $routeProvider, authConstants, $httpProvider, $qProvider) {
 
+            $httpProvider.interceptors.push('authInterceptorService');
             $locationProvider.html5Mode(true);
+            $qProvider.errorOnUnhandledRejections(false);
 
             $routeProvider.
                 when('/clients',
@@ -77,7 +78,6 @@ angular.
             $rootScope.$on('$routeChangeStart',
                 function (event, next) {
                     var currentRole = authService.authData.role;
-
                     next.acceptedRoles = next.acceptedRoles ? next.acceptedRoles : [];
 
                     //if current user is not authenticated or his role is not accepted to view particular route
@@ -88,6 +88,8 @@ angular.
                     if (currentRole != "Admin" && next.acceptedRoles.indexOf(currentRole) == -1) {
                         $location.path('/access-forbidden');
                     }
+
+                    return true;
                 });
-        }
+            }
     ]);

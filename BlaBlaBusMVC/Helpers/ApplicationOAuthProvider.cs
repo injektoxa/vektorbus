@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using System.Collections.Generic;
@@ -6,14 +8,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNet.Identity;
 
 namespace BlaBlaBusMVC.Helpers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         private ApplicationUserManager userManager;
+
         public ApplicationUserManager UserManager
         {
             get
@@ -27,6 +28,7 @@ namespace BlaBlaBusMVC.Helpers
         }
 
         private ApplicationRoleManager roleManager;
+
         public ApplicationRoleManager RoleManager
         {
             get
@@ -70,6 +72,7 @@ namespace BlaBlaBusMVC.Helpers
             });
 
             var ticket = new AuthenticationTicket(identity, props);
+
             context.Validated(ticket);
         }
 
