@@ -22,7 +22,7 @@ angular.
 
             this.login = function() {
                 authService.login(this.loginData).then(function(response) {
-                    $location.path('/clients');
+                    $location.path('/trips');
                 },
                 function(err) {
                     that.message=err.data.error_description;

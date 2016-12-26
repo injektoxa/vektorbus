@@ -199,6 +199,7 @@
     <Compile Include="Controllers\DriversController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
+    <Compile Include="Extensions\IdentityExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -269,13 +270,13 @@
     <Compile Include="Migrations\201612081545498_AddExpensesToTrip.Designer.cs">
       <DependentUpon>201612081545498_AddExpensesToTrip.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612261037049_add-migration dbfix.cs" />
-    <Compile Include="Migrations\201612261037049_add-migration dbfix.Designer.cs">
-      <DependentUpon>201612261037049_add-migration dbfix.cs</DependentUpon>
+    <Compile Include="Migrations\201612261501552_AddNameToUser.cs" />
+    <Compile Include="Migrations\201612261501552_AddNameToUser.Designer.cs">
+      <DependentUpon>201612261501552_AddNameToUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Agent.cs" />
-    <Compile Include="Models\ApplicationUserViewModel.cs" />
+    <Compile Include="ViewModels\ApplicationUserViewModel.cs" />
     <Compile Include="Models\Bus.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\CityPrice.cs" />
@@ -584,8 +585,8 @@
     <EmbeddedResource Include="Migrations\201612081545498_AddExpensesToTrip.resx">
       <DependentUpon>201612081545498_AddExpensesToTrip.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612261037049_add-migration dbfix.resx">
-      <DependentUpon>201612261037049_add-migration dbfix.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612261501552_AddNameToUser.resx">
+      <DependentUpon>201612261501552_AddNameToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

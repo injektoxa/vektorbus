@@ -66,12 +66,12 @@ angular.
                     templateUrl: 'access-forbidden.html',
                     allowAnonymus: true
                 }).
-                when('/manage-account',
+                when('/manageAccount',
                 {
                     template: '<manage-account></manage-account>',
                     acceptedRoles: authConstants.AllRoles
                 }).
-                otherwise('/login');
+                otherwise('/access-forbidden');
         }
     ]).run(['$rootScope', '$location', 'AuthService',
         function ($rootScope, $location, authService) {

@@ -1,10 +1,16 @@
 ﻿<div>
-    <input type="email" class="form-control" placeholder="Email" ng-model="$ctrl.accountData.email" required autofocus>
-    <input type="text" class="form-control" placeholder="Name" ng-model="$ctrl.accountData.userName" required>
-    <button class="btn btn-lg btn-info btn-block submin-btn" type="submit" ng-click="$ctrl.update()">Submit</button>
-    
-    <div ng-hide="$ctrl.message == ''"
-         ng-class="($ctrl.updateSuccefull) ? 'alert alert-success validation-alert' : 'alert alert-danger validation-alert'">
-        {{$ctrl.message}}
-    </div>
+    <form class="account-management-form" name="accountManage">
+        Email: <input name="accountManage" type="email" class="form-control"
+                      placeholder="Email" ng-model="$ctrl.accountData.email" required autofocus>
+
+        Имя: <input name="accountManage" type="text" class="form-control" 
+                    placeholder="Name" ng-model="$ctrl.accountData.name" required>
+        
+        <button class="btn btn-lg btn-success btn-block submin-btn" type="submit" ng-click="$ctrl.update(accountManage.$valid)">Изменить</button>
+
+        <div ng-hide="$ctrl.message == ''"
+             ng-class="($ctrl.updateSuccefull) ? 'alert alert-success validation-alert' : 'alert alert-danger validation-alert'">
+            {{$ctrl.message}}
+        </div>
+    </form>
 </div>

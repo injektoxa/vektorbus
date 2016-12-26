@@ -1,3 +1,3 @@
 ﻿'use strict';
 
-angular.module('manageAccount', ['core.manageAccount', 'core.authentication']);
+angular.module('manageAccount', ['core.manageAccount']);

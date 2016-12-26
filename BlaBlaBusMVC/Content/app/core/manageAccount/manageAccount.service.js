@@ -2,13 +2,19 @@
 
 angular.
   module('core.manageAccount').
-  factory('ManageAccountService', ['$http', '$q',
-    function ($http, $q) {
+  factory('ManageAccountService', ['$http',
+    function ($http) {
         var manageAccountFactory = {};
 
-        manageAccountFactory.updateAccount = function(accountData) {
-            $http.put('/api/Account/ManageAccount', accountData).then(function (response) {
+        manageAccountFactory.updateAccount = function (accountData) {
+            return $http.put('/api/Account/', accountData).then(function(response) {
                 return response;
+            });
+        }
+
+        manageAccountFactory.getAccountInfo = function () {
+            return $http.get('/api/Account/').then(function(response) {
+                return response.data;
             });
         }
 
