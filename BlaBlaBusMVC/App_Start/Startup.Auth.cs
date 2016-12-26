@@ -1,10 +1,10 @@
-﻿using System;
+﻿using BlaBlaBusMVC.Helpers;
+using BlaBlaBusMVC.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
-using Owin;
-using BlaBlaBusMVC.Models;
 using Microsoft.Owin.Security.OAuth;
-using BlaBlaBusMVC.Helpers;
+using Owin;
+using System;
 
 namespace BlaBlaBusMVC
 {
