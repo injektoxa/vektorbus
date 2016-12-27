@@ -225,7 +225,8 @@ component('tripList', {
             that.showAddTripForm = true;
         };
 
-        this.disableEditMode = function() {
+        this.disableEditMode = function () {
+            that.showAddTripForm = false;
             that.isEditMode = false;
             that.clearTripModel();
         }
