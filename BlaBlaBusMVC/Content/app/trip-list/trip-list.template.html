@@ -151,6 +151,9 @@
                             <button type="submit" class="btn btn-primary" ng-click="$ctrl.add()">
                                 {{$ctrl.isEditMode ? 'Обновить' : 'Добавить'}}
                             </button>
+                            <button class="btn btn-danger" ng-show="$ctrl.isEditMode" ng-click="$ctrl.disableEditMode()">
+                                Отменить
+                            </button>
                             <div ng-show="form.$submitted">
                                 <span class="error" ng-show="form.$error.isAnyClient">Необходимо выбрать хотя бы одного клиента</span>
                             </div>
