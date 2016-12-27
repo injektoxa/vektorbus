@@ -2,7 +2,7 @@
 
 angular.module('manageAccount').component('manageAccount', {
     templateUrl: 'manage-account/manage-account.template.html',
-    controller: ['ManageAccountService', 'AuthSerivce', function (manageAccountService, authService) {
+    controller: ['ManageAccountService', 'AuthService', function (manageAccountService, authService) {
         var that = this;
 
         this.message = "";
