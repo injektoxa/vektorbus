@@ -97,11 +97,11 @@ angular.module('reports')
                             fontSize: 12,
                             content: [
                                 {
-                                    text: 'Oтчет за период: ' + $filter('date')(that.dateFrom, "yyyy-MM-dd")
-                                        + ' - ' + $filter('date')(that.dateTo, "yyyy-MM-dd")
+                                    text: 'Агент: ' + that.agent.FullName
                                 },
                                 {
-                                    text: 'Агент: ' + that.agent.FullName
+                                    text: 'Oтчет за период: ' + $filter('date')(that.dateFrom, "yyyy-MM-dd")
+                                        + ' - ' + $filter('date')(that.dateTo, "yyyy-MM-dd")
                                 },
                                 {
                                     text: ' '
