@@ -91,7 +91,11 @@ angular.module('reports')
                         report.ClientsCount.toString(),
                         report.AgentCompensation.toString()]));
 
+                    var datePeriod = $filter('date')(that.dateFrom, "yyyy-MM-dd").
+                        concat(' - ', $filter('date')(that.dateTo, "yyyy-MM-dd"));
+
                     var options = {
+                        fileName: 'Oтчет ' + datePeriod + ' ' + that.agent.FullName,
                         docDefinition: {
                             pageOrientation: 'portrait',
                             fontSize: 12,
@@ -100,8 +104,7 @@ angular.module('reports')
                                     text: 'Агент: ' + that.agent.FullName
                                 },
                                 {
-                                    text: 'Oтчет за период: ' + $filter('date')(that.dateFrom, "yyyy-MM-dd")
-                                        + ' - ' + $filter('date')(that.dateTo, "yyyy-MM-dd")
+                                    text: 'Oтчет за период: ' + datePeriod
                                 },
                                 {
                                     text: ' '

@@ -93,7 +93,11 @@ angular.module('reports')
                         report.CompulsoryExpenses.toString(),
                         report.UnexpectedExpenses.toString()]));
 
+                    var datePeriod = $filter('date')(that.dateFrom, "yyyy-MM-dd").
+                        concat(' - ', $filter('date')(that.dateTo, "yyyy-MM-dd"));
+
                     var options = {
+                        fileName: 'Oтчет ' + datePeriod + ' ' + that.driver.FullName,
                         docDefinition: {
                             pageOrientation: 'portrait',
                             fontSize: 12,
@@ -102,8 +106,7 @@ angular.module('reports')
                                     text: 'Водитель: ' + that.driver.FullName
                                 },
                                 {
-                                    text: 'Oтчет за период: ' + $filter('date')(that.dateFrom, "yyyy-MM-dd")
-                                        + ' - ' + $filter('date')(that.dateTo, "yyyy-MM-dd")
+                                    text: 'Oтчет за период: ' + datePeriod
                                 },
                                 {
                                     text: ' '
