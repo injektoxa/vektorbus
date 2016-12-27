@@ -3,7 +3,7 @@
     angular.
     module('tripList').
     component('tripList', {
-        templateUrl: 'trip-list/trip-list.template.html',
+        templateUrl: 'Content/app/trip-list/trip-list.template.html',
         controller: ['Trip', 'Bus', 'City', 'Driver', '$uibModal', '$scope', 'PdfMaker',
         function (Trip, Bus, City, Driver, $uibModal, $scope, PdfMaker) {
             var that = this;

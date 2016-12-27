@@ -63,7 +63,7 @@ angular.
                 }).
                 when('/access-forbidden',
                 {
-                    templateUrl: 'access-forbidden.html',
+                    templateUrl: 'Content/app/access-forbidden.html',
                     allowAnonymus: true
                 }).
                 when('/manageAccount',
@@ -71,13 +71,13 @@ angular.
                     template: '<manage-account></manage-account>',
                     acceptedRoles: authConstants.AllRoles
                 }).
-                otherwise('/access-forbidden');
+                otherwise('/trips');
         }
     ]).run(['$rootScope', '$location', 'AuthService',
         function ($rootScope, $location, authService) {
             $rootScope.$on('$routeChangeStart',
                 function (event, next) {
-                    var currentRole = authService.authData.role;
+                    var currentRole = authService.authData.role; 
                     next.acceptedRoles = next.acceptedRoles ? next.acceptedRoles : [];
 
                     //if current user is not authenticated or his role is not accepted to view particular route
@@ -86,7 +86,11 @@ angular.
                     }
 
                     if (currentRole != "Admin" && next.acceptedRoles.indexOf(currentRole) == -1) {
-                        $location.path('/access-forbidden');
+                        if (!authService.authData.isAuth) {
+                            $location.path('/login');
+                        } else {
+                            $location.path('/access-forbidden');
+                        }
                     }
 
                     return true;

@@ -4,7 +4,7 @@
 angular.
   module('modalBus').
   component('modalBus', {
-    templateUrl: 'bus-list/modal/modalBus-template.html',
+    templateUrl: 'Content/app/bus-list/modal/modalBus-template.html',
 
     bindings: {
       resolve: '<',

@@ -4,7 +4,7 @@
 angular.module('reports')
     .component('driverReports',
     {
-    	templateUrl: 'reports/driver-reports.template.html',
+        templateUrl: 'Content/app/reports/driver-reports.template.html',
         controller: [
             'Driver', 'DriverReport', '$filter',
             function (Driver, DriverReport, $filter) {

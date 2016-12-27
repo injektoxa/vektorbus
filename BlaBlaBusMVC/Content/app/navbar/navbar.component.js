@@ -4,7 +4,7 @@ angular.
     module('navBar').
     component('navbar',
     {
-        templateUrl: 'navbar/navbar.template.html',
+        templateUrl: 'Content/app/navbar/navbar.template.html',
         controller: ['AuthService', 'authConstants', function (authService, authConstants) {
             var that = this;
 

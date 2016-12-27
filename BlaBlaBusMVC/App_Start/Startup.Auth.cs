@@ -1,6 +1,5 @@
 ﻿using BlaBlaBusMVC.Helpers;
 using BlaBlaBusMVC.Models;
-using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
@@ -14,16 +13,14 @@ namespace BlaBlaBusMVC
 
         public void ConfigureAuth(IAppBuilder app)
         {
-            // Configure the db context, user manager and signin manager to use a single instance per request
+            // Configure the db context, user manager and role manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
             app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
         }
 
         public void ConfigureOAuth(IAppBuilder app)
         {
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
             OAuthBearerOptions = new OAuthBearerAuthenticationOptions();
 
             var oauthServerOptions = new OAuthAuthorizationServerOptions()

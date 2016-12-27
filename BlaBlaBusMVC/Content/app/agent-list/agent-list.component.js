@@ -4,7 +4,7 @@
 angular.module('agentList')
   .component('agentList',
   {
-    templateUrl: 'agent-list/agent-list.template.html',
+    templateUrl: 'Content/app/agent-list/agent-list.template.html',
     controller: [
       'Agent', '$scope', '$uibModal',
       function (Agent, $scope, $uibModal) {

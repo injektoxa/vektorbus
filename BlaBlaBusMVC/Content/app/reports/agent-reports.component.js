@@ -4,7 +4,7 @@
 angular.module('reports')
     .component('agentReports',
     {
-    	templateUrl: 'reports/agent-reports.template.html',
+        templateUrl: 'Content/app/reports/agent-reports.template.html',
         controller: [
             'Agent', 'AgentReport', '$filter',
             function (Agent, AgentReport, $filter) {

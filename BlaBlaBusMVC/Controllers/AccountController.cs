@@ -4,7 +4,6 @@ using BlaBlaBusMVC.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Net;
-using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;

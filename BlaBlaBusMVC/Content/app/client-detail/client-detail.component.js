@@ -4,7 +4,7 @@
 angular.
   module('clientDetail').
   component('clientDetail', {
-    templateUrl: 'client-detail/client-detail.template.html',
+    templateUrl: 'Content/app/client-detail/client-detail.template.html',
     controller: ['$routeParams', 'Client',
       function ClientDetailController($routeParams, Client) {
         var self = this;

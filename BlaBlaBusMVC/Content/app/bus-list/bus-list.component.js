@@ -4,7 +4,7 @@
 angular.module('busList')
   .component('busList',
   {
-    templateUrl: 'bus-list/bus-list.template.html',
+    templateUrl: 'Content/app/bus-list/bus-list.template.html',
     controller: [
       'Bus', '$scope', '$uibModal',
       function (Bus, $scope, $uibModal) {

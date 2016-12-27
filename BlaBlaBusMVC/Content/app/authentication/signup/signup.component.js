@@ -3,7 +3,7 @@
 angular.
   module('signUp').
   component('signUp', {
-      templateUrl: 'authentication/signup/signup.template.html',
+      templateUrl: 'Content/app/authentication/signup/signup.template.html',
       controller: ['AuthService', '$location', function (authService, $location) {
           var that = this;
 
