@@ -9,6 +9,7 @@ angular.module('agentList')
       'Agent', '$scope', '$uibModal',
       function (Agent, $scope, $uibModal) {
         var that = this;
+
         that.agents = Agent.query();
         that.agent = {};
 
@@ -22,6 +23,7 @@ angular.module('agentList')
             }
           }
         };
+
 
         that.addAgent = function() {
           var modalInstance = $uibModal.open(modalOptions);

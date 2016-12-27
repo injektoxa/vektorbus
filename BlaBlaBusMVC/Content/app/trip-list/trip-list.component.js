@@ -203,16 +203,22 @@
             }
 
             this.editTrip = function (trip) {
-                that.isEditMode = true;
-                that.trip = trip;
                 var startDate = new Date(trip.date);
                 var endDate = new Date(trip.arrivalDate);
+
+                that.isEditMode = true;
+                that.trip = trip;
                 that.trip.startDate = startDate;
                 that.trip.startTime = startDate;
                 that.trip.endDate = endDate;
                 that.trip.endTime = endDate;
                 that.showAddTripForm = true;
             };
+
+            this.disableEditMode = function() {
+                that.isEditMode = false;
+                that.clearTripModel();
+            }
 
             this.delete = function (trip) {
                 var msg = 'Вы уверены, что хотите удалить маршрут ' + trip.cityFrom.Name + '---->' + trip.cityTo.Name + ', ' + trip.date + '?';
