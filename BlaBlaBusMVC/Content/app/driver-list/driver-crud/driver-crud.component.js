@@ -3,7 +3,7 @@
 angular.module('driverCrud')
   .component('driverCrud',
   {
-    templateUrl: 'driver-list/driver-crud/driver-crud.template.html',
+      templateUrl: 'Content/app/driver-list/driver-crud/driver-crud.template.html',
     controller: [
       'Driver', '$scope', function (Driver, $scope) {
         var that = this;

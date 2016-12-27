@@ -1,0 +1,34 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <title>Vektor Bus</title>
+
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="Content/app/all.min.css" />
+    <script src="Content/app/scripts.min.js"></script>
+    <script src="Content/app/all.min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBkEIsxJ1ZqsEBPUYsef_jF2ajuSkmbxJ4&libraries=places"></script>
+
+    <script>
+        document.addEventListener('load',
+            function() {
+                $('ul.nav > li').click(function(e) {
+                    $('ul.nav > li').removeClass('active');
+                    $(this).addClass('active');
+                });
+            });
+    </script>
+
+    <base href="/">
+</head>
+
+<body ng-app="VektorApp">
+
+    <navbar></navbar>
+
+    <div class="container">
+        <div ng-view></div>
+    </div>
+</body>
+</html>

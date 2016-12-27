@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 angular.module('manageAccount').component('manageAccount', {
-    templateUrl: 'manage-account/manage-account.template.html',
+    templateUrl: 'Content/app/manage-account/manage-account.template.html',
     controller: ['ManageAccountService', 'AuthService', function (manageAccountService, authService) {
         var that = this;
 

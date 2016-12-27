@@ -4,8 +4,8 @@
 angular.module('clientList')
   .component('clientList',
   {
-    templateUrl: 'client-list/client-list.template.html',
-    controller: [
+     templateUrl: 'Content/app/client-list/client-list.template.html',
+     controller: [
       'Client', 'Trip', '$scope', '$uibModal',
       function (Client,Trip, $scope, $uibModal) {
         var that = this;

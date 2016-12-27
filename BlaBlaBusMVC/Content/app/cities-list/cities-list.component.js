@@ -3,7 +3,7 @@
 angular.
   module('citiesList').
   component('citiesList', {
-      templateUrl: 'cities-list/cities-list.template.html',
+      templateUrl: 'Content/app/cities-list/cities-list.template.html',
       controller: ['City', '$scope', function CitiesListController(City, $scope) {
           var that = this;
 

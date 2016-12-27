@@ -63,7 +63,7 @@ angular.
                 }).
                 when('/access-forbidden',
                 {
-                    templateUrl: 'access-forbidden.html',
+                    templateUrl: 'Content/app/access-forbidden.html',
                     allowAnonymus: true
                 }).
                 when('/manageAccount',

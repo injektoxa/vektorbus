@@ -4,7 +4,7 @@
 angular.
   module('modalClient').
   component('modalClient', {
-    templateUrl: 'client-list/modal/modalClient-template.html',
+      templateUrl: 'Content/app/client-list/modal/modalClient-template.html',
 
     bindings: {
       resolve: '<',

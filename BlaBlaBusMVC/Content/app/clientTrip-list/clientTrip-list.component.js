@@ -4,7 +4,7 @@
 angular.
   module('clientTripList').
   component('clientTripList', {
-      templateUrl: 'clientTrip-list/clientTrip-list.template.html',
+      templateUrl: 'Content/app/clientTrip-list/clientTrip-list.template.html',
       controller: ['ClientTrip', '$scope', 'City', 'Agent',
         function (ClientTrip, $scope, City, Agent) {
             var that = this;
