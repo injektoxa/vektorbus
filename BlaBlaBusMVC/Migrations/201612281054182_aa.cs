@@ -3,7 +3,7 @@ namespace BlaBlaBusMVC.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddPhotoToDriver : DbMigration
+    public partial class aa : DbMigration
     {
         public override void Up()
         {
