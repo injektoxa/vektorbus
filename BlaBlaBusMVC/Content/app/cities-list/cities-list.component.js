@@ -20,14 +20,12 @@ angular.
           }
 
           this.saveCity = function (place) {
-              let thatPlace = place;
-
-              City.add({ name: place.name });
               that.showAddCityForm = false;
-              setTimeout(function () {
-                  that.cities = City.query();
-                  thatPlace = '';
-              }, 100);
+
+              City.add({ name: place.name }, function onSuccess(createdBus) {
+                 that.cities = City.query();
+                 that.choosedPlace = '';
+              });
           }
 
           this.setCityFromAutocomplete = function(err, place){
