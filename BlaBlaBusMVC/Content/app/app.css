@@ -313,3 +313,7 @@ span.validation-message {
     margin: auto;
     margin-bottom: 20px;
 }
+
+.photo-preview {
+    max-height: 150px;
+}
