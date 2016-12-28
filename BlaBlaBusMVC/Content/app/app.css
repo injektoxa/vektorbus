@@ -256,3 +256,7 @@ a.create-trip {
 a.delete-trip {
     color: red;
 }
+
+.photo-preview {
+    max-height: 150px;
+}

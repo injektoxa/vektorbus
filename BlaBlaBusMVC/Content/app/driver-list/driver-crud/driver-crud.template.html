@@ -20,15 +20,24 @@
             </div>
           </td>
         </tr>
-        <tr>
-          <td>Телефон: </td>
-          <td>
-            <div>
-              <input type="text" name="phone" class="form-control" ng-model="$ctrl.driver.Phone"  required="required"/>
-              <span class="error" ng-show="!form.phone.$valid && form.phone.$dirty">Это поле обязательное</span>
-            </div>
-          </td>
-        </tr>
+          <tr>
+              <td>Телефон: </td>
+              <td>
+                  <div>
+                      <input type="text" name="phone" class="form-control" ng-model="$ctrl.driver.Phone"  required="required"/>
+                      <span class="error" ng-show="!form.phone.$valid && form.phone.$dirty">Это поле обязательное</span>
+                  </div>
+              </td>
+          </tr>
+          <tr>
+              <td>Фотография: </td>
+              <td>
+                  <div>
+                      <input type="file" accept="image/*" id="driverPhoto" />
+                      <img id="photoPreview" class="photo-preview" alt="your image"/>
+                  </div>
+              </td>
+          </tr>
       </table>
     </div>
     <button type="button" class="btn" ng-click="$ctrl.cancel()">Отмена</button>
