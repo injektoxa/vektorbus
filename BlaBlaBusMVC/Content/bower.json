@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "angular": "1.5.x",
+    "angular": "1.6.x",
     "angular-animate": "1.5.x",
     "angular-mocks": "1.5.x",
     "angular-resource": "1.5.x",
@@ -19,8 +19,5 @@
     "pdfmake": "",
     "underscore": "",
     "angular-local-storage": "^0.5.2"
-  },
-  "resolutions": {
-    "angular": ">=1.4.0"
   }
 }
