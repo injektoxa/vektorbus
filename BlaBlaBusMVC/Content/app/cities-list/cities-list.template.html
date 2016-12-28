@@ -1,7 +1,7 @@
 ﻿ <a ng-click="$ctrl.showAddForm()" style="cursor:pointer">Добавить город</a>
 
 <div class="row" ng-show="$ctrl.showAddCityForm">
-    <div class="col-xs-6">
+    <div class="col-sm-12 col-md-6">
         <form name="new-city">
             <div class="form-group">
                 <input class="form-control" type="text" 
@@ -21,8 +21,8 @@
 <hr/>
 
 Доступные города :
-<ul class="cities">
-    <li ng-repeat="city in $ctrl.cities | filter:$ctrl.query">
+<ul class="cities list-group">
+    <li ng-repeat="city in $ctrl.cities | filter:$ctrl.query" class="list-group-item">
        {{city.Name}}
     </li>
 </ul>
