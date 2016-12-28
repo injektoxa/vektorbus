@@ -107,12 +107,12 @@ a {
 color: chartreuse;
 }
 
- .form-group div {
+.form-group div {
     position:relative;
     margin-right:15px;
 }
 
-.form-group div:after {
+.form-group label:after {
     position:absolute;
     content:'*';
     color:red;
@@ -120,12 +120,20 @@ color: chartreuse;
     top:0;
 }
 
-table.clients-trip td.info {
-  width : 130px;
+.trip-create-form .form-group select{
+   min-width: 200px;
 }
 
-table.clients-trip td.options {
-  width : 300px;
+.trip-create-form .date-input{
+    width : 200px;
+    margin-top: 33.5px;
+    margin-right: 10px;
+}
+
+.date-time-group{
+  display: flex;
+  bottom: 30px;
+  margin-bottom: -60px;
 }
 
 .options div{
@@ -153,6 +161,15 @@ table.clients-trip td.options {
 
 table.clients-trip td.button-area {
   padding : 10px
+}
+
+.trip-driver-group{
+  display: flex;
+}
+
+.driver-select{
+  max-width: 200px;
+  margin-right: 5px;
 }
 
 .Clients {

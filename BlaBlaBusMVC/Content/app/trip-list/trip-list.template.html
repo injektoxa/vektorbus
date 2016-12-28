@@ -1,170 +1,165 @@
 ﻿<div>
     <a ng-click="$ctrl.showAddForm()" style="cursor:pointer">Добавить маршрут</a>
+
     <div class="row" ng-show="$ctrl.showAddTripForm">
-        <div class="col-md-6">
-            <form name="form" novalidate>
-                <table class="trip-info">
-                    <tr>
-                        <td>Автобус: </td>
-                        <td>
-                            <select class="form-control"
-                                    ng-model="$ctrl.trip.bus"
-                                    required
-                                    ng-options="bus.FriendlyName for bus in $ctrl.buses track by bus.Id">
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Водитель: </td>
-                        <td>
-                            <select class="form-control"
+        <div class="col-xs-12 col-md-6">
+            <form name="form" class="trip-create-form" novalidate>
+                <div class="form-group">
+                    <label>
+                        Автобус:
+                        <select class="form-control"
+                                ng-model="$ctrl.trip.bus"
+                                required
+                                ng-options="bus.FriendlyName for bus in $ctrl.buses track by bus.Id"></select>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Водитель
+                        <div class="trip-driver-group">
+                            <select class="form-control driver-select"
                                     ng-model="$ctrl.trip.driver"
                                     required
-                                    ng-options="driver.FullName for driver in $ctrl.drivers track by driver.Id">
-                            </select>
-                        </td>
-                        <td>
+                                    ng-options="driver.FullName for driver in $ctrl.drivers track by driver.Id"></select>
+
                             <button class="btn btn-default" ng-click="$ctrl.openDriversList()"> + </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Комментарий: </td>
-                        <td><input class="form-control" type="text" ng-model="$ctrl.trip.comments"/></td>
-                    </tr>
-                    <tr>
-                        <td>Дата отправления: </td>
-                        <td>
-                            <p class="input-group">
+                        </div>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Комментарий:
+                        <input class="form-control" type="text" ng-model="$ctrl.trip.comments" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Дата отправления:
+                        <div class="date-time-group">
+                            <p class="input-group date-input">
                                 <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}"
                                        ng-model="$ctrl.trip.startDate" datepicker-options="$ctrl.dateOptions" ng-required="true"
-                                       close-text="Close" name="startDate" is-open="$ctrl.startDatePopup.opened"/>
+                                       close-text="Close" name="startDate" is-open="$ctrl.startDatePopup.opened" />
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="$ctrl.startDateOpen()">
                                         <i class="glyphicon glyphicon-calendar"></i>
                                     </button>
                                 </span>
                             </p>
-                            <div ng-show="form.$submitted || form.datetimepicker.$touched">
-                                <span class="error" ng-show="form.startDate.$error.required">Это поле обязательное</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Время отправления: </td>
-                        <td>
                             <div uib-timepicker ng-model="$ctrl.trip.startTime" name="startTime"
                                  minute-step="$ctrl.timeOptions.minuteStep"
                                  show-meridian="ismeridian" ng-required="true">
                             </div>
-                            <div ng-show="form.$submitted || form.startTime.$touched">
-                                <span class="error" ng-show="form.startTime.$error.required">Это поле обязательное</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Дата прибытия: </td>
-                        <td>
-                            <p class="input-group">
+                        </div>
+                    </label>
+                    <div ng-show="form.$submitted || form.startTime.$touched">
+                        <span class="error" ng-show="form.startTime.$error.required">Это поле обязательное</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Дата прибытия:
+                        <div class="date-time-group">
+                            <p class="input-group date-input">
                                 <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}"
                                        ng-model="$ctrl.trip.endDate" datepicker-options="$ctrl.dateOptions" ng-required="true"
-                                       close-text="Close" name="endDate" is-open="$ctrl.endDatePopup.opened"/>
+                                       close-text="Close" name="endDate" is-open="$ctrl.endDatePopup.opened" />
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="$ctrl.endDateOpen()">
                                         <i class="glyphicon glyphicon-calendar"></i>
                                     </button>
                                 </span>
                             </p>
-                            <div ng-show="form.$submitted || form.endDate.$touched">
-                                <span class="error" ng-show="form.endDate.$error.required">Это поле обязательное</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Время прибытия: </td>
-                        <td>
                             <div uib-timepicker ng-model="$ctrl.trip.endTime" name="endTime"
                                  minute-step="$ctrl.timeOptions.minuteStep"
                                  show-meridian="ismeridian" ng-required="true">
                             </div>
-                            <div ng-show="form.$submitted || form.endTime.$touched">
-                                <span class="error" ng-show="form.endTime.$error.required">Это поле обязательное</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Откуда: </td>
-                        <td>
-                            <select class="form-control" name="repeatFrom" id="repeatFrom" 
-                                    ng-model="$ctrl.trip.cityFrom"
-                                    required
-                                    ng-options="city.Name for city in $ctrl.cities track by city.Id">
-                            </select>
-                            <div ng-show="form.$submitted || form.repeatFrom.$touched">
-                                <span class="error" 
-                                      ng-show="form.repeatFrom.$error.required">Это поле обязательное</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Куда: </td>
-                        <td>
-                            <select class="form-control" name="repeatTo" id="repeatTo" 
-                                    ng-model="$ctrl.trip.cityTo"
-                                    required
-                                    ng-options="city.Name for city in $ctrl.cities track by city.Id">
-                            </select>
-                            <div ng-show="form.$submitted || form.repeatTo.$touched">
-                                <span class="error" ng-show="form.repeatTo.$error.required">Это поле обязательное</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="trip-separator"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Обязательные расходы: </td>
-                        <td>
-                            <input type="number" class="form-control" name="compulsoryExpenses"
-                                   ng-model="$ctrl.trip.compulsoryExpenses" required/>
-                            <div ng-show="form.$submitted || form.compulsoryExpenses.$touched">
-                                <span class="error"
-                                      ng-show="form.compulsoryExpenses.$error.required">Это поле обязательное</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Дополнительные расходы: </td>
-                        <td>
-                            <input type="number" class="form-control" ng-model="$ctrl.trip.unexpectedExpenses" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Коментарий (доп. расходы): </td>
-                        <td>
-                            <input type="text" class="form-control" ng-model="$ctrl.trip.unexpectedExpensesComments" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="submit" class="btn btn-primary" ng-click="$ctrl.add()">
-                                {{$ctrl.isEditMode ? 'Обновить' : 'Добавить'}}
-                            </button>
-                            <button class="btn btn-danger" ng-show="$ctrl.isEditMode" ng-click="$ctrl.disableEditMode()">
-                                Отменить
-                            </button>
-                            <div ng-show="form.$submitted">
-                                <span class="error" ng-show="form.$error.isAnyClient">Необходимо выбрать хотя бы одного клиента</span>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                        </div>
+
+                        <div ng-show="form.$submitted || form.endTime.$touched">
+                            <span class="error" ng-show="form.endTime.$error.required">Это поле обязательное</span>
+                        </div>
+                    </label>
+
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Откуда:
+                        <select class="form-control" name="repeatFrom" id="repeatFrom"
+                                ng-model="$ctrl.trip.cityFrom"
+                                required
+                                ng-options="city.Name for city in $ctrl.cities track by city.Id"></select>
+                        <div ng-show="form.$submitted || form.repeatFrom.$touched">
+                            <span class="error"
+                                  ng-show="form.repeatFrom.$error.required">Это поле обязательное</span>
+                        </div>
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        Куда:
+                        <select class="form-control" name="repeatTo" id="repeatTo"
+                                ng-model="$ctrl.trip.cityTo"
+                                required
+                                ng-options="city.Name for city in $ctrl.cities track by city.Id"></select>
+                        <div ng-show="form.$submitted || form.repeatTo.$touched">
+                            <span class="error" ng-show="form.repeatTo.$error.required">Это поле обязательное</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Oбязательные расходы:
+                        <input type="number" class="form-control" name="compulsoryExpenses"
+                               ng-model="$ctrl.trip.compulsoryExpenses" required />
+                        <div ng-show="form.$submitted || form.compulsoryExpenses.$touched">
+                            <span class="error"
+                                  ng-show="form.compulsoryExpenses.$error.required">Это поле обязательное</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Дополнительные расходы:
+                        <input type="number" class="form-control" ng-model="$ctrl.trip.unexpectedExpenses" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Комментарий(доп. расходы):
+                        <input type="text" class="form-control" ng-model="$ctrl.trip.unexpectedExpensesComments" />
+                    </label>
+                </div>
+
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" ng-click="$ctrl.add()">
+                        {{$ctrl.isEditMode ? 'Обновить' : 'Добавить'}}
+                    </button>
+                    <button class="btn btn-danger" ng-show="$ctrl.isEditMode" ng-click="$ctrl.disableEditMode()">
+                        Отменить
+                    </button>
+                    <div ng-show="form.$submitted">
+                        <span class="error" ng-show="form.$error.isAnyClient">Необходимо выбрать хотя бы одного клиента</span>
+                    </div>
+                </div>
             </form>
         </div>
+
         <client-trip-list></client-trip-list>
     </div>
+
     <hr />
+
     <div class="row">
         <div class="col-md-12">
             <span>
@@ -174,59 +169,60 @@
             <br />
             <uib-accordion close-others="oneAtATime" ng-repeat="trip in $ctrl.trips | filter:$ctrl.query">
                 <div uib-accordion-group class="panel-default"
-                     heading="{{trip.date | date:$ctrl.dateTimeFormat }} - {{trip.arrivalDate| date:$ctrl.dateTimeFormat}}, 
-                     {{trip.bus.FriendlyName}} {{trip.bus.RegistrationNumber}}, Водитель: {{trip.driver.FullName}}, 
-                     Маршрут: {{trip.cityFrom.Name}} ----> {{trip.cityTo.Name}}"
-                     is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                     heading="{{trip.date | date:$ctrl.dateTimeFormat }} - {{trip.arrivalDate| date:$ctrl.dateTimeFormat}},
+                     {{trip.bus.FriendlyName}} {{trip.bus.RegistrationNumber}} , Водитель {{trip.driver.FullName}} ,
+                     Маршрут {{trip.cityFrom.Name}} ---->
+                    {{trip.cityTo.Name}}"
+                    is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
 
                     <div class="row">
                         <div class="col-xs-6">
-                             <a ng-click="$ctrl.editTrip(trip)">Редактировать рейс</a>
+                            <a ng-click="$ctrl.editTrip(trip)">Редактировать рейс</a>
                         </div>
 
                         <div class="col-xs-6">
-                             <a class="create-trip pull-right" ng-click="$ctrl.createPDF(trip)">Сформировать рейс</a>
+                            <a class="create-trip pull-right" ng-click="$ctrl.createPDF(trip)">Сформировать рейс</a>
                         </div>
                     </div>
-                   
-                   
-                        <div class="table-responsive">
-                            <table class="table table-hover table-bordered">
-                                <thead>
-                                    <tr>
-                                        <td>Комментарий маршрута</td>
-                                        <td>Клиент</td>
-                                        <td>Телефон</td>
-                                        <td>Скидка</td>
-                                        <td>Комментарий клиента</td>
-                                        <td>Цена</td>
-                                        <td>Агент</td>
-                                        <td>Цена агента</td>
-                                        <td>Маршрут</td>
-                                        <td>Не выходит</td>
-                                        <td>Багаж</td>
-                                        <td>Ребенок</td>
-                                        <td>Инвалид</td>
-                                    </tr>
-                                </thead>
 
-                                <tr ng-repeat="client in trip.tripClients">
-                                    <td>{{trip.comments}}</td>
-                                    <td>{{client.Name}}</td>
-                                    <td>{{client.Phone}}</td>
-                                    <td ng-class="client.HasDiscount ? 'highlighting' : ''">{{client.HasDiscount ? 'Есть' : ''}}</td>
-                                    <td>{{client.Comments}}</td>
-                                    <td>{{client.Price}}</td>
-                                    <td>{{client.AgentName}}</td>
-                                    <td>{{client.AgentPrice}}</td>
-                                    <td>{{client.From}} --> {{client.To}}</td>
-                                    <td ng-class="client.IsStayInBus ? 'highlighting' : ''">{{client.IsStayInBus ? 'Да' : ''}}</td>
-                                    <td>{{client.HasBaggage ? 'Есть' : ''}}</td>
-                                    <td>{{client.HasMinorChild ? 'Да' : ''}}</td>
-                                    <td>{{client.HasDisability ? 'Да' : ''}}</td>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <td>Комментарий маршрута</td>
+                                    <td>Клиент</td>
+                                    <td>Телефон</td>
+                                    <td>Скидка</td>
+                                    <td>Комментарий клиента</td>
+                                    <td>Цена</td>
+                                    <td>Агент</td>
+                                    <td>Цена агента</td>
+                                    <td>Маршрут</td>
+                                    <td>Не выходит</td>
+                                    <td>Багаж</td>
+                                    <td>Ребенок</td>
+                                    <td>Инвалид</td>
                                 </tr>
-                            </table>
-                        </div>
+                            </thead>
+
+                            <tr ng-repeat="client in trip.tripClients">
+                                <td>{{trip.comments}}</td>
+                                <td>{{client.Name}}</td>
+                                <td>{{client.Phone}}</td>
+                                <td ng-class="client.HasDiscount ? 'highlighting' : ''">{{client.HasDiscount ? 'Есть' : ''}}</td>
+                                <td>{{client.Comments}}</td>
+                                <td>{{client.Price}}</td>
+                                <td>{{client.AgentName}}</td>
+                                <td>{{client.AgentPrice}}</td>
+                                <td>{{client.From}} --> {{client.To}}</td>
+                                <td ng-class="client.IsStayInBus ? 'highlighting' : ''">{{client.IsStayInBus ? 'Да' : ''}}</td>
+                                <td>{{client.HasBaggage ? 'Есть' : ''}}</td>
+                                <td>{{client.HasMinorChild ? 'Да' : ''}}</td>
+                                <td>{{client.HasDisability ? 'Да' : ''}}</td>
+                            </tr>
+                        </table>
+                    </div>
                     <a class="delete-trip" ng-click="$ctrl.delete(trip)">Удалить рейс</a>
                 </div>
             </uib-accordion>
