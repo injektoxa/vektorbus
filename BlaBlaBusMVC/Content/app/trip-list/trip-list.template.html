@@ -174,22 +174,24 @@
             <br />
             <uib-accordion close-others="oneAtATime" ng-repeat="trip in $ctrl.trips | filter:$ctrl.query">
                 <div uib-accordion-group class="panel-default"
-                     heading="{{trip.date | date:$ctrl.dateTimeFormat }} - {{trip.arrivalDate| date:$ctrl.dateTimeFormat}}, 
-                     {{trip.bus.FriendlyName}} {{trip.bus.RegistrationNumber}}, Водитель: {{trip.driver.FullName}}, 
-                     Маршрут: {{trip.cityFrom.Name}} ----> {{trip.cityTo.Name}}"
                      is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                    <uib-accordion-heading>
+                        <img ng-src="{{'data:image/png;base64,' + trip.driver.Photo}}" />
+                        {{trip.date | date:$ctrl.dateTimeFormat }} - {{trip.arrivalDate| date:$ctrl.dateTimeFormat}},
+                        {{trip.bus.FriendlyName}} {{trip.bus.RegistrationNumber}}, Водитель: {{trip.driver.FullName}},
+                        Маршрут: {{trip.cityFrom.Name}} ----> {{trip.cityTo.Name}}
+                    </uib-accordion-heading>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <a ng-click="$ctrl.editTrip(trip)">Редактировать рейс</a>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-xs-6">
-                             <a ng-click="$ctrl.editTrip(trip)">Редактировать рейс</a>
+                            <div class="col-xs-6">
+                                <a class="create-trip pull-right" ng-click="$ctrl.createPDF(trip)">Сформировать рейс</a>
+                            </div>
                         </div>
 
-                        <div class="col-xs-6">
-                             <a class="create-trip pull-right" ng-click="$ctrl.createPDF(trip)">Сформировать рейс</a>
-                        </div>
-                    </div>
-                   
-                   
+
                         <div class="table-responsive">
                             <table class="table table-hover table-bordered">
                                 <thead>
@@ -227,8 +229,8 @@
                                 </tr>
                             </table>
                         </div>
-                    <a class="delete-trip" ng-click="$ctrl.delete(trip)">Удалить рейс</a>
-                </div>
+                        <a class="delete-trip" ng-click="$ctrl.delete(trip)">Удалить рейс</a>
+</div>
             </uib-accordion>
         </div>
     </div>

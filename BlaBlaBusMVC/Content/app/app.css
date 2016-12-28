@@ -317,3 +317,9 @@ span.validation-message {
 .photo-preview {
     max-height: 150px;
 }
+
+.panel-heading img {
+    max-height: 50px; 
+    max-width: 50px;
+    margin-right: 20px;
+}

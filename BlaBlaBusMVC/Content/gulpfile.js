@@ -98,7 +98,7 @@ gulp.task('bower_components', function () {
                     'app/bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js',
                     'app/bower_components/pdfmake/build/pdfmake.min.js',
                     'app/bower_components/pdfmake/build/vfs_fonts.js',
-                    'app/bower_components/pdfmake/underscore/underscore-min.js',
+                    'app/bower_components/underscore/underscore-min.js',
                     'app/bower_components/angular-local-storage/dist/angular-local-storage.min.js',
                     'app/bower_components/angular-bootstrap/ui-bootstrap.min.js',
         ], { base: 'app/' })
