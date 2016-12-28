@@ -15,9 +15,13 @@ angular.module('VektorApp', [
   'driverList',
   'driverCrud',
   'citiesList',
-  'google.places',
   'agentList',
   'modalAgent',
   'modalClient',
-  'reports'
+  'reports',
+  'signUp',
+  'signIn',
+  'LocalStorageModule',
+  'navBar',
+  'manageAccount'
 ]);

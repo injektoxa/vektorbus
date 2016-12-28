@@ -1,0 +1,13 @@
+﻿<h2 class="auth-form-title">Login</h2>
+<form class="auth-form col-lg-4 col-md-6 col-sm-8 col-xs-12">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Email" ng-model="$ctrl.loginData.email" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" ng-model="$ctrl.loginData.password" required>
+        <button class="btn btn-lg btn-info btn-block submin-btn" type="submit" ng-click="$ctrl.login()">Submit</button>
+
+        <div ng-hide="$ctrl.message == ''"
+             class="alert alert-danger validation-alert">
+            {{$ctrl.message}}
+        </div>
+    </div>
+</form>

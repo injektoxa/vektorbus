@@ -7,7 +7,8 @@ using BlaBlaBusMVC.ViewModels;
 
 namespace BlaBlaBusMVC.Controllers
 {
-    public class DriverReportsController : ApiController
+    [Authorize(Roles = "Admin")]
+    public class DriverReportsController : BaseApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

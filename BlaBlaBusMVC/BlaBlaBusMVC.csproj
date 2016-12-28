@@ -49,6 +49,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -64,6 +72,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.2\lib\net45\System.Web.Http.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -124,9 +136,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -147,9 +156,6 @@
     </Reference>
     <Reference Include="Microsoft.Owin">
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb">
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security">
       <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
@@ -174,28 +180,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DriverReportsController.cs" />
     <Compile Include="Controllers\AgentReportsController.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\BusesController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
-    <Compile Include="Controllers\CityPricesController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\ClientTripsController.cs" />
     <Compile Include="Controllers\DriversController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
+    <Compile Include="Extensions\IdentityExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ApplicationDBContext.cs" />
+    <Compile Include="Helpers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Helpers\ApplicationRoleManager.cs" />
     <Compile Include="Migrations\201609210729349_init.cs" />
     <Compile Include="Migrations\201609210729349_init.Designer.cs">
       <DependentUpon>201609210729349_init.cs</DependentUpon>
@@ -264,8 +270,13 @@
     <Compile Include="Migrations\201612200921259_AddPhotoToDriver.Designer.cs">
       <DependentUpon>201612200921259_AddPhotoToDriver.cs</DependentUpon>
     </Compile>
+	<Compile Include="Migrations\201612261501552_AddNameToUser.cs" />
+    <Compile Include="Migrations\201612261501552_AddNameToUser.Designer.cs">
+      <DependentUpon>201612261501552_AddNameToUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Agent.cs" />
+    <Compile Include="ViewModels\ApplicationUserViewModel.cs" />
     <Compile Include="Models\Bus.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\CityPrice.cs" />
@@ -277,33 +288,18 @@
     <Compile Include="ViewModels\DriverReportViewModel.cs" />
     <Compile Include="ViewModels\AgentReportViewModel.cs" />
     <Compile Include="ViewModels\AgentViewModel.cs" />
-    <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\ClientTripViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
-    <Compile Include="ViewModels\FactorViewModel.cs" />
-    <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="ViewModels\AddPhoneNumberViewModel.cs" />
-    <Compile Include="ViewModels\ExternalLoginConfirmationViewModel.cs" />
-    <Compile Include="ViewModels\ExternalLoginListViewModel.cs" />
-    <Compile Include="ViewModels\ForgotViewModel.cs" />
-    <Compile Include="ViewModels\IndexViewModel.cs" />
-    <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\ManageLoginsViewModel.cs" />
-    <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
-    <Compile Include="ViewModels\ResetPasswordViewModel.cs" />
-    <Compile Include="ViewModels\SendCodeViewModel.cs" />
-    <Compile Include="ViewModels\SetPasswordViewModel.cs" />
     <Compile Include="ViewModels\TripsViewModel.cs" />
-    <Compile Include="ViewModels\VerifyCodeViewModel.cs" />
-    <Compile Include="ViewModels\VerifyPhoneNumberViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\.gitignore" />
+    <Content Include="Content\app\access-forbidden.html" />
     <Content Include="Content\app\all.min.css" />
     <Content Include="Content\app\all.min.js" />
     <Content Include="Content\app\app.animations.css" />
@@ -311,6 +307,12 @@
     <Content Include="Content\app\app.config.js" />
     <Content Include="Content\app\app.css" />
     <Content Include="Content\app\app.module.js" />
+    <Content Include="Content\app\authentication\signin\signin.component.js" />
+    <Content Include="Content\app\authentication\signin\signin.module.js" />
+    <Content Include="Content\app\authentication\signin\signin.template.html" />
+    <Content Include="Content\app\authentication\signup\signup.template.html" />
+    <Content Include="Content\app\authentication\signup\signup.component.js" />
+    <Content Include="Content\app\authentication\signup\signup.module.js" />
     <Content Include="Content\app\agent-list\agent-list.component.js" />
     <Content Include="Content\app\agent-list\agent-list.module.js" />
     <Content Include="Content\app\agent-list\agent-list.template.html" />
@@ -334,6 +336,7 @@
     <Content Include="Content\app\client-list\modal\modalClient.module.js" />
     <Content Include="Content\app\client-list\modal\modalClientTrips.component.js" />
     <Content Include="Content\app\client-list\modal\modalClientTrips-template.html" />
+    <Content Include="Content\app\core\authentication\authInterceptor.service.js" />
     <Content Include="Content\app\core\driverReport\driverReport.service.js" />
     <Content Include="Content\app\core\driverReport\driverReport.module.js" />
     <Content Include="Content\app\core\agent\agent.module.js" />
@@ -350,14 +353,19 @@
     <Content Include="Content\app\core\client\client.service.js" />
     <Content Include="Content\app\core\driver\driver.module.js" />
     <Content Include="Content\app\core\driver\driver.service.js" />
+    <Content Include="Content\app\core\authentication\authentication.module.js" />
+    <Content Include="Content\app\core\authentication\authentication.service.js" />
     <Content Include="Content\app\core\agentReport\agentReport.service.js" />
     <Content Include="Content\app\core\agentReport\agentReport.module.js" />
+    <Content Include="Content\app\core\manageAccount\manageAccount.module.js" />
+    <Content Include="Content\app\core\manageAccount\manageAccount.service.js" />
     <Content Include="Content\app\core\trip\trip.module.js" />
     <Content Include="Content\app\core\trip\trip.service.js" />
+    <Content Include="Content\app\Derectives\compare-passwords.derective.js" />
     <Content Include="Content\app\driver-list\driver-crud\driver-crud.component.js" />
     <Content Include="Content\app\driver-list\driver-crud\driver-crud.module.js" />
     <Content Include="Content\app\driver-list\driver-crud\driver-crud.template.html" />
-    <Content Include="Content\app\index.html" />
+    <Content Include="index.html" />
     <Content Include="Content\app\client-detail\client-detail.component.js" />
     <Content Include="Content\app\client-detail\client-detail.module.js" />
     <Content Include="Content\app\clientTrip-list\clientTrip-list.component.js" />
@@ -366,6 +374,12 @@
     <Content Include="Content\app\driver-list\driver-list.component.js" />
     <Content Include="Content\app\driver-list\driver-list.module.js" />
     <Content Include="Content\app\driver-list\driver-list.template.html" />
+    <Content Include="Content\app\manage-account\manage-account.component.js" />
+    <Content Include="Content\app\manage-account\manage-account.module.js" />
+    <Content Include="Content\app\manage-account\manage-account.template.html" />
+    <Content Include="Content\app\navbar\navbar.component.js" />
+    <Content Include="Content\app\navbar\navbar.module.js" />
+    <Content Include="Content\app\navbar\navbar.template.html" />
     <Content Include="Content\app\pdfMaker\pdfMaker.module.js" />
     <Content Include="Content\app\pdfMaker\pdfMaker.service.js" />
     <Content Include="Content\app\reports\driver-reports.template.html" />
@@ -425,11 +439,6 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Docs\TechnicalBackLog.txt" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Global.asax" />
     <Content Include="Content\bower.json" />
     <Content Include="Content\package.json" />
@@ -444,65 +453,13 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Cities\Create.cshtml" />
-    <Content Include="Views\Cities\Delete.cshtml" />
-    <Content Include="Views\Cities\Details.cshtml" />
-    <Content Include="Views\Cities\Edit.cshtml" />
-    <Content Include="Views\Cities\Index.cshtml" />
-    <Content Include="Views\Buses\Create.cshtml" />
-    <Content Include="Views\Buses\Delete.cshtml" />
-    <Content Include="Views\Buses\Details.cshtml" />
-    <Content Include="Views\Buses\Edit.cshtml" />
-    <Content Include="Views\Buses\Index.cshtml" />
-    <Content Include="Views\Clients\Create.cshtml" />
-    <Content Include="Views\Clients\Delete.cshtml" />
-    <Content Include="Views\Clients\Details.cshtml" />
-    <Content Include="Views\Clients\Edit.cshtml" />
-    <Content Include="Views\Clients\Index.cshtml" />
-    <Content Include="Views\Drivers\Create.cshtml" />
-    <Content Include="Views\Drivers\Delete.cshtml" />
-    <Content Include="Views\Drivers\Details.cshtml" />
-    <Content Include="Views\Drivers\Edit.cshtml" />
-    <Content Include="Views\Drivers\Index.cshtml" />
-    <Content Include="Views\Trips\Create.cshtml" />
-    <Content Include="Views\Trips\Delete.cshtml" />
-    <Content Include="Views\Trips\Details.cshtml" />
-    <Content Include="Views\Trips\Edit.cshtml" />
-    <Content Include="Views\Trips\Index.cshtml" />
-    <Content Include="Views\CityPrices\Create.cshtml" />
-    <Content Include="Views\CityPrices\Delete.cshtml" />
-    <Content Include="Views\CityPrices\Details.cshtml" />
-    <Content Include="Views\CityPrices\Edit.cshtml" />
-    <Content Include="Views\CityPrices\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Content\app\app.run.js" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
@@ -556,6 +513,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612200921259_AddPhotoToDriver.resx">
       <DependentUpon>201612200921259_AddPhotoToDriver.cs</DependentUpon>
+    </EmbeddedResource>
+	<EmbeddedResource Include="Migrations\201612261501552_AddNameToUser.resx">
+      <DependentUpon>201612261501552_AddNameToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

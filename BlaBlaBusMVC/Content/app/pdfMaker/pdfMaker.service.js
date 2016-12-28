@@ -6,7 +6,7 @@ angular.
     factory('PdfMaker', function() {
         return {
             createAndDownload: function(options) {
-                pdfMake.createPdf(options.docDefinition).download();
+                pdfMake.createPdf(options.docDefinition).download(options.fileName ? options.fileName : 'file.pdf');
             },
             createAndOpen: function(options) {
                 pdfMake.createPdf(options.docDefinition).open();

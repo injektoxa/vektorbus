@@ -221,11 +221,11 @@ form.add-edit tr > td:last-child {
     margin-top: 30px;
 }
 
-.report-body h4 {
+.report-body h4, .report-body a {
     color: #337ab7;
     margin: 30px 0;
-
 }
+
 .report-body h4 > span {
     color: red;
     font-weight: bold;
@@ -255,6 +255,54 @@ a.create-trip {
 
 a.delete-trip {
     color: red;
+}
+
+.auth-form-title {
+    text-align: center;
+}
+
+form.auth-form {
+    float: none;
+    margin: auto;
+}
+
+form.auth-form input.form-control {
+    margin-bottom: 10px;
+}
+
+form.auth-form .validation-alert {
+    margin-right: 0;
+    margin-top: 5px;
+}
+
+form.auth-form .submin-btn {
+    margin-top: 20px;
+}
+
+form.auth-form .validation-alert:after {
+    content: "";
+}
+
+span.validation-message {
+    color: red;
+}
+
+.account-management-form {
+    width: 400px;
+    display: block;
+    margin: auto;
+}
+
+.account-management-form input.form-control{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.account-management-form .submin-btn {
+    width: 200px;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 20px;
 }
 
 .photo-preview {

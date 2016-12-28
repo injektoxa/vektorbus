@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -11,7 +10,8 @@ using BlaBlaBusMVC.ViewModels;
 
 namespace BlaBlaBusMVC.Controllers
 {
-    public class TripsController : ApiController
+    [Authorize(Roles = "Admin, Driver, Partner, User")]
+    public class TripsController : BaseApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

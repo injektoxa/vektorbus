@@ -4,10 +4,10 @@
 angular.module('reports')
     .component('driverReports',
     {
-    	templateUrl: 'reports/driver-reports.template.html',
+        templateUrl: 'Content/app/reports/driver-reports.template.html',
         controller: [
-            'Driver', 'DriverReport', '$filter',
-            function (Driver, DriverReport, $filter) {
+            'Driver', 'DriverReport', '$filter', 'PdfMaker',
+            function (Driver, DriverReport, $filter, pdfMaker) {
             	var that = this;
 		
             	that.drivers = Driver.query();
@@ -24,6 +24,7 @@ angular.module('reports')
                 that.reportTitle = '';
                 that.totalTitle = '';
                 that.totalPrice = '';
+                that.reportIsShowing = false;
 
                 that.startDatePopup = {
                     opened: false
@@ -49,6 +50,7 @@ angular.module('reports')
                         ': ';
 
                     that.totalPrice = 0;
+                    that.reportIsShowing = true;
                     for (var i = 0; i < reports.length; i++) {
                         that.totalPrice += reports[i].CompulsoryExpenses;
                         if (reports[i].UnexpectedExpenses != null) {
@@ -61,6 +63,7 @@ angular.module('reports')
                     that.reportTitle = '';
                     that.totalTitle = '';
                     that.totalPrice = '';
+                    that.reportIsShowing = false;
 
                     var options = {
                         id: that.driver.Id,
@@ -70,6 +73,62 @@ angular.module('reports')
 
                     DriverReport.query(options, that.onGetReports);
                 };
+
+                that.createPDF = function (reports) {
+                    var tableBody = [[
+                        { text: 'Дата Отправления', style: 'tableHeader' },
+                        { text: 'Откуда', style: 'tableHeader' },
+                        { text: 'Куда', style: 'tableHeader' },
+                        { text: 'Автобус', style: 'tableHeader' },
+                        { text: 'Кол-во пассажиров', style: 'tableHeader' },
+                        { text: 'Постоянные расходы', style: 'tableHeader' },
+                        { text: 'Непредвиденные расходы', style: 'tableHeader' }]];
+
+                    reports.map((report) => tableBody.push([
+                        report.TripDate,
+                        report.CityFrom,
+                        report.CityTo,
+                        report.BusInfo,
+                        report.ClientsCount.toString(),
+                        report.CompulsoryExpenses.toString(),
+                        report.UnexpectedExpenses.toString()]));
+
+                    var datePeriod = $filter('date')(that.dateFrom, "yyyy-MM-dd").
+                        concat(' - ', $filter('date')(that.dateTo, "yyyy-MM-dd"));
+
+                    var options = {
+                        fileName: 'Oтчет ' + datePeriod + ' ' + that.driver.FullName,
+                        docDefinition: {
+                            pageOrientation: 'portrait',
+                            fontSize: 12,
+                            content: [
+                                {
+                                    text: 'Водитель: ' + that.driver.FullName
+                                },
+                                {
+                                    text: 'Oтчет за период: ' + datePeriod
+                                },
+                                {
+                                    text: ' '
+                                },
+                                {
+                                    table: {
+                                        headerRows: 1,
+                                        body: tableBody
+                                    }
+                                },
+                                {
+                                    text: ' '
+                                },
+                                {
+                                    text: that.totalTitle + ' ' + that.totalPrice
+                                }
+                            ]
+                        }
+                    }
+
+                    pdfMaker.createAndDownload(options);
+                }
             }
         ]
     });

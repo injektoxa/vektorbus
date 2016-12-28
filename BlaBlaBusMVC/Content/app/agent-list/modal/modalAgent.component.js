@@ -4,7 +4,7 @@
 angular.
   module('modalAgent').
   component('modalAgent', {
-    templateUrl: 'agent-list/modal/modalAgent-template.html',
+    templateUrl: 'Content/app/agent-list/modal/modalAgent-template.html',
 
     bindings: {
       resolve: '<',
