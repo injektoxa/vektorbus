@@ -460,6 +460,7 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Content\app\app.run.js" />
+    <Content Include="Content\app\maps\all.min.js.map" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
