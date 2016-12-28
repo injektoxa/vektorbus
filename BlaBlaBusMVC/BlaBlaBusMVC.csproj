@@ -260,6 +260,10 @@
     <Compile Include="Migrations\201612081545498_AddExpensesToTrip.Designer.cs">
       <DependentUpon>201612081545498_AddExpensesToTrip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612200921259_AddPhotoToDriver.cs" />
+    <Compile Include="Migrations\201612200921259_AddPhotoToDriver.Designer.cs">
+      <DependentUpon>201612200921259_AddPhotoToDriver.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Agent.cs" />
     <Compile Include="Models\Bus.cs" />
@@ -549,6 +553,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612081545498_AddExpensesToTrip.resx">
       <DependentUpon>201612081545498_AddExpensesToTrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612200921259_AddPhotoToDriver.resx">
+      <DependentUpon>201612200921259_AddPhotoToDriver.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
