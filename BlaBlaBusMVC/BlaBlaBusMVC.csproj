@@ -266,13 +266,13 @@
     <Compile Include="Migrations\201612081545498_AddExpensesToTrip.Designer.cs">
       <DependentUpon>201612081545498_AddExpensesToTrip.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612200921259_AddPhotoToDriver.cs" />
-    <Compile Include="Migrations\201612200921259_AddPhotoToDriver.Designer.cs">
-      <DependentUpon>201612200921259_AddPhotoToDriver.cs</DependentUpon>
-    </Compile>
-	<Compile Include="Migrations\201612261501552_AddNameToUser.cs" />
+    <Compile Include="Migrations\201612261501552_AddNameToUser.cs" />
     <Compile Include="Migrations\201612261501552_AddNameToUser.Designer.cs">
       <DependentUpon>201612261501552_AddNameToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612281054182_aa.cs" />
+    <Compile Include="Migrations\201612281054182_aa.Designer.cs">
+      <DependentUpon>201612281054182_aa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Agent.cs" />
@@ -511,11 +511,11 @@
     <EmbeddedResource Include="Migrations\201612081545498_AddExpensesToTrip.resx">
       <DependentUpon>201612081545498_AddExpensesToTrip.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612200921259_AddPhotoToDriver.resx">
-      <DependentUpon>201612200921259_AddPhotoToDriver.cs</DependentUpon>
-    </EmbeddedResource>
-	<EmbeddedResource Include="Migrations\201612261501552_AddNameToUser.resx">
+    <EmbeddedResource Include="Migrations\201612261501552_AddNameToUser.resx">
       <DependentUpon>201612261501552_AddNameToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612281054182_aa.resx">
+      <DependentUpon>201612281054182_aa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -532,7 +532,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53061</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

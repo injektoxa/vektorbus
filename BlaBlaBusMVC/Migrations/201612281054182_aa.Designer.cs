@@ -7,13 +7,13 @@ namespace BlaBlaBusMVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddPhotoToDriver : IMigrationMetadata
+    public sealed partial class aa : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddPhotoToDriver));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(aa));
         
         string IMigrationMetadata.Id
         {
-            get { return "201612200921259_AddPhotoToDriver"; }
+            get { return "201612281054182_aa"; }
         }
         
         string IMigrationMetadata.Source
