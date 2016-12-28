@@ -7,14 +7,15 @@ angular.module('driverCrud')
     controller: [
       'Driver', '$scope', function (Driver, $scope) {
         var that = this;
+        this.maxPhotoWidth = 150;
+        this.maxPhotoHeight = 150;
+        this.driver = {};
 
-        that.driver = {};
-
-        that.cancel = function() {
+        this.cancel = function () {
           $scope.$parent.$ctrl.showAddDriverBlock();
         };
 
-        that.save = function (driver) {
+        this.save = function (driver) {
           that.driver = driver;
           if (driver.Id > 0) {
             Driver.update({ id: driver.Id },
@@ -33,7 +34,7 @@ angular.module('driverCrud')
           }
         };
 
-        that.deleteDriver = function(id) {
+        this.deleteDriver = function (id) {
           Driver.delete({ id: id },
             function onSuccess(deletedDriver) {
               var index = $scope.$parent.$ctrl.drivers.map(function(e) { return e.Id }).indexOf(deletedDriver.Id);
@@ -53,9 +54,55 @@ angular.module('driverCrud')
         $scope.$on('editDriverEvent',
           function (event, params) {
             that.driver = params.driver;
+            $("#photoPreview").attr("src", 'data:image/png;base64,' + that.driver.Photo);
             $scope.$parent.$ctrl.showAddDriverBlock();
           }
         );
+
+        this.resizeBase64Img = function (base64Img, maxWidth, maxHeight) {
+            var canvas = document.createElement("canvas");
+            var deferred = $.Deferred();
+
+            $("<img/>").attr("src", base64Img).load( function () {
+                var width = this.width;
+                var height = this.height;
+
+                if (width > height) {
+                    if (width > maxWidth) {
+                        height *= maxWidth / width;
+                        width = maxWidth;
+                    }
+                } else {
+                    if (height > maxHeight) {
+                        width *= maxHeight / height;
+                        height = maxHeight;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                var context = canvas.getContext("2d");
+                context.drawImage(this, 0, 0, width, height);
+                deferred.resolve($("<img/>").attr("src", canvas.toDataURL()));
+            });
+            return deferred.promise();
+        }
+
+        $("#driverPhoto").change(function () {
+            if (this.files && this.files[0]) {
+                var fr = new FileReader();
+                fr.onload = function (e) {
+                    that.resizeBase64Img(e.target.result, that.maxPhotoWidth, that.maxPhotoHeight)
+                        .then(function (newImg) {
+                            that.driver.Photo = newImg[0].src.replace('data:image/png;base64,', '');
+                            console.log(newImg[0].src);
+                            $("#photoPreview").attr("src", newImg[0].src);
+                        }
+                    );
+                };
+                fr.readAsDataURL(this.files[0]);
+            }
+        });
       }
     ]
   });

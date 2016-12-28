@@ -15,6 +15,8 @@ namespace BlaBlaBusMVC.Models
         [MaxLength(200)]
         public string Sername { get; set; }
 
+        public byte[] Photo { get; set; }
+
         [NotMapped]
         public string FullName
         {
