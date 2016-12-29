@@ -9,7 +9,6 @@
                         <td>
                             <select class="form-control"
                                     ng-model="$ctrl.trip.bus"
-                                    required
                                     ng-options="bus.FriendlyName for bus in $ctrl.buses track by bus.Id">
                             </select>
                         </td>
@@ -19,7 +18,6 @@
                         <td>
                             <select class="form-control"
                                     ng-model="$ctrl.trip.driver"
-                                    required
                                     ng-options="driver.FullName for driver in $ctrl.drivers track by driver.Id">
                             </select>
                         </td>
