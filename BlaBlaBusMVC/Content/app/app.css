@@ -99,12 +99,12 @@ a {
    cursor:pointer;
 }
 
-.error {
+.error, .attention {
   color: red;  
 }
 
 .highlighting {
-color: chartreuse;
+    color: chartreuse;
 }
 
 .form-group div {

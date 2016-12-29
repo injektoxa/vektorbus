@@ -41,7 +41,7 @@ component('tripList', {
             opened: false
         };
 
-        this.startDateOpen = function() {
+        this.startDateOpen = function () {
             that.startDatePopup.opened = true;
         };
 
@@ -84,7 +84,7 @@ component('tripList', {
             });
         };
 
-        this.update = function() {
+        this.update = function () {
             that.joinTripDateAndTime();
             Trip.update(
                 { id: that.trip.id },
@@ -111,7 +111,7 @@ component('tripList', {
             $scope.$broadcast('clearClientTripsEvent');
         };
 
-        this.joinTripDateAndTime = function() {
+        this.joinTripDateAndTime = function () {
             that.trip.date = new Date(Date.UTC(
                 that.trip.startDate.getFullYear(),
                 that.trip.startDate.getMonth(),
@@ -127,14 +127,14 @@ component('tripList', {
                 that.trip.endTime.getMinutes()));
         };
 
-        this.openDriversList = function() {
+        this.openDriversList = function () {
             var modalOptions = {
                 animation: true,
                 backdrop: 'static',
                 size: 'lg',
                 component: 'driverList',
                 resolve: {
-                    drivers: function() {
+                    drivers: function () {
                         return that.drivers;
                     }
                 }
@@ -142,25 +142,25 @@ component('tripList', {
 
             var modalInstance = $uibModal.open(modalOptions);
 
-            modalInstance.result.then(function(drivers) {
+            modalInstance.result.then(function (drivers) {
                 that.drivers = drivers;
             });
         };
 
-        this.createPDF = function(trip) {
-            var tableBody=[
+        this.createPDF = function (trip) {
+            var tableBody = [
                 [
-                    {text: 'Имя Фамилия', style: 'tableHeader'},
-                    {text: 'Телефон', style: 'tableHeader'},
-                    {text: 'Куда', style: 'tableHeader'},
-                    {text: 'Откуда', style: 'tableHeader'},
-                    {text: 'Стоимость', style: 'tableHeader'},
-                    {text: 'Не выходит', style: 'tableHeader'},
-                    {text: 'Статус', style: 'tableHeader'}
+                    { text: 'Имя Фамилия', style: 'tableHeader' },
+                    { text: 'Телефон', style: 'tableHeader' },
+                    { text: 'Куда', style: 'tableHeader' },
+                    { text: 'Откуда', style: 'tableHeader' },
+                    { text: 'Стоимость', style: 'tableHeader' },
+                    { text: 'Не выходит', style: 'tableHeader' },
+                    { text: 'Статус', style: 'tableHeader' }
                 ]
             ];
 
-            for (var i=0; i < trip.tripClients.length; i++) {
+            for (var i = 0; i < trip.tripClients.length; i++) {
                 tableBody.push([
                     trip.tripClients[i].Name,
                     trip.tripClients[i].Phone,
@@ -210,7 +210,7 @@ component('tripList', {
                     ]
                 }
             }
-            
+
 
             PdfMaker.createAndDownload(options);
         }
@@ -253,8 +253,8 @@ component('tripList', {
 
         this.addCompolsoryExpense = function (cost, comment) {
             if (cost && comment) {
-                that.trip.compulsoryExpenses.push({ Comment : comment, Cost: cost});
-            
+                that.trip.compulsoryExpenses.push({ Comment: comment, Cost: cost });
+
                 that.compulsoryNewCost = 0;
                 that.compulsoryNewComment = '';
             }
@@ -267,6 +267,15 @@ component('tripList', {
                 that.unexpectedNewCost = 0;
                 that.unexpectedNewComment = '';
             }
+        }
+
+        this.getDriverCashbox = function () {
+            var compulsoryExpensesSum = that.trip.compulsoryExpenses.reduce((acc, expense) => acc + expense.Cost, 0);
+            var unexpectedExpensesSum = that.trip.unexpectedExpenses.reduce((acc, expense) => acc + expense.Cost, 0);
+
+            var incomes=that.trip.tripClients.reduce((acc, client) => acc + client.Price, 0);
+
+            return incomes - (compulsoryExpensesSum + unexpectedExpensesSum);
         }
 
         $scope.$watchCollection('$ctrl.trip.tripClients', function (newValue, previousValue) {
