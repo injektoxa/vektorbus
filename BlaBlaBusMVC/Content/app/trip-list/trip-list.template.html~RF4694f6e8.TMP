@@ -90,10 +90,11 @@
                     <label>
                         Откуда:
                         <select class="form-control" name="repeatFrom" id="repeatFrom"
-                                ng-model="$ctrl.trip.cityFrom" required
+                                ng-model="$ctrl.trip.cityFrom"
+                                required
                                 ng-options="city.Name for city in $ctrl.cities track by city.Id"></select>                      
                     </label>
-                    <div ng-show="form.$submitted || !form.trip.cityFrom">
+                    <div ng-show="form.$submitted || form.trip.cityFrom">
                         <span class="error"
                               ng-show="form.repeatFrom.$error.required">Это поле обязательное</span>
                     </div>
@@ -103,10 +104,11 @@
                     <label>
                         Куда:
                         <select class="form-control" name="repeatTo" id="repeatTo"
-                                ng-model="$ctrl.trip.cityTo" required
+                                ng-model="$ctrl.trip.cityTo"
+                                required
                                 ng-options="city.Name for city in $ctrl.cities track by city.Id"></select>                      
                     </label>
-                    <div ng-show="form.$submitted">
+                    <div ng-show="form.$submitted || form.repeatTo.$touched">
                         <span class="error" ng-show="form.repeatTo.$error.required">Это поле обязательное</span>
                     </div>
                 </div>

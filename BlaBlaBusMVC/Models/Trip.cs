@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
+using BlaBlaBusMVC.ViewModels;
 
 namespace BlaBlaBusMVC.Models
 {
@@ -21,10 +24,16 @@ namespace BlaBlaBusMVC.Models
 
         public string Comments { get; set; }
 
-        public double CompulsoryExpenses { get; set; }
+        public string JsonUnexpectedExpenses { get; set; }
 
-        public double? UnexpectedExpenses { get; set; }
+        [NotMapped]
+        public List<ExpenseViewModel> UnexpectedExpenses => 
+            JsonConvert.DeserializeObject<List<ExpenseViewModel>>(this.JsonUnexpectedExpenses ?? string.Empty);
 
-        public string UnexpectedExpensesComments { get; set; }
+        public string JsonCompulsoryExpenses { get; set; }
+
+        [NotMapped]
+        public List<ExpenseViewModel> CompulsoryExpenses => 
+            JsonConvert.DeserializeObject<List<ExpenseViewModel>>(this.JsonCompulsoryExpenses ?? string.Empty);
     }
 }

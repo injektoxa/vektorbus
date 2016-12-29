@@ -30,16 +30,14 @@ namespace BlaBlaBusMVC.Controllers
         private List<DriverReportViewModel> CreateDriverReports(List<Trip> trips)
         {
             var reports = trips.Select(x => new DriverReportViewModel()
-                {
-                    TripDate = x.Date.ToString("yyyy-MM-dd hh:mm"),
-                    BusInfo = x.Bus != null
-                            ? x.Bus.FriendlyName + " " + x.Bus.RegistrationNumber
-                            : string.Empty,
-                    CityFrom = x.CityFrom.Name,
-                    CityTo = x.CityTo.Name,
-                    ClientsCount = x.ClientTrip.Count,
-                    UnexpectedExpenses = x.UnexpectedExpenses,
-                    CompulsoryExpenses = x.CompulsoryExpenses
+            {
+                TripDate = x.Date.ToString("yyyy-MM-dd hh:mm"),
+                BusInfo = x.Bus != null ? $"{x.Bus.FriendlyName} {x.Bus.RegistrationNumber}" : string.Empty,
+                CityFrom = x.CityFrom.Name,
+                CityTo = x.CityTo.Name,
+                ClientsCount = x.ClientTrip.Count,
+                UnexpectedExpenses = x.UnexpectedExpenses.Sum(e => e.Cost),
+                CompulsoryExpenses = x.CompulsoryExpenses.Sum(e => e.Cost)
             }).ToList();
 
             return reports;

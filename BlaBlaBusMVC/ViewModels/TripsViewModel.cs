@@ -45,13 +45,8 @@ namespace BlaBlaBusMVC.ViewModels
             arrivalDate = trip.ArrivalDate;
             tripClients = trip.ClientTrip.Select(i => new ClientTripViewModel(i)).ToList();
             comments = trip.Comments;
-            compulsoryExpenses = new List<ExpenseViewModel> {
-                new ExpenseViewModel() { Comment = "jfi", Cost = 1124 }
-            };
-
-            //compulsoryExpenses = trip.CompulsoryExpenses;
-            //unexpectedExpenses = trip.UnexpectedExpenses;
-            //unexpectedExpensesComments = trip.UnexpectedExpensesComments;
+            compulsoryExpenses = trip.CompulsoryExpenses ?? new List<ExpenseViewModel>();
+            unexpectedExpenses = trip.UnexpectedExpenses ?? new List<ExpenseViewModel>();
         }
     }
 }

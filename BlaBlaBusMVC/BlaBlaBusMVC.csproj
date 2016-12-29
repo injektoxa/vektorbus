@@ -274,6 +274,10 @@
     <Compile Include="Migrations\201612281054182_aa.Designer.cs">
       <DependentUpon>201612281054182_aa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612290756263_TripExpensesToJson.cs" />
+    <Compile Include="Migrations\201612290756263_TripExpensesToJson.Designer.cs">
+      <DependentUpon>201612290756263_TripExpensesToJson.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Agent.cs" />
     <Compile Include="ViewModels\ApplicationUserViewModel.cs" />
@@ -517,6 +521,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612281054182_aa.resx">
       <DependentUpon>201612281054182_aa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612290756263_TripExpensesToJson.resx">
+      <DependentUpon>201612290756263_TripExpensesToJson.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
