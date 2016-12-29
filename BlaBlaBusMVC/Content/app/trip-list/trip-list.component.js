@@ -164,14 +164,31 @@ component('tripList', {
                 tableBody.push([
                     trip.tripClients[i].Name,
                     trip.tripClients[i].Phone,
-                    trip.tripClients[i].To,
-                    trip.tripClients[i].From,
+                    trip.tripClients[i].To ? trip.tripClients[i].To : '',
+                    trip.tripClients[i].From ? trip.tripClients[i].From : '',
                     trip.tripClients[i].Price.toString(),
                     trip.tripClients[i].IsStayInBus ? 'Да' : '',
                     (trip.tripClients[i].HasMinorChild ? 'С ребенком; ' : '') +
                     (trip.tripClients[i].HasDisability ? 'Инвалид' : '')
                 ]);
             }
+
+            //pdfMake doesnt work with initializing via variable
+            var compolsuryExpenseTable = [[{ text: 'Стоимость', style: 'tableHeader' }, { text: 'Комментарий', style: 'tableHeader' }]];
+            var unexpectedExpenseTable = [[{ text: 'Стоимость', style: 'tableHeader' }, { text: 'Комментарий', style: 'tableHeader' }]];
+
+            trip.compulsoryExpenses.map((expense) =>
+                compolsuryExpenseTable.push([
+                     expense.Cost.toString(),
+                     expense.Comment
+                ]));
+
+            trip.unexpectedExpenses.map((expense) =>
+                unexpectedExpenseTable.push([
+                     expense.Cost.toString(),
+                     expense.Comment
+                ]));
+
             var bus = trip.bus != null ? trip.bus.FriendlyName + ' ' + trip.bus.RegistrationNumber + ', ' : '';
             var driver = trip.driver != null ? 'Водитель: ' + trip.driver.FullName : '';
             var fileName = trip.cityFrom.Name.concat(' - ', trip.cityTo.Name, ' ', $filter('date')(trip.date, "yyyy/MM/dd"), '.pdf');
@@ -189,17 +206,47 @@ component('tripList', {
                             text: bus + driver
                         },
                         {
-                            text: 'Обязательные расходы: ' + trip.compulsoryExpenses
+                            text: ' '
                         },
                         {
-                            text: 'Дополнительные расходы: ' +
-                                trip.unexpectedExpenses +
-                                ' (' +
-                                trip.unexpectedExpensesComments +
-                                ')'
+                            columns: [
+                            {
+                                width: '50%',
+                                text: 'Обязательные расходы:'
+                            },
+                            {
+                                width: '50%',
+                                text: 'Дополнительные расходы:'
+                            }]
+                        },
+                        {
+                            columns: [
+                            {
+                                width: '50%',
+                                table: {
+                                    headerRows: 1,
+                                    body: compolsuryExpenseTable
+                                }
+                            },
+                            {
+                                width: '50%',
+                                table: {
+                                    headerRows: 1,
+                                    body: unexpectedExpenseTable
+                                }
+                            }]
                         },
                         {
                             text: ' '
+                        },
+                        {
+                            text: 'Касса водителя: ' + that.getDriverCashbox(trip)
+                        },
+                        {
+                            text: ' '
+                        },
+                        {
+                            text: 'Клиенты:'
                         },
                         {
                             table: {
@@ -210,7 +257,6 @@ component('tripList', {
                     ]
                 }
             }
-
 
             PdfMaker.createAndDownload(options);
         }
@@ -269,11 +315,13 @@ component('tripList', {
             }
         }
 
-        this.getDriverCashbox = function () {
-            var compulsoryExpensesSum = that.trip.compulsoryExpenses.reduce((acc, expense) => acc + expense.Cost, 0);
-            var unexpectedExpensesSum = that.trip.unexpectedExpenses.reduce((acc, expense) => acc + expense.Cost, 0);
+        this.getDriverCashbox = function (trip) {
+            var expenseSumFun = (acc, expense) => acc + expense.Cost;
 
-            var incomes=that.trip.tripClients.reduce((acc, client) => acc + client.Price, 0);
+            var compulsoryExpensesSum = trip.compulsoryExpenses.reduce(expenseSumFun, 0);
+            var unexpectedExpensesSum = trip.unexpectedExpenses.reduce(expenseSumFun, 0);
+
+            var incomes = trip.tripClients.reduce((acc, client) => acc + client.Price, 0);
 
             return incomes - (compulsoryExpensesSum + unexpectedExpensesSum);
         }
