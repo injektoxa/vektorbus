@@ -170,9 +170,9 @@ namespace BlaBlaBusMVC.Controllers
             tripdb.CityFrom = db.Cities.First(c => c.Id == trip.cityFrom.Id);
             tripdb.CityTo = db.Cities.First(c => c.Id == trip.cityTo.Id);
             tripdb.Comments = trip.comments;
-            tripdb.CompulsoryExpenses = trip.compulsoryExpenses;
-            tripdb.UnexpectedExpenses = trip.unexpectedExpenses;
-            tripdb.UnexpectedExpensesComments = trip.unexpectedExpensesComments;
+            //tripdb.CompulsoryExpenses = trip.compulsoryExpenses;
+            //tripdb.UnexpectedExpenses = trip.unexpectedExpenses;
+            //tripdb.UnexpectedExpensesComments = trip.unexpectedExpensesComments;
 
             return tripdb;
         }

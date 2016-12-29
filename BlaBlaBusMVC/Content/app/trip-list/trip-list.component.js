@@ -14,6 +14,8 @@ component('tripList', {
 
         this.trip = {
             tripClients: [],
+            compulsoryExpenses: [],
+            unexpectedExpenses: [],
             startDate: that.dateNow,
             startTime: that.dateNow,
             endDate: that.dateNow,
@@ -116,6 +118,7 @@ component('tripList', {
                 that.trip.startDate.getDate(),
                 that.trip.startTime.getHours(),
                 that.trip.startTime.getMinutes()));
+
             that.trip.arrivalDate = new Date(Date.UTC(
                 that.trip.endDate.getFullYear(),
                 that.trip.endDate.getMonth(),
@@ -144,7 +147,7 @@ component('tripList', {
             });
         };
 
-        this.createPDF =function(trip) {
+        this.createPDF = function(trip) {
             var tableBody=[
                 [
                     {text: 'Имя Фамилия', style: 'tableHeader'},
@@ -245,6 +248,24 @@ component('tripList', {
                         var errorMessage = 'Маршрут не удален. Ошибка удаления: ' + error.data.Message;
                         alert(errorMessage);
                     });
+            }
+        }
+
+        this.addCompolsoryExpense = function (cost, comment) {
+            if (cost && comment) {
+                that.trip.compulsoryExpenses.push({ Comment : comment, Cost: cost});
+            
+                that.compulsoryNewCost = 0;
+                that.compulsoryNewComment = '';
+            }
+        }
+
+        this.addUnexpectedExpens = function (cost, comment) {
+            if (cost && comment) {
+                that.trip.unexpectedExpenses.push({ Comment: comment, Cost: cost });
+
+                that.unexpectedNewCost = 0;
+                that.unexpectedNewComment = '';
             }
         }
 

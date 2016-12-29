@@ -112,28 +112,43 @@ color: chartreuse;
     margin-right:15px;
 }
 
-.form-group label:after {
-    position:absolute;
+.form-group label.required:before {
     content:'*';
     color:red;
-    right:-10px;
-    top:0;
 }
 
-.trip-create-form .form-group select{
-   min-width: 200px;
+.trip-create-form .form-group select,{
+   min-width: 250px;
+}
+
+.trip-create-form label{
+  width: 250px
 }
 
 .trip-create-form .date-input{
-    width : 200px;
+    width : 140px;
     margin-top: 33.5px;
     margin-right: 10px;
 }
 
 .date-time-group{
-  display: flex;
-  bottom: 30px;
-  margin-bottom: -60px;
+    display: flex;
+    bottom: 30px;
+    margin-bottom: -60px;
+}
+
+.expense-input-row {
+    display: flex;
+}
+
+.expense-input-row .cost-input {
+    width: 80px;
+    margin-right: 10px;
+}
+
+.expense-input-row .comment-input {
+    width: 200px;
+    margin-right: 20px;
 }
 
 .options div{

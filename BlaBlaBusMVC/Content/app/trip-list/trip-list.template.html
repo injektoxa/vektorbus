@@ -1,9 +1,8 @@
-﻿<div>
-    <a ng-click="$ctrl.showAddForm()" style="cursor:pointer">Добавить маршрут</a>
-
-    <div class="row" ng-show="$ctrl.showAddTripForm">
-        <div class="col-xs-12 col-md-6">
-            <form name="form" class="trip-create-form" novalidate>
+﻿<a ng-click="$ctrl.showAddForm()" style="cursor:pointer">Добавить маршрут</a>
+<div class="row" ng-show="$ctrl.showAddTripForm">
+    <form name="form" class="trip-create-form col-xs-12" novalidate>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
                 <div class="form-group">
                     <label>
                         Автобус:
@@ -16,7 +15,7 @@
 
                 <div class="form-group">
                     <label>
-                        Водитель
+                        Водитель:
                         <div class="trip-driver-group">
                             <select class="form-control driver-select"
                                     ng-model="$ctrl.trip.driver"
@@ -100,7 +99,7 @@
                         </div>
                     </label>
                 </div>
-                
+
                 <div class="form-group">
                     <label>
                         Куда:
@@ -113,34 +112,54 @@
                         </div>
                     </label>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label>
-                        Oбязательные расходы:
-                        <input type="number" class="form-control" name="compulsoryExpenses"
-                               ng-model="$ctrl.trip.compulsoryExpenses" required />
-                        <div ng-show="form.$submitted || form.compulsoryExpenses.$touched">
-                            <span class="error"
-                                  ng-show="form.compulsoryExpenses.$error.required">Это поле обязательное</span>
-                        </div>
-                    </label>
+            <client-trip-list></client-trip-list>
+        </div>  
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <label class="text-center"> Oбязательные расходы: </label>
+
+                <div class="form-group expense-input-row" ng-repeat="compulsory in $ctrl.trip.compulsoryExpenses">
+                    <input type="number" class="form-control cost-input" ng-model="compulsory.Cost" />
+                    <input type="text" class="form-control comment-input" ng-model="compulsory.Comment" />
                 </div>
 
-                <div class="form-group">
-                    <label>
-                        Дополнительные расходы:
-                        <input type="number" class="form-control" ng-model="$ctrl.trip.unexpectedExpenses" />
-                    </label>
+                <div class="form-group expense-input-row">
+                    <input type="number" class="form-control cost-input" ng-model="$ctrl.compulsoryNewCost"
+                           ng-blur="$ctrl.addCompolsoryExpense($ctrl.compulsoryNewCost, $ctrl.compulsoryNewComment)"/>
+
+                    <input type="text" class="form-control comment-input" ng-model="$ctrl.compulsoryNewComment"
+                            ng-blur="$ctrl.addCompolsoryExpense($ctrl.compulsoryNewCost, $ctrl.compulsoryNewComment)"/>
+
+                    <button class="btn btn-default" ng-click="$ctrl.addCompolsoryExpense($ctrl.compulsoryNewCost, $ctrl.compulsoryNewComment)">
+                        +
+                    </button>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <label class="text-center"> Дополнительные расходы: </label>
+                <div class="form-group expense-input-row" ng-repeat="unexpected in $ctrl.trip.unexpectedExpenses">
+                    <input type="number" class="form-control cost-input" ng-model="unexpected.Cost" />
+                    <input type="text" class="form-control comment-input" ng-model="unexpected.Comment" />
                 </div>
 
-                <div class="form-group">
-                    <label>
-                        Комментарий(доп. расходы):
-                        <input type="text" class="form-control" ng-model="$ctrl.trip.unexpectedExpensesComments" />
-                    </label>
+                <div class="form-group expense-input-row">
+                    <input type="number" class="form-control cost-input" ng-model="$ctrl.unexpectedNewCost"
+                           ng-blur="$ctrl.addUnexpectedExpens($ctrl.unexpectedNewCost, $ctrl.unexpectedNewComment)" />
+
+                    <input type="text" class="form-control comment-input" ng-model="$ctrl.unexpectedNewComment"
+                           ng-blur="$ctrl.addUnexpectedExpens($ctrl.unexpectedNewCost, $ctrl.unexpectedNewComment)" />
+
+                    <button class="btn btn-default" ng-click="$ctrl.addUnexpectedExpens($ctrl.unexpectedNewCost, $ctrl.unexpectedNewComment)">
+                        +
+                    </button>
                 </div>
 
+            </div>
 
+            <div class="col-xs-12">
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary" ng-click="$ctrl.add()">
                         {{$ctrl.isEditMode ? 'Обновить' : 'Добавить'}}
@@ -152,80 +171,79 @@
                         <span class="error" ng-show="form.$error.isAnyClient">Необходимо выбрать хотя бы одного клиента</span>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
+    </form>
+</div>
 
-        <client-trip-list></client-trip-list>
-    </div>
+<hr />
 
-    <hr />
+<div class="row">
+    <div class="col-md-12">
+        <span>
+            Поиск:
+            <input class="form-control" ng-model="$ctrl.query" />
+        </span>
+        <br />
+        <uib-accordion close-others="oneAtATime" ng-repeat="trip in $ctrl.trips | filter:$ctrl.query">
+            <div uib-accordion-group class="panel-default"
+                 heading="{{trip.date | date:$ctrl.dateTimeFormat }} - {{trip.arrivalDate| date:$ctrl.dateTimeFormat}},
+                 {{trip.bus.FriendlyName}} {{trip.bus.RegistrationNumber}} , Водитель {{trip.driver.FullName}} ,
+                 Маршрут {{trip.cityFrom.Name}} ---->
+                {{trip.cityTo.Name}}"
+                is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
 
-    <div class="row">
-        <div class="col-md-12">
-            <span>
-                Поиск:
-                <input class="form-control" ng-model="$ctrl.query" />
-            </span>
-            <br />
-            <uib-accordion close-others="oneAtATime" ng-repeat="trip in $ctrl.trips | filter:$ctrl.query">
-                <div uib-accordion-group class="panel-default"
-                     heading="{{trip.date | date:$ctrl.dateTimeFormat }} - {{trip.arrivalDate| date:$ctrl.dateTimeFormat}},
-                     {{trip.bus.FriendlyName}} {{trip.bus.RegistrationNumber}} , Водитель {{trip.driver.FullName}} ,
-                     Маршрут {{trip.cityFrom.Name}} ---->
-                    {{trip.cityTo.Name}}"
-                    is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
-
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <a ng-click="$ctrl.editTrip(trip)">Редактировать рейс</a>
-                        </div>
-
-                        <div class="col-xs-6">
-                            <a class="create-trip pull-right" ng-click="$ctrl.createPDF(trip)">Сформировать рейс</a>
-                        </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a ng-click="$ctrl.editTrip(trip)">Редактировать рейс</a>
                     </div>
 
-
-                    <div class="table-responsive">
-                        <table class="table table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <td>Комментарий маршрута</td>
-                                    <td>Клиент</td>
-                                    <td>Телефон</td>
-                                    <td>Скидка</td>
-                                    <td>Комментарий клиента</td>
-                                    <td>Цена</td>
-                                    <td>Агент</td>
-                                    <td>Цена агента</td>
-                                    <td>Маршрут</td>
-                                    <td>Не выходит</td>
-                                    <td>Багаж</td>
-                                    <td>Ребенок</td>
-                                    <td>Инвалид</td>
-                                </tr>
-                            </thead>
-
-                            <tr ng-repeat="client in trip.tripClients">
-                                <td>{{trip.comments}}</td>
-                                <td>{{client.Name}}</td>
-                                <td>{{client.Phone}}</td>
-                                <td ng-class="client.HasDiscount ? 'highlighting' : ''">{{client.HasDiscount ? 'Есть' : ''}}</td>
-                                <td>{{client.Comments}}</td>
-                                <td>{{client.Price}}</td>
-                                <td>{{client.AgentName}}</td>
-                                <td>{{client.AgentPrice}}</td>
-                                <td>{{client.From}} --> {{client.To}}</td>
-                                <td ng-class="client.IsStayInBus ? 'highlighting' : ''">{{client.IsStayInBus ? 'Да' : ''}}</td>
-                                <td>{{client.HasBaggage ? 'Есть' : ''}}</td>
-                                <td>{{client.HasMinorChild ? 'Да' : ''}}</td>
-                                <td>{{client.HasDisability ? 'Да' : ''}}</td>
-                            </tr>
-                        </table>
+                    <div class="col-xs-6">
+                        <a class="create-trip pull-right" ng-click="$ctrl.createPDF(trip)">Сформировать рейс</a>
                     </div>
-                    <a class="delete-trip" ng-click="$ctrl.delete(trip)">Удалить рейс</a>
                 </div>
-            </uib-accordion>
-        </div>
+
+
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <td>Комментарий маршрута</td>
+                                <td>Клиент</td>
+                                <td>Телефон</td>
+                                <td>Скидка</td>
+                                <td>Комментарий клиента</td>
+                                <td>Цена</td>
+                                <td>Агент</td>
+                                <td>Цена агента</td>
+                                <td>Маршрут</td>
+                                <td>Не выходит</td>
+                                <td>Багаж</td>
+                                <td>Ребенок</td>
+                                <td>Инвалид</td>
+                            </tr>
+                        </thead>
+
+                        <tr ng-repeat="client in trip.tripClients">
+                            <td>{{trip.comments}}</td>
+                            <td>{{client.Name}}</td>
+                            <td>{{client.Phone}}</td>
+                            <td ng-class="client.HasDiscount ? 'highlighting' : ''">{{client.HasDiscount ? 'Есть' : ''}}</td>
+                            <td>{{client.Comments}}</td>
+                            <td>{{client.Price}}</td>
+                            <td>{{client.AgentName}}</td>
+                            <td>{{client.AgentPrice}}</td>
+                            <td>{{client.From}} --> {{client.To}}</td>
+                            <td ng-class="client.IsStayInBus ? 'highlighting' : ''">{{client.IsStayInBus ? 'Да' : ''}}</td>
+                            <td>{{client.HasBaggage ? 'Есть' : ''}}</td>
+                            <td>{{client.HasMinorChild ? 'Да' : ''}}</td>
+                            <td>{{client.HasDisability ? 'Да' : ''}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <a class="delete-trip" ng-click="$ctrl.delete(trip)">Удалить рейс</a>
+            </div>
+        </uib-accordion>
     </div>
+</div>
 </div>
