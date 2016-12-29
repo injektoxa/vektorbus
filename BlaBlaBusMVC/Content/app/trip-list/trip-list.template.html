@@ -1,4 +1,4 @@
-﻿<a ng-click="$ctrl.showAddForm()" style="cursor:pointer">Добавить маршрут</a>
+<a ng-click="$ctrl.showAddForm()" style="cursor:pointer">Добавить маршрут</a>
 <div class="row" ng-show="$ctrl.showAddTripForm">
     <form name="form" class="trip-create-form col-xs-12" novalidate>
         <div class="row">
@@ -21,7 +21,6 @@
                                     ng-model="$ctrl.trip.driver"
                                     required
                                     ng-options="driver.FullName for driver in $ctrl.drivers track by driver.Id"></select>
-
                             <button class="btn btn-default" ng-click="$ctrl.openDriversList()"> + </button>
                         </div>
                     </label>
