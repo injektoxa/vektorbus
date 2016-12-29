@@ -89,9 +89,9 @@ angular.module('reports')
                         report.CityFrom,
                         report.CityTo,
                         report.BusInfo,
-                        report.ClientsCount.toString(),
-                        report.CompulsoryExpenses.toString(),
-                        report.UnexpectedExpenses.toString()]));
+                        report.ClientsCount ? report.ClientsCount.toString() : '',
+                        report.CompulsoryExpenses ? report.CompulsoryExpenses.toString() : '',
+                        report.UnexpectedExpenses ? report.UnexpectedExpenses.toString() : '']));
 
                     var datePeriod = $filter('date')(that.dateFrom, "yyyy-MM-dd").
                         concat(' - ', $filter('date')(that.dateTo, "yyyy-MM-dd"));
