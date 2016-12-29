@@ -99,33 +99,56 @@ a {
    cursor:pointer;
 }
 
-.error {
+.error, .attention {
   color: red;  
 }
 
 .highlighting {
-color: chartreuse;
+    color: chartreuse;
 }
 
- .form-group div {
+.form-group div {
     position:relative;
     margin-right:15px;
 }
 
-.form-group div:after {
-    position:absolute;
+.form-group label.required:before {
     content:'*';
     color:red;
-    right:-10px;
-    top:0;
 }
 
-table.clients-trip td.info {
-  width : 130px;
+.trip-create-form .form-group select,{
+   min-width: 250px;
 }
 
-table.clients-trip td.options {
-  width : 300px;
+.trip-create-form label{
+  width: 250px
+}
+
+.trip-create-form .date-input{
+    width : 140px;
+    margin-top: 33.5px;
+    margin-right: 10px;
+}
+
+.date-time-group{
+    display: flex;
+    bottom: 30px;
+    margin-bottom: -60px;
+}
+
+.expense-input-row {
+    display: flex;
+}
+
+.expense-input-row .cost-input {
+    width: 80px;
+    margin-right: 10px;
+}
+
+.expense-input-row .comment-input {
+    width: 200px;
+    margin-right: 20px;
 }
 
 .options div{
@@ -153,6 +176,15 @@ table.clients-trip td.options {
 
 table.clients-trip td.button-area {
   padding : 10px
+}
+
+.trip-driver-group{
+  display: flex;
+}
+
+.driver-select{
+  max-width: 200px;
+  margin-right: 5px;
 }
 
 .Clients {

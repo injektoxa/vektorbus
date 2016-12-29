@@ -14,6 +14,8 @@ component('tripList', {
 
         this.trip = {
             tripClients: [],
+            compulsoryExpenses: [],
+            unexpectedExpenses: [],
             startDate: that.dateNow,
             startTime: that.dateNow,
             endDate: that.dateNow,
@@ -39,7 +41,7 @@ component('tripList', {
             opened: false
         };
 
-        this.startDateOpen = function() {
+        this.startDateOpen = function () {
             that.startDatePopup.opened = true;
         };
 
@@ -82,7 +84,7 @@ component('tripList', {
             });
         };
 
-        this.update = function() {
+        this.update = function () {
             that.joinTripDateAndTime();
             Trip.update(
                 { id: that.trip.id },
@@ -109,13 +111,14 @@ component('tripList', {
             $scope.$broadcast('clearClientTripsEvent');
         };
 
-        this.joinTripDateAndTime = function() {
+        this.joinTripDateAndTime = function () {
             that.trip.date = new Date(Date.UTC(
                 that.trip.startDate.getFullYear(),
                 that.trip.startDate.getMonth(),
                 that.trip.startDate.getDate(),
                 that.trip.startTime.getHours(),
                 that.trip.startTime.getMinutes()));
+
             that.trip.arrivalDate = new Date(Date.UTC(
                 that.trip.endDate.getFullYear(),
                 that.trip.endDate.getMonth(),
@@ -124,14 +127,14 @@ component('tripList', {
                 that.trip.endTime.getMinutes()));
         };
 
-        this.openDriversList = function() {
+        this.openDriversList = function () {
             var modalOptions = {
                 animation: true,
                 backdrop: 'static',
                 size: 'lg',
                 component: 'driverList',
                 resolve: {
-                    drivers: function() {
+                    drivers: function () {
                         return that.drivers;
                     }
                 }
@@ -139,36 +142,53 @@ component('tripList', {
 
             var modalInstance = $uibModal.open(modalOptions);
 
-            modalInstance.result.then(function(drivers) {
+            modalInstance.result.then(function (drivers) {
                 that.drivers = drivers;
             });
         };
 
-        this.createPDF =function(trip) {
-            var tableBody=[
+        this.createPDF = function (trip) {
+            var tableBody = [
                 [
-                    {text: 'Имя Фамилия', style: 'tableHeader'},
-                    {text: 'Телефон', style: 'tableHeader'},
-                    {text: 'Куда', style: 'tableHeader'},
-                    {text: 'Откуда', style: 'tableHeader'},
-                    {text: 'Стоимость', style: 'tableHeader'},
-                    {text: 'Не выходит', style: 'tableHeader'},
-                    {text: 'Статус', style: 'tableHeader'}
+                    { text: 'Имя Фамилия', style: 'tableHeader' },
+                    { text: 'Телефон', style: 'tableHeader' },
+                    { text: 'Куда', style: 'tableHeader' },
+                    { text: 'Откуда', style: 'tableHeader' },
+                    { text: 'Стоимость', style: 'tableHeader' },
+                    { text: 'Не выходит', style: 'tableHeader' },
+                    { text: 'Статус', style: 'tableHeader' }
                 ]
             ];
 
-            for (var i=0; i < trip.tripClients.length; i++) {
+            for (var i = 0; i < trip.tripClients.length; i++) {
                 tableBody.push([
                     trip.tripClients[i].Name,
                     trip.tripClients[i].Phone,
-                    trip.tripClients[i].To,
-                    trip.tripClients[i].From,
+                    trip.tripClients[i].To ? trip.tripClients[i].To : '',
+                    trip.tripClients[i].From ? trip.tripClients[i].From : '',
                     trip.tripClients[i].Price.toString(),
                     trip.tripClients[i].IsStayInBus ? 'Да' : '',
                     (trip.tripClients[i].HasMinorChild ? 'С ребенком; ' : '') +
                     (trip.tripClients[i].HasDisability ? 'Инвалид' : '')
                 ]);
             }
+
+            //pdfMake doesnt work with initializing via variable
+            var compolsuryExpenseTable = [[{ text: 'Стоимость', style: 'tableHeader' }, { text: 'Комментарий', style: 'tableHeader' }]];
+            var unexpectedExpenseTable = [[{ text: 'Стоимость', style: 'tableHeader' }, { text: 'Комментарий', style: 'tableHeader' }]];
+
+            trip.compulsoryExpenses.map((expense) =>
+                compolsuryExpenseTable.push([
+                     expense.Cost.toString(),
+                     expense.Comment
+                ]));
+
+            trip.unexpectedExpenses.map((expense) =>
+                unexpectedExpenseTable.push([
+                     expense.Cost.toString(),
+                     expense.Comment
+                ]));
+
             var bus = trip.bus != null ? trip.bus.FriendlyName + ' ' + trip.bus.RegistrationNumber + ', ' : '';
             var driver = trip.driver != null ? 'Водитель: ' + trip.driver.FullName : '';
             var fileName = trip.cityFrom.Name.concat(' - ', trip.cityTo.Name, ' ', $filter('date')(trip.date, "yyyy/MM/dd"), '.pdf');
@@ -186,17 +206,47 @@ component('tripList', {
                             text: bus + driver
                         },
                         {
-                            text: 'Обязательные расходы: ' + trip.compulsoryExpenses
+                            text: ' '
                         },
                         {
-                            text: 'Дополнительные расходы: ' +
-                                trip.unexpectedExpenses +
-                                ' (' +
-                                trip.unexpectedExpensesComments +
-                                ')'
+                            columns: [
+                            {
+                                width: '50%',
+                                text: 'Обязательные расходы:'
+                            },
+                            {
+                                width: '50%',
+                                text: 'Дополнительные расходы:'
+                            }]
+                        },
+                        {
+                            columns: [
+                            {
+                                width: '50%',
+                                table: {
+                                    headerRows: 1,
+                                    body: compolsuryExpenseTable
+                                }
+                            },
+                            {
+                                width: '50%',
+                                table: {
+                                    headerRows: 1,
+                                    body: unexpectedExpenseTable
+                                }
+                            }]
                         },
                         {
                             text: ' '
+                        },
+                        {
+                            text: 'Касса водителя: ' + that.getDriverCashbox(trip)
+                        },
+                        {
+                            text: ' '
+                        },
+                        {
+                            text: 'Клиенты:'
                         },
                         {
                             table: {
@@ -207,7 +257,6 @@ component('tripList', {
                     ]
                 }
             }
-            
 
             PdfMaker.createAndDownload(options);
         }
@@ -246,6 +295,35 @@ component('tripList', {
                         alert(errorMessage);
                     });
             }
+        }
+
+        this.addCompolsoryExpense = function (cost, comment) {
+            if (cost && comment) {
+                that.trip.compulsoryExpenses.push({ Comment: comment, Cost: cost });
+
+                that.compulsoryNewCost = 0;
+                that.compulsoryNewComment = '';
+            }
+        }
+
+        this.addUnexpectedExpens = function (cost, comment) {
+            if (cost && comment) {
+                that.trip.unexpectedExpenses.push({ Comment: comment, Cost: cost });
+
+                that.unexpectedNewCost = 0;
+                that.unexpectedNewComment = '';
+            }
+        }
+
+        this.getDriverCashbox = function (trip) {
+            var expenseSumFun = (acc, expense) => acc + expense.Cost;
+
+            var compulsoryExpensesSum = trip.compulsoryExpenses.reduce(expenseSumFun, 0);
+            var unexpectedExpensesSum = trip.unexpectedExpenses.reduce(expenseSumFun, 0);
+
+            var incomes = trip.tripClients.reduce((acc, client) => acc + client.Price, 0);
+
+            return incomes - (compulsoryExpensesSum + unexpectedExpensesSum);
         }
 
         $scope.$watchCollection('$ctrl.trip.tripClients', function (newValue, previousValue) {
