@@ -101,6 +101,7 @@ gulp.task('bower_components', function () {
                     'app/bower_components/underscore/underscore-min.js',
                     'app/bower_components/angular-local-storage/dist/angular-local-storage.min.js',
                     'app/bower_components/angular-bootstrap/ui-bootstrap.min.js',
+                    'app/bower_components/ngmap/build/scripts/ng-map.min.js'
         ], { base: 'app/' })
             .pipe(concat('scripts.min.js'))
             .pipe(gulp.dest('app'));

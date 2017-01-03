@@ -1,3 +1,3 @@
 ﻿'use strict';
 
-angular.module('tripList', ['core.trip','core.bus']);
+angular.module('tripList', ['core.trip', 'core.bus', 'ngMap']);

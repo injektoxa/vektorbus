@@ -22,5 +22,8 @@
   },
   "resolutions": {
     "angular": "^1.x"
+  },
+  "devDependencies": {
+    "ngmap": "^1.17.8"
   }
 }
