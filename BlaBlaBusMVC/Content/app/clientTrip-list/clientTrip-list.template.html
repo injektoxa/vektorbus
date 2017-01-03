@@ -26,90 +26,80 @@
     </p>
     <ul class="Clients">
         <li ng-repeat="client in $ctrl.clients | orderBy:$ctrl.orderProp" class="thumbnail client-list-item">
-            <table class="clients-trip">
-                <tr>
-                    <td class="info">
-                        <a href="#/clients/{{client.Id}}">{{client.Name}}</a>
-                        <p>{{client.Phone}}</p>
-                    </td>
-                  <td class="options">
-                    <div>
-                      <label>
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <a class="client-link" href="/clients/{{client.Id}}">{{client.Name}}</a>
+                    <p>{{client.Comments}}</p>
+                    <p>{{client.Phone}}</p>
+                </div>
+
+                <div class="col-sm-offset-1 col-xs-7">
+                    <label>
                         Откуда:
-                      </label>
-                      <select class="form-control" name="repeatFrom" id="repeatFrom" ng-model="client.From" required>
-                        <option ng-repeat="city in $ctrl.cities" value="{{city.Name}}">{{city.Name}}</option>
-                      </select>                      
-                    </div>
-                    <div>
-                      <label>
+                        <select class="form-control" name="repeatFrom" id="repeatFrom" ng-model="client.From">
+                            <option ng-repeat="city in $ctrl.cities" value="{{city.Name}}">{{city.Name}}</option>
+                        </select>
+                    </label>
+
+                    <label>
                         Куда:
-                      </label>
-                      <select class="form-control" name="repeatTo" id="repeatTo" ng-model="client.To" required>
-                        <option ng-repeat="city in $ctrl.cities" value="{{city.Name}}">{{city.Name}}</option>
-                      </select>
-                    </div>
-                      <div>
-                          <label>
-                              Цена:
-                          </label>
-                          <input type="number" class="form-control" name="Price" ng-model="client.Price" required />                      
-                      </div>
-                      <div>
-                          <label>
-                              Доп. расходы:
-                          </label>
-                          <input type="number" class="form-control" name="AdditionalExpenses" ng-model="client.AdditionalExpenses" required />
-                      </div>
-                      <div>
-                          <label>
-                              Агент:
-                          </label>
-                          <select class="form-control" name="repeatAgent" id="repeatAgent" ng-model="client.AgentId" required>
-                              <option ng-repeat="agent in $ctrl.agents" value="{{agent.Id}}">{{agent.FullName}}</option>
-                          </select>
-                      </div>
-                      <div>
-                          <label>
-                              Цена агента:
-                          </label>
-                          <input type="number" class="form-control" name="AgentPrice" ng-model="client.AgentPrice" required />
-                      </div>
-                    <div>
-                      <label>
+                        <select class="form-control" name="repeatTo" id="repeatTo" ng-model="client.To">
+                            <option ng-repeat="city in $ctrl.cities" value="{{city.Name}}">{{city.Name}}</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Цена:
+                        <input type="number" class="form-control" name="Price" ng-model="client.Price" />
+                    </label>
+
+                    <label>
+                        Доп. расходы:
+                        <input type="number" class="form-control" name="AdditionalExpenses" ng-model="client.AdditionalExpenses" />
+                    </label>
+
+                    <label>
+                        Агент:
+                        <select class="form-control" name="repeatAgent" id="repeatAgent" ng-model="client.AgentId">
+                            <option ng-repeat="agent in $ctrl.agents" value="{{agent.Id}}">{{agent.FullName}}</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Цена агента:
+                        <input type="number" class="form-control" name="AgentPrice" ng-model="client.AgentPrice" />
+                    </label>
+                </div>
+
+                <div class="col-xs-4 col-lg-3 clients-check-box-col">
+                    <label>
                         Не выходит:
-                      </label>
-                      <input type="checkbox" name="IsStayInBus" ng-model="client.IsStayInBus" required />
-                    </div>
-                    <div>
-                      <label>
+                        <input type="checkbox" name="IsStayInBus" ng-model="client.IsStayInBus" />
+                    </label>
+
+                    <label>
                         Багаж:
-                      </label>
-                      <input type="checkbox" name="HasBaggage" ng-model="client.HasBaggage" required />
-                    </div>
-                  </td>
-                    <td class="button-area">
-                        <label>
-                            Скидка:
-                            <input type="checkbox" ng-disabled="true" ng-model="client.HasDiscount">
-                        </label>
-                        <label>
-                            Ребенок:
-                            <input type="checkbox" ng-disabled="true" ng-model="client.HasMinorChild">
-                        </label>
-                        <label>
-                            Инвалид:
-                            <input type="checkbox" ng-disabled="true" ng-model="client.HasDisability">
-                        </label>
-                        <button class="btn btn-success" ng-click="$ctrl.addToTrip(client)">Добавить</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <p>{{client.Comments}}</p>
-                    </td>
-                </tr>
-            </table>
+                        <input type="checkbox" name="HasBaggage" ng-model="client.HasBaggage" />
+                    </label>
+
+                    <label>
+                        Скидка:
+                        <input type="checkbox" ng-disabled="true" ng-model="client.HasDiscount">
+                    </label>
+
+                    <label>
+                        Ребенок:
+                        <input type="checkbox" ng-disabled="true" ng-model="client.HasMinorChild">
+                    </label>
+
+                    <label>
+                        Инвалид:
+                        <input type="checkbox" ng-disabled="true" ng-model="client.HasDisability">
+                    </label>
+
+                    <button class="btn btn-success" ng-click="$ctrl.addToTrip(client)">Добавить</button>
+                </div>
+            </div>
         </li>
     </ul>
 </div>

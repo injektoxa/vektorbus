@@ -26,10 +26,6 @@ h1 {
   width: 100px;
 }
 
-.thumbnail {
-    height: 330px;
-}
-
 .client {
   background-color: white;
   display: none;
@@ -39,6 +35,14 @@ h1 {
   margin-right: 3em;
   padding: 2em;
   width: 500px;
+}
+
+.client-link {
+    font-size: 20px;
+}
+
+.clients-check-box-col {
+    margin-top: 20px;
 }
 
 .phone:first-child {
