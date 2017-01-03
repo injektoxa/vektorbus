@@ -242,11 +242,9 @@
                     </table>
                 </div>
 
-                <ng-map zoom="18" center="$ctrl.mapCenterLatLng">
-                    <directions draggable="true"
-                                travel-mode="DRIVING"
-                                origin="{{trip.cityFrom.Name}}"
-                                destination="{{trip.cityTo.Name}}">
+                <ng-map map-initialized="$ctrl.mapInitialized(map)" zoom="18" center="$ctrl.mapCenterLatLng">
+                    <directions draggable="true" travel-mode="DRIVING"
+                                origin="{{trip.cityFrom.Name}}" destination="{{trip.cityTo.Name}}">
                     </directions>
                 </ng-map>
                 <a class="delete-trip" ng-click="$ctrl.delete(trip)">Удалить рейс</a>
