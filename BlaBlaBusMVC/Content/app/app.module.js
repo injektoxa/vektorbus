@@ -23,5 +23,6 @@ angular.module('VektorApp', [
   'signIn',
   'LocalStorageModule',
   'navBar',
-  'manageAccount'
+  'manageAccount',
+  'googleMaps'
 ]);

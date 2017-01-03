@@ -242,7 +242,7 @@
                     </table>
                 </div>
 
-                <ng-map zoom="5" center="49.361625, 32.139730">
+                <ng-map zoom="5" center="$ctrl.mapCenterLatLng">
                     <directions draggable="true"
                                 travel-mode="DRIVING"
                                 origin="{{trip.cityFrom.Name}}"

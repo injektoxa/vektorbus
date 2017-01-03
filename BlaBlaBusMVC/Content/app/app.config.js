@@ -12,6 +12,11 @@ angular.
         function config($locationProvider, $routeProvider, authConstants, $httpProvider, $qProvider) {
 
             $httpProvider.interceptors.push('authInterceptorService');
+
+            //allow CORS
+            $httpProvider.defaults.useXDomain = true;
+            delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
             $locationProvider.html5Mode(true);
             $qProvider.errorOnUnhandledRejections(false);
 

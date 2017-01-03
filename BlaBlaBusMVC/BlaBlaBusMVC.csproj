@@ -370,6 +370,8 @@
     <Content Include="Content\app\driver-list\driver-crud\driver-crud.component.js" />
     <Content Include="Content\app\driver-list\driver-crud\driver-crud.module.js" />
     <Content Include="Content\app\driver-list\driver-crud\driver-crud.template.html" />
+    <Content Include="Content\app\google-maps\google-maps.service.js" />
+    <Content Include="Content\app\google-maps\google-maps.module.js" />
     <Content Include="index.html" />
     <Content Include="Content\app\client-detail\client-detail.component.js" />
     <Content Include="Content\app\client-detail\client-detail.module.js" />
