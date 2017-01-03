@@ -4,13 +4,14 @@ angular.
 module('tripList').
 component('tripList', {
     templateUrl: 'Content/app/trip-list/trip-list.template.html',
-    controller: ['Trip', 'Bus', 'City', 'Driver', '$uibModal', '$scope', 'PdfMaker', '$filter',
-    function (Trip, Bus, City, Driver, $uibModal, $scope, PdfMaker, $filter) {
+    controller: ['Trip', 'Bus', 'City', 'Driver', '$uibModal', '$scope', 'PdfMaker', '$filter', 'googleMapsService',
+    function (Trip, Bus, City, Driver, $uibModal, $scope, PdfMaker, $filter, googleMapsService) {
         var that = this;
 
         this.showAddTripForm = false;
         this.isEditMode = false;
         this.dateNow = new Date();
+        this.mapCenterLatLng = '49.361625, 32.139730';
 
         this.trip = {
             tripClients: [],
@@ -193,72 +194,81 @@ component('tripList', {
             var driver = trip.driver != null ? 'Водитель: ' + trip.driver.FullName : '';
             var fileName = trip.cityFrom.Name.concat(' - ', trip.cityTo.Name, ' ', $filter('date')(trip.date, "yyyy/MM/dd"), '.pdf');
 
-            var options = {
-                fileName: fileName,
-                docDefinition: {
-                    pageOrientation: 'portrait',
-                    fontSize: 12,
-                    content: [
-                        {
-                            text: trip.cityFrom.Name.concat(' --> ', trip.cityTo.Name, ' ', $filter('date')(trip.date, "yyyy-MM-dd HH:mm"))
-                        },
-                        {
-                            text: bus + driver
-                        },
-                        {
-                            text: ' '
-                        },
-                        {
-                            columns: [
-                            {
-                                width: '50%',
-                                text: 'Обязательные расходы:'
-                            },
-                            {
-                                width: '50%',
-                                text: 'Дополнительные расходы:'
-                            }]
-                        },
-                        {
-                            columns: [
-                            {
-                                width: '50%',
-                                table: {
-                                    headerRows: 1,
-                                    body: compolsuryExpenseTable
-                                }
-                            },
-                            {
-                                width: '50%',
-                                table: {
-                                    headerRows: 1,
-                                    body: unexpectedExpenseTable
-                                }
-                            }]
-                        },
-                        {
-                            text: ' '
-                        },
-                        {
-                            text: 'Касса водителя: ' + that.getDriverCashbox(trip)
-                        },
-                        {
-                            text: ' '
-                        },
-                        {
-                            text: 'Клиенты:'
-                        },
-                        {
-                            table: {
-                                headerRows: 1,
-                                body: tableBody
-                            }
-                        }
-                    ]
-                }
-            }
+            googleMapsService.getGoogleMapsImage(trip.cityFrom.Name, trip.cityTo.Name,
+               function(base64Img) {
+                   var options = {
+                       fileName: fileName,
+                       docDefinition: {
+                           pageOrientation: 'portrait',
+                           fontSize: 12,
+                           content: [
+                               {
+                                   text: trip.cityFrom.Name.concat(' --> ', trip.cityTo.Name, ' ', $filter('date')(trip.date, "yyyy-MM-dd HH:mm"))
+                               },
+                               {
+                                   text: bus + driver
+                               },
+                               {
+                                   text: ' '
+                               },
+                               {
+                                   columns: [
+                                   {
+                                       width: '50%',
+                                       text: 'Обязательные расходы:'
+                                   },
+                                   {
+                                       width: '50%',
+                                       text: 'Дополнительные расходы:'
+                                   }]
+                               },
+                               {
+                                   columns: [
+                                   {
+                                       width: '50%',
+                                       table: {
+                                           headerRows: 1,
+                                           body: compolsuryExpenseTable
+                                       }
+                                   },
+                                   {
+                                       width: '50%',
+                                       table: {
+                                           headerRows: 1,
+                                           body: unexpectedExpenseTable
+                                       }
+                                   }]
+                               },
+                               {
+                                   text: ' '
+                               },
+                               {
+                                   text: 'Касса водителя: ' + that.getDriverCashbox(trip)
+                               },
+                               {
+                                   text: ' '
+                               },
+                               {
+                                   text: 'Клиенты:'
+                               },
+                               {
+                                   table: {
+                                       headerRows: 1,
+                                       body: tableBody
+                                   }
+                               },
+                               {
+                                   text: ' '
+                               },
+                               {
+                                   image: base64Img
+                               }
+                           ]
+                       }
+                   }
 
-            PdfMaker.createAndDownload(options);
+                   PdfMaker.createAndDownload(options);
+               });
         }
 
         this.editTrip = function (trip) {

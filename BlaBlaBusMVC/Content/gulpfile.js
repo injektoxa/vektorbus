@@ -7,7 +7,7 @@ var babel = require('gulp-babel');
 var cleanCSS = require('gulp-clean-css');
 var watch = require('gulp-watch');
 
-var applicationScriptsDirectories = [
+var applicationScriptsDirectories=[
     'app/app.module.js',
     'app/app.config.js',
     'app/app.animations.js',
@@ -74,8 +74,10 @@ var applicationScriptsDirectories = [
     'app/navbar/navbar.component.js',
     'app/Derectives/compare-passwords.derective.js',
     'app/manage-account/manage-account.module.js',
-    'app/manage-account/manage-account.component.js'
-]
+    'app/manage-account/manage-account.component.js',
+    'app/google-maps/google-maps.module.js',
+    'app/google-maps/google-maps.service.js'
+];
 
 var applicationStyles = [
     'app/bower_components/bootstrap/dist/css/bootstrap.min.css',
@@ -101,6 +103,7 @@ gulp.task('bower_components', function () {
                     'app/bower_components/underscore/underscore-min.js',
                     'app/bower_components/angular-local-storage/dist/angular-local-storage.min.js',
                     'app/bower_components/angular-bootstrap/ui-bootstrap.min.js',
+                    'app/bower_components/ngmap/build/scripts/ng-map.min.js'
         ], { base: 'app/' })
             .pipe(concat('scripts.min.js'))
             .pipe(gulp.dest('app'));
