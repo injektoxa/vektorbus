@@ -338,7 +338,7 @@ component('tripList', {
 
         this.mapInitialized = function (map) {
             google.maps.event.trigger(map, 'resize');
-            map.setZoom(19);
+            map.setZoom(5);
         }
 
         $scope.$watchCollection('$ctrl.trip.tripClients', function (newValue, previousValue) {
