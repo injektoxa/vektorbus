@@ -15,5 +15,7 @@
         public double CompulsoryExpenses { get; set; }
 
         public double? UnexpectedExpenses { get; set; }
+
+        public double DriverCashBox { get; set; }
     }
 }

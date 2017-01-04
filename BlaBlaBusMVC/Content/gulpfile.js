@@ -19,6 +19,7 @@ var applicationScriptsDirectories=[
     'app/core/clientTrip/clientTrip.service.js',
     'app/core/trip/trip.module.js',
     'app/core/trip/trip.service.js',
+    'app/core/trip/trip-cash.service.js',
     'app/core/driver/driver.module.js',
     'app/core/driver/driver.service.js',
     'app/core/bus/bus.module.js',

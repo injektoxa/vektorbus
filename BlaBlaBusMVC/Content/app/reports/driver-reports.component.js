@@ -29,6 +29,7 @@ angular.module('reports')
                 that.startDatePopup = {
                     opened: false
                 };
+
                 that.startDateOpen = function () {
                     that.startDatePopup.opened = true;
                 };
@@ -36,6 +37,7 @@ angular.module('reports')
                 that.endDatePopup = {
                     opened: false
                 };
+
                 that.endDateOpen = function () {
                     that.endDatePopup.opened = true;
                 };
@@ -44,19 +46,11 @@ angular.module('reports')
                     that.reports = reports;
                     that.reportTitle = 'Отчет по водителю ' + that.driver.FullName;
                     that.totalTitle = 'Итого за период с ' +
-                        $filter('date')(that.dateFrom, "yyyy-MM-dd") +
-                        ' по ' +
-                        $filter('date')(that.dateTo, "yyyy-MM-dd") +
-                        ': ';
+                        $filter('date')(that.dateFrom, "yyyy-MM-dd") + ' по ' +
+                        $filter('date')(that.dateTo, "yyyy-MM-dd") +  ': ';
 
-                    that.totalPrice = 0;
-                    that.reportIsShowing = true;
-                    for (var i = 0; i < reports.length; i++) {
-                        that.totalPrice += reports[i].CompulsoryExpenses;
-                        if (reports[i].UnexpectedExpenses != null) {
-                            that.totalPrice += reports[i].UnexpectedExpenses;
-                        }
-                    }
+                    that.totalPrice = reports.reduce((acc, report) => acc + report.DriverCashBox, 0);
+                    that.reportIsShowing = true; 
                 };
 
                 that.createReport = function () {
@@ -82,7 +76,8 @@ angular.module('reports')
                         { text: 'Автобус', style: 'tableHeader' },
                         { text: 'Кол-во пассажиров', style: 'tableHeader' },
                         { text: 'Постоянные расходы', style: 'tableHeader' },
-                        { text: 'Непредвиденные расходы', style: 'tableHeader' }]];
+                        { text: 'Непред. расходы', style: 'tableHeader' },
+                        { text: 'Касса', style: 'tableHeader' }]];
 
                     reports.map((report) => tableBody.push([
                         report.TripDate,
@@ -90,8 +85,9 @@ angular.module('reports')
                         report.CityTo,
                         report.BusInfo,
                         report.ClientsCount ? report.ClientsCount.toString() : '',
-                        report.CompulsoryExpenses ? report.CompulsoryExpenses.toString() : '',
-                        report.UnexpectedExpenses ? report.UnexpectedExpenses.toString() : '']));
+                        report.CompulsoryExpenses ? report.CompulsoryExpenses.toString() : 0,
+                        report.UnexpectedExpenses ? report.UnexpectedExpenses.toString() : 0,
+                        report.DriverCashBox ? report.DriverCashBox.toString() : 0]));
 
                     var datePeriod = $filter('date')(that.dateFrom, "yyyy-MM-dd").
                         concat(' - ', $filter('date')(that.dateTo, "yyyy-MM-dd"));
