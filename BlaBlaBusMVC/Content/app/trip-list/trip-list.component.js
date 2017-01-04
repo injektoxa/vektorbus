@@ -329,6 +329,7 @@ component('tripList', {
                 return tripCashService.countDriverCashBox(trip);
             }
 
+
             this.mapInitialized = function (map) {
                 google.maps.event.trigger(map, 'resize');
                 map.setZoom(5);
