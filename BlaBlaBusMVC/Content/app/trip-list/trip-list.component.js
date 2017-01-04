@@ -195,7 +195,7 @@ component('tripList', {
             var fileName = trip.cityFrom.Name.concat(' - ', trip.cityTo.Name, ' ', $filter('date')(trip.date, "yyyy/MM/dd"), '.pdf');
 
             googleMapsService.getGoogleMapsImage(trip.cityFrom.Name, trip.cityTo.Name,
-               function(base64Img) {
+               function (base64Img) {
                    var options = {
                        fileName: fileName,
                        docDefinition: {
@@ -334,6 +334,11 @@ component('tripList', {
             var incomes = trip.tripClients.reduce((acc, client) => acc + client.Price, 0);
 
             return incomes - (compulsoryExpensesSum + unexpectedExpensesSum);
+        }
+
+        this.mapInitialized = function (map) {
+            google.maps.event.trigger(map, 'resize');
+            map.setZoom(19);
         }
 
         $scope.$watchCollection('$ctrl.trip.tripClients', function (newValue, previousValue) {
