@@ -32,7 +32,7 @@ angular.
             this.clientFilterAction = function () {
                 if (that.clientFilter.length > 1) {
                     ClientTrip.query({ filter: that.clientFilter },
-                        function(clientTrips) {
+                        function (clientTrips) {
                             that.clients = clientTrips;
                         });
                 } else {
