@@ -468,6 +468,7 @@
     <Content Include="packages.config" />
     <Content Include="Content\app\app.run.js" />
     <Content Include="Content\app\maps\all.min.js.map" />
+    <Content Include="Content\app\Derectives\loading.derective.js" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>

@@ -76,7 +76,8 @@ var applicationScriptsDirectories=[
     'app/manage-account/manage-account.module.js',
     'app/manage-account/manage-account.component.js',
     'app/google-maps/google-maps.module.js',
-    'app/google-maps/google-maps.service.js'
+    'app/google-maps/google-maps.service.js',
+    'app/Derectives/loading.derective.js',
 ];
 
 var applicationStyles = [
