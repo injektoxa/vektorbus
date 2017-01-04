@@ -1,10 +1,13 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BlaBlaBusMVC.Models;
+using BlaBlaBusMVC.ViewModels;
 
 namespace BlaBlaBusMVC.Controllers
 {
@@ -14,9 +17,11 @@ namespace BlaBlaBusMVC.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Cities
-        public IQueryable<City> GetCities()
+        public IEnumerable<CityViewModel> GetCities()
         {
-            return db.Cities;
+            var cities = db.Cities.Select(this.ToCityViewModel);
+
+            return cities;
         }
 
         // GET: api/Cities/5
@@ -24,6 +29,7 @@ namespace BlaBlaBusMVC.Controllers
         public IHttpActionResult GetCity(int id)
         {
             City city = db.Cities.Find(id);
+
             if (city == null)
             {
                 return NotFound();
@@ -110,6 +116,21 @@ namespace BlaBlaBusMVC.Controllers
         private bool CityExists(int id)
         {
             return db.Cities.Count(e => e.Id == id) > 0;
+        }
+
+        private CityViewModel ToCityViewModel(City city)
+        {
+            var cityRelated = db.ClientTrip.Any(x => x.To.Id == city.Id || x.From.Id == city.Id)
+                || db.Trips.Any(x => x.CityTo.Id == city.Id || x.CityFrom.Id == city.Id);
+
+            var cityViewModel = new CityViewModel
+            {
+                Name = city.Name,
+                HasRelatedEntities = cityRelated,
+                Id = city.Id
+            };
+
+            return cityViewModel;
         }
     }
 }

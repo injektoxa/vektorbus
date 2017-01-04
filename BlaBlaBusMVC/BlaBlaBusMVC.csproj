@@ -289,6 +289,7 @@
     <Compile Include="Models\Driver.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Trip.cs" />
+    <Compile Include="ViewModels\CityViewModel.cs" />
     <Compile Include="ViewModels\DriverReportViewModel.cs" />
     <Compile Include="ViewModels\AgentReportViewModel.cs" />
     <Compile Include="ViewModels\AgentViewModel.cs" />
@@ -364,6 +365,7 @@
     <Content Include="Content\app\core\agentReport\agentReport.module.js" />
     <Content Include="Content\app\core\manageAccount\manageAccount.module.js" />
     <Content Include="Content\app\core\manageAccount\manageAccount.service.js" />
+    <Content Include="Content\app\core\trip\trip-cash.service.js" />
     <Content Include="Content\app\core\trip\trip.module.js" />
     <Content Include="Content\app\core\trip\trip.service.js" />
     <Content Include="Content\app\Derectives\compare-passwords.derective.js" />

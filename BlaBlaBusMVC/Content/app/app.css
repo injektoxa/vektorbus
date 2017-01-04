@@ -365,6 +365,14 @@ span.validation-message {
     margin-right: 20px;
 }
 
+.city-tooltip .tooltip-inner {
+    background: #d9534f;
+}
+
+.city-tooltip .tooltip-arrow {
+    border-right-color: #d9534f !important;
+}
+
 /*Spinner*/
 .spinner {
     width: 50px;
