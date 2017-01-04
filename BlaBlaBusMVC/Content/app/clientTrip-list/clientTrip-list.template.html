@@ -33,24 +33,25 @@
                     <p>{{client.Phone}}</p>
                 </div>
 
+                <!--Dont use form here, because this template is inside parent form-->
                 <div class="col-sm-offset-1 col-xs-7">
                     <label>
                         Откуда:
-                        <select class="form-control" name="repeatFrom" id="repeatFrom" ng-model="client.From">
+                        <select class="form-control" ng-model="client.From">
                             <option ng-repeat="city in $ctrl.cities" value="{{city.Name}}">{{city.Name}}</option>
                         </select>
                     </label>
 
                     <label>
                         Куда:
-                        <select class="form-control" name="repeatTo" id="repeatTo" ng-model="client.To">
+                        <select class="form-control" ng-model="client.To">
                             <option ng-repeat="city in $ctrl.cities" value="{{city.Name}}">{{city.Name}}</option>
                         </select>
                     </label>
 
                     <label>
                         Цена:
-                        <input type="number" class="form-control" name="Price" ng-model="client.Price" />
+                        <input type="number" class="form-control" ng-model="client.Price" />
                     </label>
 
                     <label>
@@ -60,26 +61,26 @@
 
                     <label>
                         Агент:
-                        <select class="form-control" name="repeatAgent" id="repeatAgent" ng-model="client.AgentId">
+                        <select class="form-control" ng-model="client.AgentId">
                             <option ng-repeat="agent in $ctrl.agents" value="{{agent.Id}}">{{agent.FullName}}</option>
                         </select>
                     </label>
 
                     <label>
                         Цена агента:
-                        <input type="number" class="form-control" name="AgentPrice" ng-model="client.AgentPrice" />
+                        <input type="number" class="form-control" ng-model="client.AgentPrice" />
                     </label>
                 </div>
 
                 <div class="col-xs-4 col-lg-3 clients-check-box-col">
                     <label>
                         Не выходит:
-                        <input type="checkbox" name="IsStayInBus" ng-model="client.IsStayInBus" />
+                        <input type="checkbox" ng-model="client.IsStayInBus" />
                     </label>
 
                     <label>
                         Багаж:
-                        <input type="checkbox" name="HasBaggage" ng-model="client.HasBaggage" />
+                        <input type="checkbox" ng-model="client.HasBaggage" />
                     </label>
 
                     <label>
@@ -97,7 +98,10 @@
                         <input type="checkbox" ng-disabled="true" ng-model="client.HasDisability">
                     </label>
 
-                    <button class="btn btn-success" ng-click="$ctrl.addToTrip(client)">Добавить</button>
+                    <button class="btn btn-success"
+                            ng-disabled="!client.From || !client.To || !client.Price"
+                            ng-click="$ctrl.addToTrip(client)"> Добавить
+                    </button>
                 </div>
             </div>
         </li>

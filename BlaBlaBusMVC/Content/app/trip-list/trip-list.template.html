@@ -1,6 +1,7 @@
 <a ng-click="$ctrl.showAddForm()" style="cursor:pointer">Добавить маршрут</a>
+
 <div class="row" ng-show="$ctrl.showAddTripForm">
-    <form name="form" class="trip-create-form col-xs-12" novalidate>
+    <form  name="form" class="trip-create-form col-xs-12" novalidate>
         <div class="row">
             <div class="col-xs-12 col-sm-6">
                 <div class="form-group">
@@ -92,7 +93,7 @@
                                 ng-model="$ctrl.trip.cityFrom" required
                                 ng-options="city.Name for city in $ctrl.cities track by city.Id"></select>                      
                     </label>
-                    <div ng-show="form.$submitted || !form.trip.cityFrom">
+                    <div ng-show="form.$submitted">
                         <span class="error"
                               ng-show="form.repeatFrom.$error.required">Это поле обязательное</span>
                     </div>
