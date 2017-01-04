@@ -194,7 +194,7 @@ component('tripList', {
                 var driver = trip.driver != null ? 'Водитель: ' + trip.driver.FullName : '';
                 var fileName = trip.cityFrom.Name.concat(' - ', trip.cityTo.Name, ' ', $filter('date')(trip.date, "yyyy/MM/dd"), '.pdf');
 
-                googleMapsService.getGoogleMapsImage(trip.cityFrom.Name, trip.cityTo.Name,
+                googleMapsService.getGoogleMapsImage(trip.cityFrom.Name, trip.cityTo.Name, that.getTripWaypoints(trip.tripClients),
                    function (base64Img) {
                        var options = {
                            fileName: fileName,
@@ -325,13 +325,30 @@ component('tripList', {
                 }
             }
 
-            this.getDriverCashbox = function(trip) {
+            this.getDriverCashbox = function (trip) {
                 return tripCashService.countDriverCashBox(trip);
             }
 
             this.mapInitialized = function (map) {
                 google.maps.event.trigger(map, 'resize');
                 map.setZoom(5);
+            }
+
+            this.getTripWaypoints = function (clients, origin, destination) {
+                var waypoints = [];
+
+                var addToWaypoints = function (location) {
+                    if (!waypoints.some((wp) => wp.location == location) && location != origin && location != destination) {
+                        waypoints.push({ location: location, stopover: true });
+                    }
+                }
+
+                clients.map(function (client) {
+                    addToWaypoints(client.To);
+                    addToWaypoints(client.From);
+                });
+
+                return waypoints;
             }
 
             $scope.$watchCollection('$ctrl.trip.tripClients', function (newValue, previousValue) {
