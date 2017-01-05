@@ -4,14 +4,14 @@ angular.
 module('tripList').
 component('tripList', {
     templateUrl: 'Content/app/trip-list/trip-list.template.html',
-    controller: ['Trip', 'Bus', 'City', 'Driver', '$uibModal', '$scope', 'PdfMaker', '$filter', 'googleMapsService', 'tripCashService',
-        function (Trip, Bus, City, Driver, $uibModal, $scope, PdfMaker, $filter, googleMapsService, tripCashService) {
+    controller: ['Trip', 'Bus', 'City', 'Driver', '$uibModal', '$scope', 'PdfMaker', '$filter', 'googleMapsService', 'tripCashService', '$q', '$timeout',
+        function (Trip, Bus, City, Driver, $uibModal, $scope, PdfMaker, $filter, googleMapsService, tripCashService, $q, $timeout) {
             var that = this;
 
             this.showAddTripForm = false;
             this.isEditMode = false;
             this.dateNow = new Date();
-            this.mapCenterLatLng = '49.361625, 32.139730';
+            this.mapCenterLatLng = new google.maps.LatLng(49.361625, 32.139730);
 
             this.trip = {
                 tripClients: [],
@@ -194,7 +194,7 @@ component('tripList', {
                 var driver = trip.driver != null ? 'Водитель: ' + trip.driver.FullName : '';
                 var fileName = trip.cityFrom.Name.concat(' - ', trip.cityTo.Name, ' ', $filter('date')(trip.date, "yyyy/MM/dd"), '.pdf');
 
-                googleMapsService.getGoogleMapsImage(trip.cityFrom.Name, trip.cityTo.Name, that.getTripWaypoints(trip.tripClients),
+                googleMapsService.getGoogleMapsImage(trip.cityFrom.Name, trip.cityTo.Name, trip.waypoints, trip.polyline,
                    function (base64Img) {
                        var options = {
                            fileName: fileName,
@@ -329,13 +329,30 @@ component('tripList', {
                 return tripCashService.countDriverCashBox(trip);
             }
 
-            this.mapInitialized = function (map) {
+            this.initTripMap = function() {
+                trip.waypoints = [{ location: trip.cityTo.Name, stopover: false }];
+                trip.polyline='';
+            }
+
+            this.mapInitialized = function (map, trip) {
                 google.maps.event.trigger(map, 'resize');
                 map.setZoom(5);
+
+                var directionsDisplay = new google.maps.DirectionsRenderer;
+                directionsDisplay.setMap(map);
+
+                that.getTripWaypoints(trip.tripClients, trip.cityFrom.Name, trip.cityTo.Name)
+                    .then(function (response) {
+                        directionsDisplay.setDirections(response.response);
+
+                        trip.polyline = response.response.routes[0].overview_polyline;
+                        trip.waypoints = response.waypoints;
+                    });
             }
 
             this.getTripWaypoints = function (clients, origin, destination) {
                 var waypoints = [];
+                var deferred = $q.defer();
 
                 var addToWaypoints = function (location) {
                     if (!waypoints.some((wp) => wp.location == location) && location != origin && location != destination) {
@@ -348,7 +365,12 @@ component('tripList', {
                     addToWaypoints(client.From);
                 });
 
-                return waypoints;
+                googleMapsService.optimizeWaypoints(origin, destination, waypoints,
+                    function (response) {
+                        deferred.resolve(response);
+                    });
+
+                return deferred.promise;
             }
 
             $scope.$watchCollection('$ctrl.trip.tripClients', function (newValue, previousValue) {

@@ -2,71 +2,75 @@
 
 // Define the `googleMaps` service
 angular.module('googleMaps')
-    .factory('googleMapsService', ['$http', '$q',
-        function ($http, $q) {
-            var googleMapsFactory = {};
-            var directionsService = new google.maps.DirectionsService;
-            var googleMapsServiceBase = 'https://maps.googleapis.com/maps/api/staticmap?size=500x400&maptype=roadmap';
+    .factory('googleMapsService', [function () {
+        var googleMapsFactory = {};
+        var directionsService = new google.maps.DirectionsService;
+        var googleMapsServiceBase = 'https://maps.googleapis.com/maps/api/staticmap?size=500x400&maptype=roadmap';
 
-            googleMapsFactory.getGoogleMapsImage = function (cityFrom, cityTo, waypoints, callback) {
-                //getting direction json for access direction polyline
-                directionsService.route({
-                    origin: cityFrom,
-                    destination: cityTo,
-                    travelMode: google.maps.TravelMode.DRIVING,
-                    waypoints: waypoints,
-                    optimizeWaypoints: true
-                }, function (response) {
-                    //generate static maps url with direction polyline
-                    var url = googleMapsServiceBase.concat(
-                        googleMapsFactory.convertLegsToStringUrlParameter(response.routes[0].legs) +
-                        '&path=color:0x0000ff80|weight:5|enc:', response.routes[0].overview_polyline,
-                        '&key=AIzaSyBkEIsxJ1ZqsEBPUYsef_jF2ajuSkmbxJ4');
+        googleMapsFactory.optimizeWaypoints = function (cityFrom, cityTo, waypoints, callback) {
+            var orderedWaypoints = [];
 
-                    //convert image to base64
-                    googleMapsFactory.convertImgToDataURL(url, callback);
-                });
-            }
+            directionsService.route({
+                origin: cityFrom,
+                destination: cityTo,
+                travelMode: google.maps.TravelMode.DRIVING,
+                waypoints: waypoints,
+                optimizeWaypoints: true
+            }, function (response) {
+               response.routes[0].waypoint_order.map((order) => orderedWaypoints.push(waypoints[order]));
+                callback({response: response, waypoints: orderedWaypoints});
+            });
+        }
 
-            googleMapsFactory.convertLegsToStringUrlParameter = function (legs) {
-                var urlParams = '';
+        googleMapsFactory.getGoogleMapsImage = function (cityFrom, cityTo, waypoints, polyline, callback) {
+            //generate static maps url with direction polyline
+            var url = googleMapsServiceBase.concat(
+                googleMapsFactory.covertWaypointsToUrlParams(cityFrom, cityTo, waypoints),
+                '&path=color:0x0000ff80|weight:5|enc:', polyline,
+                '&key=AIzaSyBkEIsxJ1ZqsEBPUYsef_jF2ajuSkmbxJ4');
 
-                //variable to avoid js locking
-                var getUrlParam = function (leg, location, isLast) {
-                    var color = isLast ? 'red' : 'green';
+            //convert image to base64
+            googleMapsFactory.convertImgToDataURL(url, callback);
+        }
 
-                    return '&markers=color:' + color + '|' + location;
-                }
+        googleMapsFactory.covertWaypointsToUrlParams = function (cityFrom, cityTo, waypoints) {
+            var urlParams = '';
 
-                legs.map((leg) => urlParams += getUrlParam(leg, leg.start_address, false));
+            //variable to avoid js locking
+            var getUrlParam = function (location, color) {
+                color = color ? color : 'green';
 
-                var last = legs[legs.length - 1];
-                urlParams += getUrlParam(last, last.end_address, true);
+                return '&markers=color:' + color + '|' + location;
+            };
 
-                return urlParams;
-            }
+            urlParams += getUrlParam(cityFrom);
+            waypoints.map((waypoint) => urlParams += getUrlParam(waypoint.location));
+            urlParams += getUrlParam(cityTo, 'red');
 
-            googleMapsFactory.convertImgToDataURL = function (url, callback) {
-                var img = new Image();
-                img.crossOrigin = 'Anonymous';
+            return urlParams;
+        }
 
-                img.onload = function () {
-                    var canvas = document.createElement('CANVAS');
-                    var ctx = canvas.getContext('2d');
-                    var dataURL;
+        googleMapsFactory.convertImgToDataURL = function (url, callback) {
+            var img = new Image();
+            img.crossOrigin = 'Anonymous';
 
-                    canvas.height = this.height;
-                    canvas.width = this.width;
-                    ctx.drawImage(this, 0, 0);
+            img.onload = function () {
+                var canvas = document.createElement('CANVAS');
+                var ctx = canvas.getContext('2d');
+                var dataURL;
 
-                    dataURL = canvas.toDataURL();
-                    callback(dataURL);
+                canvas.height = this.height;
+                canvas.width = this.width;
+                ctx.drawImage(this, 0, 0);
 
-                    canvas = null;
-                };
+                dataURL = canvas.toDataURL();
+                callback(dataURL);
 
-                img.src = url;
-            }
+                canvas = null;
+            };
 
-            return googleMapsFactory;
-        }]);
+            img.src = url;
+        }
+
+        return googleMapsFactory;
+    }]);
