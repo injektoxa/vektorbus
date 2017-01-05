@@ -243,12 +243,13 @@
                     </table>
                 </div>
 
-                <ng-map map-initialized="$ctrl.mapInitialized(map)" zoom="5" center="$ctrl.mapCenterLatLng">
+                <ng-map map-initialized="$ctrl.mapInitialized(map)" 
+                        zoom="5" center="$ctrl.mapCenterLatLng"
+                        ng-init="$ctrl.initMap(trip)">
                     <directions draggable="true" travel-mode="DRIVING"
                                 origin="{{trip.cityFrom.Name}}" 
                                 destination="{{trip.cityTo.Name}}"
-                                waypoints="{{$ctrl.getTripWaypoints(trip.tripClients, trip.cityFrom.Name, trip.cityTo.Name)}}"
-                                optimizeWaypoint="true">
+                                waypoints="{{trip.waypoints}}">
                     </directions>
                 </ng-map>
                 <a class="delete-trip" ng-click="$ctrl.delete(trip)">Удалить рейс</a>

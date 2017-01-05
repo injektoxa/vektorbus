@@ -2,71 +2,82 @@
 
 // Define the `googleMaps` service
 angular.module('googleMaps')
-    .factory('googleMapsService', ['$http', '$q',
-        function ($http, $q) {
-            var googleMapsFactory = {};
-            var directionsService = new google.maps.DirectionsService;
-            var googleMapsServiceBase = 'https://maps.googleapis.com/maps/api/staticmap?size=500x400&maptype=roadmap';
+    .factory('googleMapsService', [function () {
+        var googleMapsFactory = {};
+        var directionsService = new google.maps.DirectionsService;
+        var googleMapsServiceBase = 'https://maps.googleapis.com/maps/api/staticmap?size=500x400&maptype=roadmap';
 
-            googleMapsFactory.getGoogleMapsImage = function (cityFrom, cityTo, waypoints, callback) {
-                //getting direction json for access direction polyline
-                directionsService.route({
-                    origin: cityFrom,
-                    destination: cityTo,
-                    travelMode: google.maps.TravelMode.DRIVING,
-                    waypoints: waypoints,
-                    optimizeWaypoints: true
-                }, function (response) {
-                    //generate static maps url with direction polyline
-                    var url = googleMapsServiceBase.concat(
-                        googleMapsFactory.convertLegsToStringUrlParameter(response.routes[0].legs) +
-                        '&path=color:0x0000ff80|weight:5|enc:', response.routes[0].overview_polyline,
-                        '&key=AIzaSyBkEIsxJ1ZqsEBPUYsef_jF2ajuSkmbxJ4');
+        googleMapsFactory.optimizeWaypoints = function (cityFrom, cityTo, waypoints, callback) {
+            var orderedWaypoints = [];
 
-                    //convert image to base64
-                    googleMapsFactory.convertImgToDataURL(url, callback);
-                });
-            }
+            directionsService.route({
+                origin: cityFrom,
+                destination: cityTo,
+                travelMode: google.maps.TravelMode.DRIVING,
+                waypoints: waypoints,
+                optimizeWaypoints: true
+            }, function (response) {
+                response.routes[0].waypoint_order.map(
+                    (order) => orderedWaypoints.push(waypoints[order]));
 
-            googleMapsFactory.convertLegsToStringUrlParameter = function (legs) {
-                var urlParams = '';
+                //its required to set at least one waypoint in array, so create waypoint similar as start point, it will not be created on map
+                orderedWaypoints = orderedWaypoints.length > 0
+                    ? orderedWaypoints
+                    : [{ location: cityFrom, stopover: false }];
 
-                //variable to avoid js locking
-                var getUrlParam = function (leg, location, isLast) {
-                    var color = isLast ? 'red' : 'green';
+                callback({ waypoints: orderedWaypoints, polyline: response.routes[0].overview_polyline });
+            });
+        }
 
-                    return '&markers=color:' + color + '|' + location;
-                }
+        googleMapsFactory.getGoogleMapsImage = function (cityFrom, cityTo, waypoints, polyline, callback) {
+            //generate static maps url with direction polyline
+            var url = googleMapsServiceBase.concat(
+                googleMapsFactory.covertWaypointsToUrlParams(cityFrom, cityTo, waypoints),
+                '&path=color:0x0000ff80|weight:5|enc:', polyline,
+                '&key=AIzaSyBkEIsxJ1ZqsEBPUYsef_jF2ajuSkmbxJ4');
 
-                legs.map((leg) => urlParams += getUrlParam(leg, leg.start_address, false));
+            //convert image to base64
+            googleMapsFactory.convertImgToDataURL(url, callback);
+        }
 
-                var last = legs[legs.length - 1];
-                urlParams += getUrlParam(last, last.end_address, true);
+        googleMapsFactory.covertWaypointsToUrlParams = function (cityFrom, cityTo, waypoints) {
+            var urlParams = '';
 
-                return urlParams;
-            }
+            //variable to avoid js locking
+            var getUrlParam = function (location, color) {
+                color = color ? color : 'green';
 
-            googleMapsFactory.convertImgToDataURL = function (url, callback) {
-                var img = new Image();
-                img.crossOrigin = 'Anonymous';
+                return '&markers=color:' + color + '|' + location;
+            };
 
-                img.onload = function () {
-                    var canvas = document.createElement('CANVAS');
-                    var ctx = canvas.getContext('2d');
-                    var dataURL;
+            urlParams += getUrlParam(cityFrom);
+            waypoints.map((waypoint) => urlParams += getUrlParam(waypoint.location));
+            urlParams += getUrlParam(cityTo, 'red');
 
-                    canvas.height = this.height;
-                    canvas.width = this.width;
-                    ctx.drawImage(this, 0, 0);
+            return urlParams;
+        }
 
-                    dataURL = canvas.toDataURL();
-                    callback(dataURL);
+        googleMapsFactory.convertImgToDataURL = function (url, callback) {
+            var img = new Image();
+            img.crossOrigin = 'Anonymous';
 
-                    canvas = null;
-                };
+            img.onload = function () {
+                var canvas = document.createElement('CANVAS');
+                var ctx = canvas.getContext('2d');
+                var dataURL;
 
-                img.src = url;
-            }
+                canvas.height = this.height;
+                canvas.width = this.width;
+                ctx.drawImage(this, 0, 0);
 
-            return googleMapsFactory;
-        }]);
+                dataURL = canvas.toDataURL();
+                callback(dataURL);
+
+                canvas = null;
+            };
+
+            img.src = url;
+        }
+
+        return googleMapsFactory;
+    }]);

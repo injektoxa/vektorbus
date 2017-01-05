@@ -4,8 +4,8 @@ angular.
 module('tripList').
 component('tripList', {
     templateUrl: 'Content/app/trip-list/trip-list.template.html',
-    controller: ['Trip', 'Bus', 'City', 'Driver', '$uibModal', '$scope', 'PdfMaker', '$filter', 'googleMapsService', 'tripCashService',
-        function (Trip, Bus, City, Driver, $uibModal, $scope, PdfMaker, $filter, googleMapsService, tripCashService) {
+    controller: ['Trip', 'Bus', 'City', 'Driver', '$uibModal', '$scope', 'PdfMaker', '$filter', 'googleMapsService', 'tripCashService', '$q',
+        function (Trip, Bus, City, Driver, $uibModal, $scope, PdfMaker, $filter, googleMapsService, tripCashService, $q) {
             var that = this;
 
             this.showAddTripForm = false;
@@ -194,7 +194,7 @@ component('tripList', {
                 var driver = trip.driver != null ? 'Водитель: ' + trip.driver.FullName : '';
                 var fileName = trip.cityFrom.Name.concat(' - ', trip.cityTo.Name, ' ', $filter('date')(trip.date, "yyyy/MM/dd"), '.pdf');
 
-                googleMapsService.getGoogleMapsImage(trip.cityFrom.Name, trip.cityTo.Name, that.getTripWaypoints(trip.tripClients),
+                googleMapsService.getGoogleMapsImage(trip.cityFrom.Name, trip.cityTo.Name, trip.waypoints, trip.polyline,
                    function (base64Img) {
                        var options = {
                            fileName: fileName,
@@ -334,8 +334,20 @@ component('tripList', {
                 map.setZoom(5);
             }
 
+            this.initMap = function (trip) {
+                //little hack here to avoid storing several directionRenders services 
+                //and use default ng-map api for directions service (ng-map does not support waypoint optimization)
+                //manually order waypoints in right order, using directions service
+                that.getTripWaypoints(trip.tripClients, trip.cityFrom.Name, trip.cityTo.Name)
+                    .then(function (response) {
+                        trip.waypoints = response.waypoints;
+                        trip.polyline = response.polyline;
+                    });
+            }
+
             this.getTripWaypoints = function (clients, origin, destination) {
                 var waypoints = [];
+                var deferred = $q.defer();
 
                 var addToWaypoints = function (location) {
                     if (!waypoints.some((wp) => wp.location == location) && location != origin && location != destination) {
@@ -348,7 +360,12 @@ component('tripList', {
                     addToWaypoints(client.From);
                 });
 
-                return waypoints;
+                googleMapsService.optimizeWaypoints(origin, destination, waypoints,
+                    function (response) {
+                        deferred.resolve(response);
+                    });
+
+                return deferred.promise;
             }
 
             $scope.$watchCollection('$ctrl.trip.tripClients', function (newValue, previousValue) {
