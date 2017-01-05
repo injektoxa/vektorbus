@@ -4,14 +4,14 @@ angular.
 module('tripList').
 component('tripList', {
     templateUrl: 'Content/app/trip-list/trip-list.template.html',
-    controller: ['Trip', 'Bus', 'City', 'Driver', '$uibModal', '$scope', 'PdfMaker', '$filter', 'googleMapsService', 'tripCashService', '$q',
-        function (Trip, Bus, City, Driver, $uibModal, $scope, PdfMaker, $filter, googleMapsService, tripCashService, $q) {
+    controller: ['Trip', 'Bus', 'City', 'Driver', '$uibModal', '$scope', 'PdfMaker', '$filter', 'googleMapsService', 'tripCashService', '$q', '$timeout',
+        function (Trip, Bus, City, Driver, $uibModal, $scope, PdfMaker, $filter, googleMapsService, tripCashService, $q, $timeout) {
             var that = this;
 
             this.showAddTripForm = false;
             this.isEditMode = false;
             this.dateNow = new Date();
-            this.mapCenterLatLng = '49.361625, 32.139730';
+            this.mapCenterLatLng = new google.maps.LatLng(49.361625, 32.139730);
 
             this.trip = {
                 tripClients: [],
@@ -329,19 +329,24 @@ component('tripList', {
                 return tripCashService.countDriverCashBox(trip);
             }
 
-            this.mapInitialized = function (map) {
-                google.maps.event.trigger(map, 'resize');
-                map.setZoom(5);
+            this.initTripMap = function() {
+                trip.waypoints = [{ location: trip.cityTo.Name, stopover: false }];
+                trip.polyline='';
             }
 
-            this.initMap = function (trip) {
-                //little hack here to avoid storing several directionRenders services 
-                //and use default ng-map api for directions service (ng-map does not support waypoint optimization)
-                //manually order waypoints in right order, using directions service
+            this.mapInitialized = function (map, trip) {
+                google.maps.event.trigger(map, 'resize');
+                map.setZoom(5);
+
+                var directionsDisplay = new google.maps.DirectionsRenderer;
+                directionsDisplay.setMap(map);
+
                 that.getTripWaypoints(trip.tripClients, trip.cityFrom.Name, trip.cityTo.Name)
                     .then(function (response) {
+                        directionsDisplay.setDirections(response.response);
+
+                        trip.polyline = response.response.routes[0].overview_polyline;
                         trip.waypoints = response.waypoints;
-                        trip.polyline = response.polyline;
                     });
             }
 

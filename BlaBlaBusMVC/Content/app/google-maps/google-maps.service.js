@@ -17,15 +17,8 @@ angular.module('googleMaps')
                 waypoints: waypoints,
                 optimizeWaypoints: true
             }, function (response) {
-                response.routes[0].waypoint_order.map(
-                    (order) => orderedWaypoints.push(waypoints[order]));
-
-                //its required to set at least one waypoint in array, so create waypoint similar as start point, it will not be created on map
-                orderedWaypoints = orderedWaypoints.length > 0
-                    ? orderedWaypoints
-                    : [{ location: cityFrom, stopover: false }];
-
-                callback({ waypoints: orderedWaypoints, polyline: response.routes[0].overview_polyline });
+               response.routes[0].waypoint_order.map((order) => orderedWaypoints.push(waypoints[order]));
+                callback({response: response, waypoints: orderedWaypoints});
             });
         }
 
