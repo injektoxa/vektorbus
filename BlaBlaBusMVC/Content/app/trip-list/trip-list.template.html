@@ -187,12 +187,10 @@
         </span>
         <br />
         <uib-accordion close-others="oneAtATime" ng-repeat="trip in $ctrl.trips | filter:$ctrl.query">
-            <div ng-init="$ctrl.initTripMap()"
-                 uib-accordion-group class="panel-default"
+            <div uib-accordion-group class="panel-default"
                  heading="{{trip.date | date:$ctrl.dateTimeFormat }} - {{trip.arrivalDate| date:$ctrl.dateTimeFormat}},
                  {{trip.bus.FriendlyName}} {{trip.bus.RegistrationNumber}} , Водитель {{trip.driver.FullName}} ,
-                 Маршрут {{trip.cityFrom.Name}} ---->
-                {{trip.cityTo.Name}}"
+                 Маршрут {{trip.cityFrom.Name}} ----> {{trip.cityTo.Name}}"
                  is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
 
                 <div class="row">
