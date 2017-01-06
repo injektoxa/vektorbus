@@ -10,21 +10,18 @@ angular.
           close: '&',
           dismiss: '&'
       },
-      controller: [ '$filter',
-          function ($filter) {
+      controller: ['$filter', function ($filter) {
           var that = this;
 
           that.trips = {};
           that.client = {};
-          that.headerTitle = "";
 
           that.$onInit = function () {
               that.trips = that.resolve.info.trips;
               that.client = that.resolve.info.client;
-              that.headerTitle = "Информация о поездках клиента " + that.client.Name;
           };
 
-          that.getClienPrice = function(clientTrips) {
+          that.getClienPrice = function (clientTrips) {
               var found = $filter('filter')(clientTrips, { ClientId: that.client.Id }, true);
               return found[0].Price;
           };
@@ -33,6 +30,12 @@ angular.
               var found = $filter('filter')(clientTrips, { ClientId: that.client.Id }, true);
               return found[0].AdditionalExpenses;
           };
+
+          that.getClientAgent = function (trip) {
+              var clientTrip = trip.tripClients.find((client) => client.ClientId == that.client.Id);
+
+              trip.agentName = clientTrip.AgentName;
+          }
 
           that.cancel = function () {
               that.dismiss({ $value: 'cancel' });

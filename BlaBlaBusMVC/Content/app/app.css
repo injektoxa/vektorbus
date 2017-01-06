@@ -209,10 +209,6 @@ table.clients-trip td.button-area {
     overflow: auto;
 }
 
-    .modal-body table {
-        width: 80%;
-    }
-
     .modal-body input {
         width: 100%;
         margin-bottom: 10px;
