@@ -1,7 +1,7 @@
 <a ng-click="$ctrl.showAddForm()" style="cursor:pointer">Добавить маршрут</a>
 
 <div class="row" ng-show="$ctrl.showAddTripForm">
-    <form  name="form" class="trip-create-form col-xs-12" novalidate>
+    <form name="form" class="trip-create-form col-xs-12" novalidate>
         <div class="row">
             <div class="col-xs-12 col-sm-6">
                 <div class="form-group">
@@ -91,7 +91,7 @@
                         Откуда:
                         <select class="form-control" name="repeatFrom" id="repeatFrom"
                                 ng-model="$ctrl.trip.cityFrom" required
-                                ng-options="city.Name for city in $ctrl.cities track by city.Id"></select>                      
+                                ng-options="city.Name for city in $ctrl.cities track by city.Id"></select>
                     </label>
                     <div ng-show="form.$submitted">
                         <span class="error"
@@ -104,7 +104,7 @@
                         Куда:
                         <select class="form-control" name="repeatTo" id="repeatTo"
                                 ng-model="$ctrl.trip.cityTo" required
-                                ng-options="city.Name for city in $ctrl.cities track by city.Id"></select>                      
+                                ng-options="city.Name for city in $ctrl.cities track by city.Id"></select>
                     </label>
                     <div ng-show="form.$submitted">
                         <span class="error" ng-show="form.repeatTo.$error.required">Это поле обязательное</span>
@@ -113,7 +113,7 @@
             </div>
 
             <client-trip-list></client-trip-list>
-        </div>  
+        </div>
 
         <div class="row">
             <div class="col-xs-12 col-sm-6">
@@ -126,10 +126,10 @@
 
                 <div class="form-group expense-input-row">
                     <input type="number" class="form-control cost-input" ng-model="$ctrl.compulsoryNewCost"
-                           ng-blur="$ctrl.addCompolsoryExpense($ctrl.compulsoryNewCost, $ctrl.compulsoryNewComment)"/>
+                           ng-blur="$ctrl.addCompolsoryExpense($ctrl.compulsoryNewCost, $ctrl.compulsoryNewComment)" />
 
                     <input type="text" class="form-control comment-input" ng-model="$ctrl.compulsoryNewComment"
-                            ng-blur="$ctrl.addCompolsoryExpense($ctrl.compulsoryNewCost, $ctrl.compulsoryNewComment)"/>
+                           ng-blur="$ctrl.addCompolsoryExpense($ctrl.compulsoryNewCost, $ctrl.compulsoryNewComment)" />
 
                     <button class="btn btn-default" ng-click="$ctrl.addCompolsoryExpense($ctrl.compulsoryNewCost, $ctrl.compulsoryNewComment)">
                         +
@@ -155,7 +155,7 @@
                     </button>
                 </div>
             </div>
-            
+
             <div class="col-xs-12">
                 <h4> Aгентские расходы суммарно: <span class="attention">{{$ctrl.getAgentExpenses($ctrl.trip)}}</span></h4>
                 <h4> Касса Водителя: <span class="attention">{{$ctrl.getDriverCashbox($ctrl.trip)}}</span></h4>
@@ -189,11 +189,12 @@
         </span>
         <br />
         <uib-accordion close-others="oneAtATime" ng-repeat="trip in $ctrl.trips | filter:$ctrl.query">
-            <div uib-accordion-group class="panel-default"
-                 heading="{{trip.date | date:$ctrl.dateTimeFormat }} - {{trip.arrivalDate| date:$ctrl.dateTimeFormat}},
-                 {{trip.bus.FriendlyName}} {{trip.bus.RegistrationNumber}} , Водитель {{trip.driver.FullName}} ,
-                 Маршрут {{trip.cityFrom.Name}} ----> {{trip.cityTo.Name}}"
-                 is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+            <div uib-accordion-group class="panel-default" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                <uib-accordion-heading>
+                    {{trip.date | date: $ctrl.dateTimeFormat }} - {{trip.arrivalDate| date: $ctrl.dateTimeFormat}},
+                    {{trip.cityFrom.Name}} &#x27F6; {{trip.cityTo.Name}} <br />
+                    {{trip.bus.FriendlyName}} {{trip.bus.RegistrationNumber}}, {{trip.driver.FullName}}  
+                </uib-accordion-heading>
 
                 <div class="row">
                     <div class="col-xs-6">
@@ -209,21 +210,21 @@
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">
                         <thead>
-                        <tr>
-                            <td>Комментарий маршрута</td>
-                            <td>Клиент</td>
-                            <td>Телефон</td>
-                            <td>Скидка</td>
-                            <td>Комментарий клиента</td>
-                            <td>Цена</td>
-                            <td>Агент</td>
-                            <td>Цена агента</td>
-                            <td>Маршрут</td>
-                            <td>Не выходит</td>
-                            <td>Багаж</td>
-                            <td>Ребенок</td>
-                            <td>Инвалид</td>
-                        </tr>
+                            <tr>
+                                <td>Комментарий маршрута</td>
+                                <td>Клиент</td>
+                                <td>Телефон</td>
+                                <td>Скидка</td>
+                                <td>Комментарий клиента</td>
+                                <td>Цена</td>
+                                <td>Агент</td>
+                                <td>Цена агента</td>
+                                <td>Маршрут</td>
+                                <td>Не выходит</td>
+                                <td>Багаж</td>
+                                <td>Ребенок</td>
+                                <td>Инвалид</td>
+                            </tr>
                         </thead>
 
                         <tr ng-repeat="client in trip.tripClients">
@@ -244,8 +245,8 @@
                     </table>
                 </div>
                 <ng-map center="{{$ctrl.mapCenterLatLng}}" zoom="5"
-                        map-initialized="$ctrl.mapInitialized(map, trip)" 
-                         zoom-to-include-markers="auto"></ng-map>
+                        map-initialized="$ctrl.mapInitialized(map, trip)"
+                        zoom-to-include-markers="auto"></ng-map>
                 <a class="delete-trip" ng-click="$ctrl.delete(trip)">Удалить рейс</a>
             </div>
         </uib-accordion>
