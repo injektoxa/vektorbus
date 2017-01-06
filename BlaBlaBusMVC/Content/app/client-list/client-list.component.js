@@ -27,12 +27,8 @@ angular.module('clientList')
           var modalInstance = $uibModal.open(modalOptions);
 
           modalInstance.result.then(function(client) {
-            that.client = client;
-            Client.add(client,
-              function onSuccess(createdClient) {
-                that.clients.push(createdClient);
-                that.clearClient();
-              });
+            that.clients.push(client);
+            that.clearClient();
           });
         };
 
