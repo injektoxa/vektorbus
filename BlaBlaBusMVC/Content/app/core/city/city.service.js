@@ -10,11 +10,11 @@ angular.
                 isArray: true
             },
             add: {
-                method: 'POST',
+                method: 'POST'
             },
             remove: {
                 method: 'DELETE',
-                params: { Id: 'id' },
+                params: { Id: 'id' }
             }
         });
     }

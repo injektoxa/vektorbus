@@ -25,17 +25,17 @@ angular.
                   that.showAddCityForm = false;
                   let cityName = that.choosedPlace.name ? that.choosedPlace.name : that.choosedPlace;
 
-                  City.add({ name: cityName }, function () {
-                      that.cities = City.query();
+                  City.add({ name: cityName }, function (createdCity) {
+                      that.cities.push(createdCity);
                       that.choosedPlace = '';
                   });
               }
           }
 
           this.removeCity = function (cityId) {
-              City.remove({ id: cityId }), function () {
-                  that.cities = that.cities.filter((el) => el.id != cityId);
-              };
+              City.delete({ id: cityId }, function onSuccess(deletedCity) {
+                  that.cities = that.cities.filter((el) => el.Id != cityId);
+              });
           }
 
           this.setCityFromAutocomplete = function (err, place) {
