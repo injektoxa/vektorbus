@@ -211,6 +211,7 @@
                     <table class="table table-hover table-bordered">
                         <thead>
                         <tr>
+                            <td>№</td>
                             <td>Клиент</td>
                             <td>Телефон</td>
                             <td>Скидка</td>
@@ -227,6 +228,7 @@
                         </thead>
 
                         <tr ng-repeat="client in trip.tripClients">
+                            <td>{{$index + 1}}</td>
                             <td>{{client.Name}}</td>
                             <td>{{client.Phone}}</td>
                             <td ng-class="client.HasDiscount ? 'highlighting' : ''">
@@ -236,7 +238,7 @@
                             <td>{{client.Price}}</td>
                             <td>{{client.AgentName}}</td>
                             <td>{{client.AgentPrice}}</td>
-                            <td>{{client.From}} --> {{client.To}}</td>
+                            <td>{{client.From}} &#x27F6; {{client.To}}</td>
                             <td ng-class="client.IsStayInBus ? 'highlighting' : ''">{{client.IsStayInBus ? 'Да' : ''}}</td>
                             <td>{{client.HasBaggage ? 'Есть' : ''}}</td>
                             <td>{{client.HasMinorChild ? 'Да' : ''}}</td>
