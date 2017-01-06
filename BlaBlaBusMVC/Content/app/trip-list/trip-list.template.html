@@ -157,7 +157,9 @@
             </div>
             
             <div class="col-xs-12">
+                <h4> Aгентские расходы суммарно: <span class="attention">{{$ctrl.getAgentExpenses($ctrl.trip)}}</span></h4>
                 <h4> Касса Водителя: <span class="attention">{{$ctrl.getDriverCashbox($ctrl.trip)}}</span></h4>
+                <h4> Доход: <span class="attention">{{$ctrl.getIncomes($ctrl.trip)}}</span></h4>
             </div>
 
             <div class="col-xs-12">

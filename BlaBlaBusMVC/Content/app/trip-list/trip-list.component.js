@@ -344,6 +344,14 @@ component('tripList', {
                 return tripCashService.countDriverCashBox(trip);
             }
 
+            this.getIncomes = function (trip) {
+                return tripCashService.countIncomes(trip);
+            }
+
+            this.getAgentExpenses = function (trip) {
+                return tripCashService.countAgentExpenses(trip);
+            }
+
             this.mapInitialized = function (map, trip) {
                 google.maps.event.trigger(map, 'resize');
                 map.setZoom(5);
