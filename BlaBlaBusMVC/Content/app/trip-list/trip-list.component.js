@@ -151,28 +151,31 @@ component('tripList', {
             this.createPDF = function (trip) {
                 var tableBody = [
                     [
+                        { text: '№', style: 'tableHeader' },
                         { text: 'Имя Фамилия', style: 'tableHeader' },
                         { text: 'Телефон', style: 'tableHeader' },
                         { text: 'Куда', style: 'tableHeader' },
                         { text: 'Откуда', style: 'tableHeader' },
                         { text: 'Стоимость', style: 'tableHeader' },
-                        { text: 'Не выходит', style: 'tableHeader' },
-                        { text: 'Статус', style: 'tableHeader' }
+                        { text: 'Не вых.', style: 'tableHeader' },
+                        { text: 'Статус', style: 'tableHeader' },
+                        { text: 'Aгент', style: 'tableHeader' }
                     ]
                 ];
 
-                for (var i = 0; i < trip.tripClients.length; i++) {
+                trip.tripClients.map((client, i) =>
                     tableBody.push([
-                        trip.tripClients[i].Name,
-                        trip.tripClients[i].Phone,
-                        trip.tripClients[i].To ? trip.tripClients[i].To : '',
-                        trip.tripClients[i].From ? trip.tripClients[i].From : '',
-                        trip.tripClients[i].Price.toString(),
-                        trip.tripClients[i].IsStayInBus ? 'Да' : '',
-                        (trip.tripClients[i].HasMinorChild ? 'С ребенком; ' : '') +
-                        (trip.tripClients[i].HasDisability ? 'Инвалид' : '')
-                    ]);
-                }
+                        (i + 1).toString(),
+                        client.Name,
+                        client.Phone,
+                        client.To ? client.To : '',
+                        client.From ? client.From : '',
+                        client.Price.toString(),
+                        client.IsStayInBus ? 'Да' : '',
+                        (client.HasMinorChild ? 'С ребенком; ' : '') + (client.HasDisability ? 'Инвалид' : ''),
+                        client.AgentName ?
+                            client.AgentName + ' - ' + (client.AgentPrice ? client.AgentPrice : 0)
+                            : '']));
 
                 //pdfMake doesnt work with initializing via variable
                 var compolsuryExpenseTable = [[{ text: 'Стоимость', style: 'tableHeader' }, { text: 'Комментарий', style: 'tableHeader' }]];
@@ -190,9 +193,12 @@ component('tripList', {
                          expense.Comment
                     ]));
 
+                var expenses = tripCashService.countTotalExpenses(trip);
+
                 var bus = trip.bus != null ? trip.bus.FriendlyName + ' ' + trip.bus.RegistrationNumber + ', ' : '';
                 var driver = trip.driver != null ? 'Водитель: ' + trip.driver.FullName : '';
                 var fileName = trip.cityFrom.Name.concat(' - ', trip.cityTo.Name, ' ', $filter('date')(trip.date, "yyyy/MM/dd"), '.pdf');
+
 
                 googleMapsService.getGoogleMapsImage(trip.cityFrom.Name, trip.cityTo.Name, trip.waypoints, trip.polyline,
                    function (base64Img) {
@@ -208,9 +214,7 @@ component('tripList', {
                                    {
                                        text: bus + driver
                                    },
-                                   {
-                                       text: ' '
-                                   },
+                                   { text: ' ' },
                                    {
                                        columns: [
                                        {
@@ -240,14 +244,17 @@ component('tripList', {
                                        }]
                                    },
                                    {
-                                       text: ' '
+                                       columns: [
+                                       {
+                                           width: '50%',
+                                           text: 'Итого: ' + expenses.compolsuryTotal
+                                       },
+                                       {
+                                           width: '50%',
+                                           text: 'Итого: ' + expenses.unexpectedTotal
+                                       }]
                                    },
-                                   {
-                                       text: 'Касса водителя: ' + tripCashService.countDriverCashBox(trip)
-                                   },
-                                   {
-                                       text: ' '
-                                   },
+                                   { text: ' ' },
                                    {
                                        text: 'Клиенты:'
                                    },
@@ -257,9 +264,17 @@ component('tripList', {
                                            body: tableBody
                                        }
                                    },
+                                   { text: ' ' },
                                    {
-                                       text: ' '
+                                       text: 'Касса водителя: ' + tripCashService.countDriverCashBox(trip)
                                    },
+                                   {
+                                       text: 'Агентские по рейсу суммарно: ' + expenses.agentExpensesTotal
+                                   },
+                                   {
+                                       text: 'Доход: ' + tripCashService.countIncomes(trip)
+                                   },
+                                   { text: ' ' },
                                    {
                                        image: base64Img
                                    }
@@ -329,9 +344,12 @@ component('tripList', {
                 return tripCashService.countDriverCashBox(trip);
             }
 
-            this.initTripMap = function() {
-                trip.waypoints = [{ location: trip.cityTo.Name, stopover: false }];
-                trip.polyline='';
+            this.getIncomes = function (trip) {
+                return tripCashService.countIncomes(trip);
+            }
+
+            this.getAgentExpenses = function (trip) {
+                return tripCashService.countAgentExpenses(trip);
             }
 
             this.mapInitialized = function (map, trip) {
