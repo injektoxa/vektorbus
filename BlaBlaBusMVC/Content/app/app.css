@@ -369,6 +369,12 @@ span.validation-message {
     border-right-color: #d9534f !important;
 }
 
+.client-modal-alert {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
 /*Spinner*/
 .spinner {
     width: 50px;

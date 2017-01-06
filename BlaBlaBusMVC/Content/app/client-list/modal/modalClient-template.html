@@ -1,64 +1,70 @@
 ﻿<div>
-  <div class="modal-header">
-    <button type="button"
-            class="close"
-            ng-click="$ctrl.cancel()"
-            data-dismiss="modal"
-            aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    <h3>{{$ctrl.headerTitle}}</h3>
-  </div>
-  <div class="modal-body">
-    <form class="add-edit" name="form" novalidate>
-      <div class="form-group">
-        <table>
-          <tr>
-            <td>Имя:</td>
-            <td>
-              <div>
-                <input type="text" class="form-control" name="name" ng-model="$ctrl.client.Name" required="required" />
-                <span class="error" ng-show="!form.name.$valid && form.name.$dirty">Это поле обязательное</span>
-              </div>
-            </td>
-          </tr>
-            <tr>
-                <td>Телефон:</td>
-                <td>
-                    <div>
-                        <input type="text" name="phone" class="form-control" ng-model="$ctrl.client.Phone" />
-                        <span class="error" ng-show="!form.phone.$valid && form.phone.$dirty">Это поле обязательное</span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Комментарий:</td>
-                <td>
-                    <div>
-                        <input type="text" name="comments" class="form-control" ng-model="$ctrl.client.Comments" />
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Скидка: </td>
-                <td><input type="checkbox" ng-model="$ctrl.client.HasDiscount" value="" /></td>
-            </tr>
-            <tr>
-                <td>Несовершеннолетний ребенок: </td>
-                <td><input type="checkbox" ng-model="$ctrl.client.HasMinorChild" /></td>
-            </tr>
-            <tr>
-                <td>Инвалид: </td>
-                <td><input type="checkbox" ng-model="$ctrl.client.HasDisability" /></td>
-            </tr>
-        </table>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn" ng-click="$ctrl.cancel()">Отмена</button>
-      <button class="btn btn-primary" 
-              ng-disabled="!form.name.$valid || !form.phone.$valid" 
-              ng-click="$ctrl.ok(client);">Сохранить</button>
-  </div>
+    <div class="modal-header">
+        <button type="button"
+                class="close"
+                ng-click="$ctrl.cancel()"
+                data-dismiss="modal"
+                aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h3>{{$ctrl.headerTitle}}</h3>
+    </div>
+    <div class="modal-body">
+        <form class="add-edit" name="form" novalidate>
+            <div class="form-group">
+                <table>
+                    <tr>
+                        <td>Имя:</td>
+                        <td>
+                            <div>
+                                <input type="text" class="form-control" name="name" ng-model="$ctrl.client.Name" required="required" />
+                                <span class="error" ng-show="!form.name.$valid && form.name.$dirty">Это поле обязательное</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Телефон:</td>
+                        <td>
+                            <div>
+                                <input type="text" name="phone" class="form-control" ng-model="$ctrl.client.Phone" />
+                                <span class="error" ng-show="!form.phone.$valid && form.phone.$dirty">Это поле обязательное</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Комментарий:</td>
+                        <td>
+                            <div>
+                                <input type="text" name="comments" class="form-control" ng-model="$ctrl.client.Comments" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Скидка: </td>
+                        <td><input type="checkbox" ng-model="$ctrl.client.HasDiscount" value="" /></td>
+                    </tr>
+                    <tr>
+                        <td>Несовершеннолетний ребенок: </td>
+                        <td><input type="checkbox" ng-model="$ctrl.client.HasMinorChild" /></td>
+                    </tr>
+                    <tr>
+                        <td>Инвалид: </td>
+                        <td><input type="checkbox" ng-model="$ctrl.client.HasDisability" /></td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" ng-click="$ctrl.cancel()">Отмена</button>
+        <button class="btn btn-primary"
+                ng-disabled="!form.name.$valid || !form.phone.$valid"
+                ng-click="$ctrl.ok(client);">
+            Сохранить
+        </button>
+        <div ng-hide="$ctrl.message == ''"
+             class="alert alert-danger validation-alert client-modal-alertclient-modal-alert">
+            {{$ctrl.message}}
+        </div>
+    </div>
 </div>

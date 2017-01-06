@@ -80,6 +80,13 @@ namespace BlaBlaBusMVC.Controllers
                 return BadRequest(ModelState);
             }
 
+            if (db.Clients.Any(x => x.Phone == client.Phone))
+            {
+                ModelState.AddModelError("Phone Number Exists", "Данный пассажир уже существует.");
+
+                return BadRequest(ModelState);
+            }
+
             db.Clients.Add(client);
             db.SaveChanges();
 
