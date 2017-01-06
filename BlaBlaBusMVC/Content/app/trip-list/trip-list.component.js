@@ -28,6 +28,8 @@ component('tripList', {
             this.cities = City.query();
             this.drivers = Driver.query();
             this.dateFormat = "dd-MMM-yyyy";
+            this.dateTimeFormat = 'MMM dd HH:mm';
+
             this.dateOptions = {
                 minDate: new Date(),
                 showWeeks: false,
