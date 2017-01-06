@@ -189,11 +189,11 @@
         </span>
         <br />
         <uib-accordion close-others="oneAtATime" ng-repeat="trip in $ctrl.trips | filter:$ctrl.query">
-            <div uib-accordion-group class="panel-default" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+            <div uib-accordion-group class="panel-default trip-accordion" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
                 <uib-accordion-heading>
                     {{trip.date | date: $ctrl.dateTimeFormat }} - {{trip.arrivalDate| date: $ctrl.dateTimeFormat}},
                     {{trip.cityFrom.Name}} &#x27F6; {{trip.cityTo.Name}} <br />
-                    {{trip.bus.FriendlyName}} {{trip.bus.RegistrationNumber}}, {{trip.driver.FullName}}  
+                    {{trip.bus.FriendlyName}} {{trip.bus.RegistrationNumber}}, {{trip.driver.FullName}}
                 </uib-accordion-heading>
 
                 <div class="row">
@@ -210,28 +210,28 @@
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">
                         <thead>
-                            <tr>
-                                <td>Комментарий маршрута</td>
-                                <td>Клиент</td>
-                                <td>Телефон</td>
-                                <td>Скидка</td>
-                                <td>Комментарий клиента</td>
-                                <td>Цена</td>
-                                <td>Агент</td>
-                                <td>Цена агента</td>
-                                <td>Маршрут</td>
-                                <td>Не выходит</td>
-                                <td>Багаж</td>
-                                <td>Ребенок</td>
-                                <td>Инвалид</td>
-                            </tr>
+                        <tr>
+                            <td>Клиент</td>
+                            <td>Телефон</td>
+                            <td>Скидка</td>
+                            <td>Комментарий клиента</td>
+                            <td>Цена</td>
+                            <td>Агент</td>
+                            <td>Цена агента</td>
+                            <td>Маршрут</td>
+                            <td>Не выходит</td>
+                            <td>Багаж</td>
+                            <td>Ребенок</td>
+                            <td>Инвалид</td>
+                        </tr>
                         </thead>
 
                         <tr ng-repeat="client in trip.tripClients">
-                            <td>{{trip.comments}}</td>
                             <td>{{client.Name}}</td>
                             <td>{{client.Phone}}</td>
-                            <td ng-class="client.HasDiscount ? 'highlighting' : ''">{{client.HasDiscount ? 'Есть' : ''}}</td>
+                            <td ng-class="client.HasDiscount ? 'highlighting' : ''">
+                                {{client.HasDiscount ? 'Есть' : ''}}
+                            </td>
                             <td>{{client.Comments}}</td>
                             <td>{{client.Price}}</td>
                             <td>{{client.AgentName}}</td>
@@ -244,6 +244,9 @@
                         </tr>
                     </table>
                 </div>
+
+                <span class="comments">{{trip.comments}}</span> 
+
                 <ng-map center="{{$ctrl.mapCenterLatLng}}" zoom="5"
                         map-initialized="$ctrl.mapInitialized(map, trip)"
                         zoom-to-include-markers="auto"></ng-map>

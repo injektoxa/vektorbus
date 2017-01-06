@@ -375,6 +375,12 @@ span.validation-message {
     margin-bottom: 0;
 }
 
+.trip-accordion .comments {
+    display: block;
+    margin-bottom: 5px;
+    margin-top: -10px;
+}
+
 /*Spinner*/
 .spinner {
     width: 50px;
