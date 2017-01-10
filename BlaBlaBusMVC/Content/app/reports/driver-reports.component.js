@@ -20,7 +20,7 @@ angular.module('reports')
                     startingDay: 0,
                     maxDate: new Date()
                 }
-                that.reports = {};
+                that.DriverReports = {};
                 that.reportTitle = '';
                 that.totalTitle = '';
                 that.totalPrice = '';
@@ -44,21 +44,22 @@ angular.module('reports')
 
                 that.onGetReports = function (reports) {
                     reports.map(function (report) {
-                        that.reports[report.DriverName]
-                            ? that.reports[report.DriverName].push(report)
-                            : that.reports[report.DriverName] = [report];
+                        that.DriverReports[report.DriverName]
+                            ? that.DriverReports[report.DriverName].push(report)
+                            : that.DriverReports[report.DriverName] = [report];
                     });
 
                     that.totalTitle = 'Итого за период с ' +
                         $filter('date')(that.dateFrom, "yyyy-MM-dd") + ' по ' +
                         $filter('date')(that.dateTo, "yyyy-MM-dd") + ': ';
 
-                    that.totalPrice = reports.reduce((acc, report) => acc + report.DriverCashBox, 0);
+                    that.totalIncomes = that.getTotalIncomes(reports);
+                    that.isMultipleDriversMode = Object.keys(that.DriverReports).length > 1;
                     that.reportIsShowing = true;
                 };
 
                 that.createReport = function () {
-                    that.reports = {};
+                    that.DriverReports = {};
                     that.reportTitle = '';
                     that.totalTitle = '';
                     that.totalPrice = '';
@@ -72,6 +73,13 @@ angular.module('reports')
 
                     DriverReport.query(options, that.onGetReports);
                 };
+
+                //reports : particular DriverReports for driver or null if calculate total incomes for all drivers
+                that.getTotalIncomes = function (reports) {
+                    const totalIncomes = reports.reduce((acc, report) => acc + report.TotalIncomes, 0);
+
+                    return totalIncomes;
+                }
 
                 that.createPDF = function (reports) {
                     var tableBody = [[

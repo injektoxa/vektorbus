@@ -60,11 +60,11 @@ angular.
                 }).
                 when('/agentReports',
                 {
-                    template: '<agent-reports></agent-reports>'
+                    template: '<agent-reports></agent-DriverReports>'
                 }).
                 when('/driverReports',
                 {
-                    template: '<driver-reports></driver-reports>'
+                    template: '<driver-reports></driver-DriverReports>'
                 }).
                 when('/access-forbidden',
                 {

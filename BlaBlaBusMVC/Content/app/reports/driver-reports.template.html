@@ -41,45 +41,58 @@
         </div>
     </div>
 
-    <div class="report-body" ng-repeat="(driverName, reports) in $ctrl.reports">
+    <div class="report-body" ng-repeat="(driverName, reports) in $ctrl.DriverReports">
         <div class="row" ng-show="$ctrl.reportIsShowing">
             <div class="col-xs-12 col-sm-8">
                 <h4 class="report-title">Отчет по водителю {{driverName}}</h4>
             </div>
             <div class="col-xs-12 col-sm-4">
-                <a class="report-export" ng-click="$ctrl.createPDF($ctrl.reports)">Экспорт в pdf</a>
+                <a class="report-export" ng-click="$ctrl.createPDF($ctrl.DriverReports)">Экспорт в pdf</a>
             </div>
         </div>
-        
+
         <div class="table-responsive">
             <table class="table table-striped table-condensed">
                 <thead>
-                <tr>
-                    <th>Дата отправления</th>
-                    <th>Откуда</th>
-                    <th>Куда</th>
-                    <th>Автобус</th>
-                    <th>Кол-во пассажиров</th>
-                    <th>Постоянные расходы</th>
-                    <th>Непредвиденные расходы</th>
-                    <th>Касса водителя</th>
-                </tr>
+                    <tr>
+                        <th>Дата отправления</th>
+                        <th>Откуда</th>
+                        <th>Куда</th>
+                        <th>Автобус</th>
+                        <th>Кол-во пассажиров</th>
+                        <th>Постоянные расходы</th>
+                        <th>Непредвиденные расходы</th>
+                        <th>Касса водителя</th>
+                        <th>Доход с рейса</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="report in reports" class="repeat-animation">
-                    <td>{{report.TripDate}}</td>
-                    <td>{{report.CityFrom}}</td>
-                    <td>{{report.CityTo}}</td>
-                    <td>{{report.BusInfo}}</td>
-                    <td>{{report.ClientsCount}}</td>
-                    <td>{{report.CompulsoryExpenses}}</td>
-                    <td>{{report.UnexpectedExpenses}}</td>
-                    <td>{{report.DriverCashBox}}</td>
-                </tr>
+                    <tr ng-repeat="report in reports" class="repeat-animation">
+                        <td>{{report.TripDate}}</td>
+                        <td>{{report.CityFrom}}</td>
+                        <td>{{report.CityTo}}</td>
+                        <td>{{report.BusInfo}}</td>
+                        <td>{{report.ClientsCount}}</td>
+                        <td>{{report.CompulsoryExpenses}}</td>
+                        <td>{{report.UnexpectedExpenses}}</td>
+                        <td>{{report.DriverCashBox}}</td>
+                        <td>{{report.TotalIncomes}}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
 
-        <h4>{{$ctrl.totalTitle}}<span>{{report.TotalIncomes}}</span></h4>
+        <h4>
+            Итого за период с {{ $ctrl.dateFrom | date: $ctrl.dateTimeFormat}} по {{ $ctrl.dateTo | date: $ctrl.dateTimeFormat}} :
+            <span>{{$ctrl.getTotalIncomes(reports)}}</span>
+        </h4>
+    </div> <!--div ng-repeat-->
+    
+    <div class="row reports-total-row" ng-show="$ctrl.reportIsShowing && $ctrl.isMultipleDriversMode">
+        <h4>
+            Итого за период с {{ $ctrl.dateFrom | date: $ctrl.dateTimeFormat}} по {{ $ctrl.dateTo | date: $ctrl.dateTimeFormat}} по всем водителям:
+            <span class="reports-total">{{$ctrl.totalIncomes}}</span>
+        </h4>
+        <a class="report-export" ng-click="$ctrl.createPDF($ctrl.DriverReports)">Экспорт в pdf(всех)</a>
     </div>
 </div>
