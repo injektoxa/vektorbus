@@ -249,9 +249,9 @@
 
                 <span class="comments">{{trip.comments}}</span> 
 
-                <ng-map center="{{$ctrl.mapCenterLatLng}}" zoom="5"
+                <ng-map center="{{$ctrl.mapCenterLatLng}}" min-zoom="5"
                         map-initialized="$ctrl.mapInitialized(map, trip)"
-                        zoom-to-include-markers="auto"></ng-map>
+                        zoom-to-include-markers="false"></ng-map>
                 <a class="delete-trip" ng-click="$ctrl.delete(trip)">Удалить рейс</a>
             </div>
         </uib-accordion>
