@@ -271,10 +271,15 @@ form.add-edit tr > td:last-child {
 }
 
 
-.report-body h4 > span {
+.report-body h4 > span,
+span.reports-total {
     color: red;
     font-weight: bold;
     font-size: larger;
+}
+
+.reports-total-row {
+    margin-top: 30px;
 }
 
 .button-area label {

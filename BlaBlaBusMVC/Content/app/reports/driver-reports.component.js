@@ -7,124 +7,145 @@ angular.module('reports')
         templateUrl: 'Content/app/reports/driver-reports.template.html',
         controller: [
             'Driver', 'DriverReport', '$filter', 'PdfMaker',
-            function (Driver, DriverReport, $filter, pdfMaker) {
-            	var that = this;
-		
-            	that.drivers = Driver.query();
-            	that.driver = {};
-                that.dateTimeFormat = "dd/MM/yyyy";
-            	that.dateFrom = new Date();
-            	that.dateTo = new Date();
-            	that.dateOptions = {
-            		showWeeks: false,
-            		startingDay: 0,
-            		maxDate: new Date()
-            	}
-            	that.reports = [];
-                that.reportTitle = '';
-                that.totalTitle = '';
-                that.totalPrice = '';
-                that.reportIsShowing = false;
+             function (Driver, DriverReport, $filter, pdfMaker) {
+                 var that = this;
 
-                that.startDatePopup = {
-                    opened: false
-                };
+                 that.drivers = Driver.query();
+                 that.driver = {};
+                 that.dateTimeFormat = "dd/MM/yyyy";
+                 that.dateFrom = new Date();
+                 that.dateTo = new Date();
+                 that.dateOptions = {
+                     showWeeks: false,
+                     startingDay: 0,
+                     maxDate: new Date()
+                 }
 
-                that.startDateOpen = function () {
-                    that.startDatePopup.opened = true;
-                };
+                 that.DriverReports = {};
+                 that.reportTitle = '';
+                 that.totalTitle = '';
+                 that.totalPrice = '';
+                 that.reportIsShowing = false;
 
-                that.endDatePopup = {
-                    opened: false
-                };
+                 that.startDatePopup = {
+                     opened: false
+                 };
 
-                that.endDateOpen = function () {
-                    that.endDatePopup.opened = true;
-                };
+                 that.startDateOpen = function () {
+                     that.startDatePopup.opened = true;
+                 };
 
-                that.onGetReports = function(reports) {
-                    that.reports = reports;
-                    that.reportTitle = 'Отчет по водителю ' + that.driver.FullName;
-                    that.totalTitle = 'Итого за период с ' +
-                        $filter('date')(that.dateFrom, "yyyy-MM-dd") + ' по ' +
-                        $filter('date')(that.dateTo, "yyyy-MM-dd") +  ': ';
+                 that.endDatePopup = {
+                     opened: false
+                 };
 
-                    that.totalPrice = reports.reduce((acc, report) => acc + report.DriverCashBox, 0);
-                    that.reportIsShowing = true; 
-                };
+                 that.endDateOpen = function () {
+                     that.endDatePopup.opened = true;
+                 };
 
-                that.createReport = function () {
-                    that.reportTitle = '';
-                    that.totalTitle = '';
-                    that.totalPrice = '';
-                    that.reportIsShowing = false;
+                 that.onGetReports = function (reports) {
+                     reports.map(function (report) {
+                         that.DriverReports[report.DriverName]
+                             ? that.DriverReports[report.DriverName].push(report)
+                             : that.DriverReports[report.DriverName] = [report];
+                     });
 
-                    var options = {
-                        id: that.driver.Id,
-                        dateFrom: $filter('date')(that.dateFrom, "yyyy-MM-dd"),
-                        dateTo: $filter('date')(that.dateTo, "yyyy-MM-dd")
-                    };
+                     that.totalIncomes = that.getTotalIncomes(reports);
+                     that.isMultipleDriversMode = Object.keys(that.DriverReports).length > 1;
+                     that.reportIsShowing = true;
+                 };
 
-                    DriverReport.query(options, that.onGetReports);
-                };
+                 that.createReport = function () {
+                     that.DriverReports = {};
+                     that.reportTitle = '';
+                     that.totalTitle = '';
+                     that.totalPrice = '';
+                     that.reportIsShowing = false;
 
-                that.createPDF = function (reports) {
-                    var tableBody = [[
-                        { text: 'Дата Отправления', style: 'tableHeader' },
-                        { text: 'Откуда', style: 'tableHeader' },
-                        { text: 'Куда', style: 'tableHeader' },
-                        { text: 'Автобус', style: 'tableHeader' },
-                        { text: 'Кол-во пассажиров', style: 'tableHeader' },
-                        { text: 'Постоянные расходы', style: 'tableHeader' },
-                        { text: 'Непред. расходы', style: 'tableHeader' },
-                        { text: 'Касса', style: 'tableHeader' }]];
+                     var options = {
+                         id: that.driver ? that.driver.Id : null,
+                         dateFrom: $filter('date')(that.dateFrom, "yyyy-MM-dd"),
+                         dateTo: $filter('date')(that.dateTo, "yyyy-MM-dd")
+                     };
 
-                    reports.map((report) => tableBody.push([
-                        report.TripDate,
-                        report.CityFrom,
-                        report.CityTo,
-                        report.BusInfo,
-                        report.ClientsCount ? report.ClientsCount.toString() : '',
-                        report.CompulsoryExpenses ? report.CompulsoryExpenses.toString() : 0,
-                        report.UnexpectedExpenses ? report.UnexpectedExpenses.toString() : 0,
-                        report.DriverCashBox ? report.DriverCashBox.toString() : 0]));
+                     DriverReport.query(options, that.onGetReports);
+                 };
 
-                    var datePeriod = $filter('date')(that.dateFrom, "yyyy-MM-dd").
+                 //reports : particular DriverReports for driver or null if calculate total incomes for all drivers
+                 that.getTotalIncomes = function (reports) {
+                     const totalIncomes = reports.reduce((acc, report) => acc + report.TotalIncomes, 0);
+
+                     return totalIncomes;
+                 }
+
+                 that.getReportsPdfTable = function (reports, driverName) {
+                     var title = [
+                         { text: 'Водитель: ' + driverName }];
+
+                     var table = [[
+                         { text: 'Дата Отправления' },
+                         { text: 'Откуда' },
+                         { text: 'Куда' },
+                         { text: 'Автобус' },
+                         { text: 'Кол-во пассажиров' },
+                         { text: 'Постоянные расходы' },
+                         { text: 'Непред. расходы' },
+                         { text: 'Касса' }]];
+
+                     reports.map((report) => table.push([
+                           report.TripDate,
+                           report.CityFrom,
+                           report.CityTo,
+                           report.BusInfo,
+                           report.ClientsCount ? report.ClientsCount.toString() : '',
+                           report.CompulsoryExpenses ? report.CompulsoryExpenses.toString() : 0,
+                           report.UnexpectedExpenses ? report.UnexpectedExpenses.toString() : 0,
+                           report.DriverCashBox ? report.DriverCashBox.toString() : 0]));
+
+                     title.push(
+                         { table: { body: table } },
+                         { text: ' ' },
+                         { text: 'Итого: ' + that.getTotalIncomes(reports) },
+                         { text: ' ' });
+
+                     return title;
+                 }
+
+                 that.createPDF = function (driverName) {
+                     const datePeriod = $filter('date')(that.dateFrom, "yyyy-MM-dd").
                         concat(' - ', $filter('date')(that.dateTo, "yyyy-MM-dd"));
 
-                    var options = {
-                        fileName: 'Oтчет ' + datePeriod + ' ' + that.driver.FullName,
-                        docDefinition: {
-                            pageOrientation: 'portrait',
-                            fontSize: 12,
-                            content: [
-                                {
-                                    text: 'Водитель: ' + that.driver.FullName
-                                },
-                                {
-                                    text: 'Oтчет за период: ' + datePeriod
-                                },
-                                {
-                                    text: ' '
-                                },
-                                {
-                                    table: {
-                                        headerRows: 1,
-                                        body: tableBody
-                                    }
-                                },
-                                {
-                                    text: ' '
-                                },
-                                {
-                                    text: that.totalTitle + ' ' + that.totalPrice
-                                }
-                            ]
-                        }
-                    }
+                     var content = [{ text: 'Oтчет за период: ' + datePeriod }, { text: ' ' }];
 
-                    pdfMaker.createAndDownload(options);
-                }
-            }
+                     function generateReport(driversName) {
+                         var report = that.getReportsPdfTable(that.DriverReports[driversName], driversName);
+
+                         content = content.concat(report);
+                     }
+
+                     if (driverName) {
+                         generateReport(driverName);
+                     } else {
+                         Object.keys(that.DriverReports).map((driversName) => generateReport(driversName));
+                     }
+
+                     if (!driverName) {
+                         content.push(
+                             { text: ' ' },
+                             { text: 'Итого по всем водителям за период ' + datePeriod + ' : ' + that.totalIncomes });
+                     }
+
+                     var options = {
+                         fileName: 'Oтчет ' + datePeriod + ' ' + driverName,
+                         docDefinition: {
+                             pageOrientation: 'portrait',
+                             fontSize: 12,
+                             content: content
+                         }
+                     }
+
+                     pdfMaker.createAndDownload(options);
+                 }
+             }
         ]
     });

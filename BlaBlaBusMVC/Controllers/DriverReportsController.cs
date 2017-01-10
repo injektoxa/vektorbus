@@ -13,13 +13,18 @@ namespace BlaBlaBusMVC.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/AgentReports
-        public IEnumerable<DriverReportViewModel> GetDriverReports(int id, DateTime dateFrom, DateTime dateTo)
+        public IEnumerable<DriverReportViewModel> GetDriverReports(DateTime dateFrom, DateTime dateTo, int? id = null)
         {
             dateFrom = dateFrom.Date;
             dateTo = new DateTime(dateTo.Year, dateTo.Month, dateTo.Day, 23, 59, 59);
 
             var trips = db.Trips.Where(x => x.Date >= dateFrom &&
-                x.ArrivalDate <= dateTo && x.Driver.Id == id).ToList();
+                x.ArrivalDate <= dateTo).ToList();
+
+            if (id.HasValue)
+            {
+                trips = trips.Where(x => x.Driver.Id == id).ToList();
+            }
 
             var reports = CreateDriverReports(trips);
 
@@ -36,6 +41,8 @@ namespace BlaBlaBusMVC.Controllers
 
                 return new DriverReportViewModel()
                 {
+                    DriverId = x.Driver.Id,
+                    DriverName = x.Driver.FullName,
                     TripDate = x.Date.ToString("yyyy-MM-dd hh:mm"),
                     BusInfo = x.Bus != null ? $"{x.Bus.FriendlyName} {x.Bus.RegistrationNumber}" : string.Empty,
                     CityFrom = x.CityFrom.Name,
@@ -43,7 +50,8 @@ namespace BlaBlaBusMVC.Controllers
                     ClientsCount = x.ClientTrip.Count,
                     UnexpectedExpenses = unexpectedExpenses,
                     CompulsoryExpenses = compulsoryExpenses,
-                    DriverCashBox = allIncomes - unexpectedExpenses - compulsoryExpenses,
+                    DriverCashBox = allIncomes,
+                    TotalIncomes = allIncomes - unexpectedExpenses - compulsoryExpenses
                 };
             }).ToList();
 
