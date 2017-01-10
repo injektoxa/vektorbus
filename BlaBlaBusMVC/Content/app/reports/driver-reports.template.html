@@ -30,19 +30,21 @@
             <label>
                 Водитель:
             </label>
-            <select class="form-control"
+            <select class="form-control" required
                     ng-model="$ctrl.driver"
-                    required
-                    ng-options="driver.FullName for driver in $ctrl.drivers"></select>
+                    ng-options="driver.FullName for driver in $ctrl.drivers">
+                <option value="">Все</option>
+            </select>
         </div>
         <div class="button-wrapper">
             <button class="btn btn-primary" ng-click="$ctrl.createReport()">Сформировать отчет</button>
         </div>
     </div>
-    <div class="report-body">
+
+    <div class="report-body" ng-repeat="(driverName, reports) in $ctrl.reports">
         <div class="row" ng-show="$ctrl.reportIsShowing">
             <div class="col-xs-12 col-sm-8">
-                <h4 class="report-title">{{$ctrl.reportTitle}}</h4>
+                <h4 class="report-title">Отчет по водителю {{driverName}}</h4>
             </div>
             <div class="col-xs-12 col-sm-4">
                 <a class="report-export" ng-click="$ctrl.createPDF($ctrl.reports)">Экспорт в pdf</a>
@@ -64,7 +66,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="report in $ctrl.reports" class="repeat-animation">
+                <tr ng-repeat="report in reports" class="repeat-animation">
                     <td>{{report.TripDate}}</td>
                     <td>{{report.CityFrom}}</td>
                     <td>{{report.CityTo}}</td>
@@ -78,6 +80,6 @@
             </table>
         </div>
 
-        <h4>{{$ctrl.totalTitle}}<span>{{$ctrl.totalPrice}}</span></h4>
+        <h4>{{$ctrl.totalTitle}}<span>{{report.TotalIncomes}}</span></h4>
     </div>
 </div>

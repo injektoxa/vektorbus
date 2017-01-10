@@ -8,19 +8,19 @@ angular.module('reports')
         controller: [
             'Driver', 'DriverReport', '$filter', 'PdfMaker',
             function (Driver, DriverReport, $filter, pdfMaker) {
-            	var that = this;
-		
-            	that.drivers = Driver.query();
-            	that.driver = {};
+                var that = this;
+
+                that.drivers = Driver.query();
+                that.driver = {};
                 that.dateTimeFormat = "dd/MM/yyyy";
-            	that.dateFrom = new Date();
-            	that.dateTo = new Date();
-            	that.dateOptions = {
-            		showWeeks: false,
-            		startingDay: 0,
-            		maxDate: new Date()
-            	}
-            	that.reports = [];
+                that.dateFrom = new Date();
+                that.dateTo = new Date();
+                that.dateOptions = {
+                    showWeeks: false,
+                    startingDay: 0,
+                    maxDate: new Date()
+                }
+                that.reports = {};
                 that.reportTitle = '';
                 that.totalTitle = '';
                 that.totalPrice = '';
@@ -42,25 +42,30 @@ angular.module('reports')
                     that.endDatePopup.opened = true;
                 };
 
-                that.onGetReports = function(reports) {
-                    that.reports = reports;
-                    that.reportTitle = 'Отчет по водителю ' + that.driver.FullName;
+                that.onGetReports = function (reports) {
+                    reports.map(function (report) {
+                        that.reports[report.DriverName]
+                            ? that.reports[report.DriverName].push(report)
+                            : that.reports[report.DriverName] = [report];
+                    });
+
                     that.totalTitle = 'Итого за период с ' +
                         $filter('date')(that.dateFrom, "yyyy-MM-dd") + ' по ' +
-                        $filter('date')(that.dateTo, "yyyy-MM-dd") +  ': ';
+                        $filter('date')(that.dateTo, "yyyy-MM-dd") + ': ';
 
                     that.totalPrice = reports.reduce((acc, report) => acc + report.DriverCashBox, 0);
-                    that.reportIsShowing = true; 
+                    that.reportIsShowing = true;
                 };
 
                 that.createReport = function () {
+                    that.reports = {};
                     that.reportTitle = '';
                     that.totalTitle = '';
                     that.totalPrice = '';
                     that.reportIsShowing = false;
 
                     var options = {
-                        id: that.driver.Id,
+                        id: that.driver ? that.driver.Id : null,
                         dateFrom: $filter('date')(that.dateFrom, "yyyy-MM-dd"),
                         dateTo: $filter('date')(that.dateTo, "yyyy-MM-dd")
                     };

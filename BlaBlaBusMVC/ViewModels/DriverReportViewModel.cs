@@ -17,5 +17,11 @@
         public double? UnexpectedExpenses { get; set; }
 
         public double DriverCashBox { get; set; }
+
+        public string DriverName { get; set; }
+
+        public int DriverId { get; set; }
+
+        public double TotalIncomes { get; set; }
     }
 }
