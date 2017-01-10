@@ -47,7 +47,7 @@
                 <h4 class="report-title">Отчет по водителю {{driverName}}</h4>
             </div>
             <div class="col-xs-12 col-sm-4">
-                <a class="report-export" ng-click="$ctrl.createPDF($ctrl.DriverReports)">Экспорт в pdf</a>
+                <a class="report-export" ng-click="$ctrl.createPDF(driverName)">Экспорт в pdf</a>
             </div>
         </div>
 
@@ -93,6 +93,6 @@
             Итого за период с {{ $ctrl.dateFrom | date: $ctrl.dateTimeFormat}} по {{ $ctrl.dateTo | date: $ctrl.dateTimeFormat}} по всем водителям:
             <span class="reports-total">{{$ctrl.totalIncomes}}</span>
         </h4>
-        <a class="report-export" ng-click="$ctrl.createPDF($ctrl.DriverReports)">Экспорт в pdf(всех)</a>
+        <a class="report-export" ng-click="$ctrl.createPDF()">Экспорт в pdf (всех)</a>
     </div>
 </div>
