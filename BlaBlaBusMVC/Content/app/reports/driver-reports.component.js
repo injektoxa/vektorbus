@@ -87,10 +87,11 @@ angular.module('reports')
                          { text: 'Откуда' },
                          { text: 'Куда' },
                          { text: 'Автобус' },
-                         { text: 'Кол-во пассажиров' },
+                         { text: 'Кол-во пас.' },
                          { text: 'Постоянные расходы' },
                          { text: 'Непред. расходы' },
-                         { text: 'Касса' }]];
+                         { text: 'Касса' },
+                         { text: 'Доход' }]];
 
                      reports.map((report) => table.push([
                            report.TripDate,
@@ -98,9 +99,10 @@ angular.module('reports')
                            report.CityTo,
                            report.BusInfo,
                            report.ClientsCount ? report.ClientsCount.toString() : '',
-                           report.CompulsoryExpenses ? report.CompulsoryExpenses.toString() : 0,
-                           report.UnexpectedExpenses ? report.UnexpectedExpenses.toString() : 0,
-                           report.DriverCashBox ? report.DriverCashBox.toString() : 0]));
+                           report.CompulsoryExpenses ? report.CompulsoryExpenses.toString() : '0',
+                           report.UnexpectedExpenses ? report.UnexpectedExpenses.toString() : '0',
+                           report.DriverCashBox ? report.DriverCashBox.toString() : '0',
+                           report.TotalIncomes ? report.TotalIncomes.toString() : '0']));
 
                      title.push(
                          { table: { body: table } },
@@ -112,8 +114,8 @@ angular.module('reports')
                  }
 
                  that.createPDF = function (driverName) {
-                     const datePeriod = $filter('date')(that.dateFrom, "yyyy-MM-dd").
-                        concat(' - ', $filter('date')(that.dateTo, "yyyy-MM-dd"));
+                     const datePeriod = $filter('date')(that.dateFrom, that.dateTimeFormat).
+                        concat(' - ', $filter('date')(that.dateTo, that.dateTimeFormat));
 
                      var content = [{ text: 'Oтчет за период: ' + datePeriod }, { text: ' ' }];
 
@@ -135,8 +137,9 @@ angular.module('reports')
                              { text: 'Итого по всем водителям за период ' + datePeriod + ' : ' + that.totalIncomes });
                      }
 
+                     const driverFileNaming = driverName ? driverName : 'по всем водителям';
                      var options = {
-                         fileName: 'Oтчет ' + datePeriod + ' ' + driverName,
+                         fileName: 'Oтчет ' + datePeriod + ' ' + driverFileNaming,
                          docDefinition: {
                              pageOrientation: 'portrait',
                              fontSize: 12,
