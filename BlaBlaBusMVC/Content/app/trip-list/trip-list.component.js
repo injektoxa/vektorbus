@@ -356,7 +356,6 @@ component('tripList', {
 
             this.mapInitialized = function (map, trip) {
                 google.maps.event.trigger(map, 'resize');
-                map.setZoom(5);
 
                 var directionsDisplay = new google.maps.DirectionsRenderer;
                 directionsDisplay.setMap(map);
