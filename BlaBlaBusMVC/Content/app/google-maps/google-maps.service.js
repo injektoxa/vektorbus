@@ -11,13 +11,16 @@ angular.module('googleMaps')
             var orderedWaypoints = [];
 
             directionsService.route({
-                origin: cityFrom,
-                destination: cityTo,
+                origin: cityFrom + ', Украина',
+                destination: cityTo + ', Украина',
                 travelMode: google.maps.TravelMode.DRIVING,
-                waypoints: waypoints,
+                waypoints: waypoints ,
                 optimizeWaypoints: true
             }, function (response) {
-               response.routes[0].waypoint_order.map((order) => orderedWaypoints.push(waypoints[order]));
+                if (response != null) {
+                    response.routes[0].waypoint_order.map((order) => orderedWaypoints.push(waypoints[order]));
+                };
+
                 callback({response: response, waypoints: orderedWaypoints});
             });
         }

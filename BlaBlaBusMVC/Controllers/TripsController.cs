@@ -183,7 +183,7 @@ namespace BlaBlaBusMVC.Controllers
                 clientsDb.Add(clientTrip);
             }
 
-            tripdb.ClientTrip.Clear();
+            tripdb.ClientTrip?.Clear();
             tripdb.ClientTrip = clientsDb;
 
             tripdb.CityFrom = db.Cities.First(c => c.Id == trip.cityFrom.Id);

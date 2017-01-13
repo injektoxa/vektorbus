@@ -153,6 +153,20 @@ component('tripList', {
             };
 
             this.createPDF = function (trip) {
+                if (trip.directionLoaded) {
+                    googleMapsService.getGoogleMapsImage(trip.cityFrom.Name,
+                        trip.cityTo.Name,
+                        trip.waypoints,
+                        trip.polyline,
+                        function(base64Img) {
+                            that.createTripReportPdf(trip, base64Img);
+                        });
+                } else {
+                    that.createTripReportPdf(trip, null);
+                }
+            }
+            
+            this.createTripReportPdf = function (trip, base64Img) {
                 var tableBody = [
                     [
                         { text: '№', style: 'tableHeader' },
@@ -203,91 +217,88 @@ component('tripList', {
                 var driver = trip.driver != null ? 'Водитель: ' + trip.driver.FullName : '';
                 var fileName = trip.cityFrom.Name.concat(' - ', trip.cityTo.Name, ' ', $filter('date')(trip.date, "yyyy/MM/dd"), '.pdf');
 
+                var options = {
+                    fileName: fileName,
+                    docDefinition: {
+                        pageOrientation: 'portrait',
+                        fontSize: 12,
+                        content: [
+                            {
+                                text: trip.cityFrom.Name.concat(' --> ', trip.cityTo.Name, ' ', $filter('date')(trip.date, "yyyy-MM-dd HH:mm"))
+                            },
+                            {
+                                text: bus + driver
+                            },
+                            { text: ' ' },
+                            {
+                                columns: [
+                                {
+                                    width: '50%',
+                                    text: 'Обязательные расходы:'
+                                },
+                                {
+                                    width: '50%',
+                                    text: 'Дополнительные расходы:'
+                                }]
+                            },
+                            {
+                                columns: [
+                                {
+                                    width: '50%',
+                                    table: {
+                                        headerRows: 1,
+                                        body: compolsuryExpenseTable
+                                    }
+                                },
+                                {
+                                    width: '50%',
+                                    table: {
+                                        headerRows: 1,
+                                        body: unexpectedExpenseTable
+                                    }
+                                }]
+                            },
+                            {
+                                columns: [
+                                {
+                                    width: '50%',
+                                    text: 'Итого: ' + expenses.compolsuryTotal
+                                },
+                                {
+                                    width: '50%',
+                                    text: 'Итого: ' + expenses.unexpectedTotal
+                                }]
+                            },
+                            { text: ' ' },
+                            {
+                                text: 'Клиенты:'
+                            },
+                            {
+                                table: {
+                                    headerRows: 1,
+                                    body: tableBody
+                                }
+                            },
+                            { text: ' ' },
+                            {
+                                text: 'Касса водителя: ' + tripCashService.countDriverCashBox(trip)
+                            },
+                            {
+                                text: 'Агентские по рейсу суммарно: ' + expenses.agentExpensesTotal
+                            },
+                            {
+                                text: 'Доход: ' + tripCashService.countIncomes(trip)
+                            },
+                            { text: ' ' }
+                        ]
+                    }
+                }
 
-                googleMapsService.getGoogleMapsImage(trip.cityFrom.Name, trip.cityTo.Name, trip.waypoints, trip.polyline,
-                   function (base64Img) {
-                       var options = {
-                           fileName: fileName,
-                           docDefinition: {
-                               pageOrientation: 'portrait',
-                               fontSize: 12,
-                               content: [
-                                   {
-                                       text: trip.cityFrom.Name.concat(' --> ', trip.cityTo.Name, ' ', $filter('date')(trip.date, "yyyy-MM-dd HH:mm"))
-                                   },
-                                   {
-                                       text: bus + driver
-                                   },
-                                   { text: ' ' },
-                                   {
-                                       columns: [
-                                       {
-                                           width: '50%',
-                                           text: 'Обязательные расходы:'
-                                       },
-                                       {
-                                           width: '50%',
-                                           text: 'Дополнительные расходы:'
-                                       }]
-                                   },
-                                   {
-                                       columns: [
-                                       {
-                                           width: '50%',
-                                           table: {
-                                               headerRows: 1,
-                                               body: compolsuryExpenseTable
-                                           }
-                                       },
-                                       {
-                                           width: '50%',
-                                           table: {
-                                               headerRows: 1,
-                                               body: unexpectedExpenseTable
-                                           }
-                                       }]
-                                   },
-                                   {
-                                       columns: [
-                                       {
-                                           width: '50%',
-                                           text: 'Итого: ' + expenses.compolsuryTotal
-                                       },
-                                       {
-                                           width: '50%',
-                                           text: 'Итого: ' + expenses.unexpectedTotal
-                                       }]
-                                   },
-                                   { text: ' ' },
-                                   {
-                                       text: 'Клиенты:'
-                                   },
-                                   {
-                                       table: {
-                                           headerRows: 1,
-                                           body: tableBody
-                                       }
-                                   },
-                                   { text: ' ' },
-                                   {
-                                       text: 'Касса водителя: ' + tripCashService.countDriverCashBox(trip)
-                                   },
-                                   {
-                                       text: 'Агентские по рейсу суммарно: ' + expenses.agentExpensesTotal
-                                   },
-                                   {
-                                       text: 'Доход: ' + tripCashService.countIncomes(trip)
-                                   },
-                                   { text: ' ' },
-                                   {
-                                       image: base64Img
-                                   }
-                               ]
-                           }
-                       }
+                if (base64Img != null) {
+                    options.docDefinition.content.push({ image: base64Img });
+                }
 
-                       PdfMaker.createAndDownload(options);
-                   });
+                PdfMaker.createAndDownload(options);
             }
 
             this.editTrip = function (trip) {
@@ -374,9 +385,13 @@ component('tripList', {
 
                 that.getTripWaypoints(trip.tripClients, trip.cityFrom.Name, trip.cityTo.Name)
                     .then(function (response) {
-                        directionsDisplay.setDirections(response.response);
+                        if (response.response != null) {
+                            directionsDisplay.setDirections(response.response);
+                            trip.polyline = response.response.routes[0].overview_polyline;
 
-                        trip.polyline = response.response.routes[0].overview_polyline;
+                            trip.directionLoaded = true;
+                        }
+
                         trip.waypoints = response.waypoints;
                     });
             }
