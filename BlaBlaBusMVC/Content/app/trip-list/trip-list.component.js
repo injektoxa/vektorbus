@@ -115,19 +115,19 @@ component('tripList', {
             };
 
             this.joinTripDateAndTime = function () {
-                that.trip.date = new Date(Date.UTC(
+                that.trip.date = new Date(
                     that.trip.startDate.getFullYear(),
                     that.trip.startDate.getMonth(),
                     that.trip.startDate.getDate(),
                     that.trip.startTime.getHours(),
-                    that.trip.startTime.getMinutes()));
+                    that.trip.startTime.getMinutes());
 
-                that.trip.arrivalDate = new Date(Date.UTC(
+                that.trip.arrivalDate = new Date(
                     that.trip.endDate.getFullYear(),
                     that.trip.endDate.getMonth(),
                     that.trip.endDate.getDate(),
                     that.trip.endTime.getHours(),
-                    that.trip.endTime.getMinutes()));
+                    that.trip.endTime.getMinutes());
             };
 
             this.openDriversList = function () {
@@ -289,8 +289,9 @@ component('tripList', {
             }
 
             this.editTrip = function (trip) {
-                var startDate = new Date(trip.date);
-                var endDate = new Date(trip.arrivalDate);
+                //parce time to utc object, needed for uib datetime pickers
+                var startDate = that.parseTimeToUtcObject(trip.date);
+                var endDate = that.parseTimeToUtcObject(trip.arrivalDate);
 
                 that.isEditMode = true;
                 that.trip = trip;
@@ -300,6 +301,15 @@ component('tripList', {
                 that.trip.endTime = endDate;
                 that.showAddTripForm = true;
             };
+
+            this.parseTimeToUtcObject = function (time) {
+                var date = new Date(time);
+                var minutesOffset = date.getMinutes() + date.getTimezoneOffset();
+
+                date.setMinutes(minutesOffset);
+
+                return date;
+            }
 
             this.disableEditMode = function () {
                 that.showAddTripForm = false;
