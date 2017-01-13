@@ -93,6 +93,8 @@ component('tripList', {
                     { id: that.trip.id },
                     that.trip,
                     function (updatedTrip) {
+                        that.trips=Trip.query();
+    
                         that.showAddTripForm = false;
                         that.clearTripModel();
                     });
