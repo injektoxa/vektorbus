@@ -93,8 +93,8 @@ component('tripList', {
                     { id: that.trip.id },
                     that.trip,
                     function (updatedTrip) {
-                        that.trips=Trip.query();
-    
+                        that.trips = Trip.query();
+
                         that.showAddTripForm = false;
                         that.clearTripModel();
                     });
@@ -158,14 +158,14 @@ component('tripList', {
                         trip.cityTo.Name,
                         trip.waypoints,
                         trip.polyline,
-                        function(base64Img) {
+                        function (base64Img) {
                             that.createTripReportPdf(trip, base64Img);
                         });
                 } else {
                     that.createTripReportPdf(trip, null);
                 }
             }
-            
+
             this.createTripReportPdf = function (trip, base64Img) {
                 var tableBody = [
                     [
@@ -387,9 +387,9 @@ component('tripList', {
                     .then(function (response) {
                         if (response.response != null) {
                             directionsDisplay.setDirections(response.response);
-                            trip.polyline=response.response.routes[0].overview_polyline;
+                            trip.polyline = response.response.routes[0].overview_polyline;
 
-                         
+
                         } else {
                             trip.directionLoadingFaled = true;
                         }
@@ -403,7 +403,9 @@ component('tripList', {
                 var deferred = $q.defer();
 
                 var addToWaypoints = function (location) {
-                    if (!waypoints.some((wp) => wp.location == location) && location != origin && location != destination) {
+                    if (!waypoints.some((wp) =>
+                        wp.location == location) && location != origin && location != destination) {
+                        location = location.concat(', Украина');
                         waypoints.push({ location: location, stopover: true });
                     }
                 }
