@@ -303,8 +303,8 @@ component('tripList', {
 
             this.editTrip = function (trip) {
                 //parce time to utc object, needed for uib datetime pickers
-                var startDate = that.parseTimeToUtcObject(trip.date);
-                var endDate = that.parseTimeToUtcObject(trip.arrivalDate);
+                var startDate = new Date(trip.date);
+                var endDate = new Date(trip.arrivalDate);
 
                 that.isEditMode = true;
                 that.trip = trip;
@@ -314,15 +314,6 @@ component('tripList', {
                 that.trip.endTime = endDate;
                 that.showAddTripForm = true;
             };
-
-            this.parseTimeToUtcObject = function (time) {
-                var date = new Date(time);
-                var minutesOffset = date.getMinutes() + date.getTimezoneOffset();
-
-                date.setMinutes(minutesOffset);
-
-                return date;
-            }
 
             this.disableEditMode = function () {
                 that.showAddTripForm = false;
@@ -388,8 +379,6 @@ component('tripList', {
                         if (response.response != null) {
                             directionsDisplay.setDirections(response.response);
                             trip.polyline = response.response.routes[0].overview_polyline;
-
-
                         } else {
                             trip.directionLoadingFaled = true;
                         }
