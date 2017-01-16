@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using System.Web.Http;
+using Newtonsoft.Json;
 
 namespace BlaBlaBusMVC
 {
@@ -9,6 +10,9 @@ namespace BlaBlaBusMVC
         {
             // Use camel case for JSON data.
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+
+            config.Formatters.JsonFormatter.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local;
+
 
             // Web API routes
             config.MapHttpAttributeRoutes();
