@@ -93,6 +93,8 @@ component('tripList', {
                     { id: that.trip.id },
                     that.trip,
                     function (updatedTrip) {
+                        that.trips = Trip.query();
+
                         that.showAddTripForm = false;
                         that.clearTripModel();
                     });
@@ -115,19 +117,19 @@ component('tripList', {
             };
 
             this.joinTripDateAndTime = function () {
-                that.trip.date = new Date(Date.UTC(
+                that.trip.date = new Date(
                     that.trip.startDate.getFullYear(),
                     that.trip.startDate.getMonth(),
                     that.trip.startDate.getDate(),
                     that.trip.startTime.getHours(),
-                    that.trip.startTime.getMinutes()));
+                    that.trip.startTime.getMinutes());
 
-                that.trip.arrivalDate = new Date(Date.UTC(
+                that.trip.arrivalDate = new Date(
                     that.trip.endDate.getFullYear(),
                     that.trip.endDate.getMonth(),
                     that.trip.endDate.getDate(),
                     that.trip.endTime.getHours(),
-                    that.trip.endTime.getMinutes()));
+                    that.trip.endTime.getMinutes());
             };
 
             this.openDriversList = function () {
@@ -151,6 +153,20 @@ component('tripList', {
             };
 
             this.createPDF = function (trip) {
+                if (!trip.directionLoadingFaled) {
+                    googleMapsService.getGoogleMapsImage(trip.cityFrom.Name,
+                        trip.cityTo.Name,
+                        trip.waypoints,
+                        trip.polyline,
+                        function (base64Img) {
+                            that.createTripReportPdf(trip, base64Img);
+                        });
+                } else {
+                    that.createTripReportPdf(trip, null);
+                }
+            }
+
+            this.createTripReportPdf = function (trip, base64Img) {
                 var tableBody = [
                     [
                         { text: '№', style: 'tableHeader' },
@@ -201,96 +217,94 @@ component('tripList', {
                 var driver = trip.driver != null ? 'Водитель: ' + trip.driver.FullName : '';
                 var fileName = trip.cityFrom.Name.concat(' - ', trip.cityTo.Name, ' ', $filter('date')(trip.date, "yyyy/MM/dd"), '.pdf');
 
+                var options = {
+                    fileName: fileName,
+                    docDefinition: {
+                        pageOrientation: 'portrait',
+                        fontSize: 12,
+                        content: [
+                            {
+                                text: trip.cityFrom.Name.concat(' --> ', trip.cityTo.Name, ' ', $filter('date')(trip.date, "yyyy-MM-dd HH:mm"))
+                            },
+                            {
+                                text: bus + driver
+                            },
+                            { text: ' ' },
+                            {
+                                columns: [
+                                {
+                                    width: '50%',
+                                    text: 'Обязательные расходы:'
+                                },
+                                {
+                                    width: '50%',
+                                    text: 'Дополнительные расходы:'
+                                }]
+                            },
+                            {
+                                columns: [
+                                {
+                                    width: '50%',
+                                    table: {
+                                        headerRows: 1,
+                                        body: compolsuryExpenseTable
+                                    }
+                                },
+                                {
+                                    width: '50%',
+                                    table: {
+                                        headerRows: 1,
+                                        body: unexpectedExpenseTable
+                                    }
+                                }]
+                            },
+                            {
+                                columns: [
+                                {
+                                    width: '50%',
+                                    text: 'Итого: ' + expenses.compolsuryTotal
+                                },
+                                {
+                                    width: '50%',
+                                    text: 'Итого: ' + expenses.unexpectedTotal
+                                }]
+                            },
+                            { text: ' ' },
+                            {
+                                text: 'Клиенты:'
+                            },
+                            {
+                                table: {
+                                    headerRows: 1,
+                                    body: tableBody
+                                }
+                            },
+                            { text: ' ' },
+                            {
+                                text: 'Касса водителя: ' + tripCashService.countDriverCashBox(trip)
+                            },
+                            {
+                                text: 'Агентские по рейсу суммарно: ' + expenses.agentExpensesTotal
+                            },
+                            {
+                                text: 'Доход: ' + tripCashService.countIncomes(trip)
+                            },
+                            { text: ' ' }
+                        ]
+                    }
+                }
 
-                googleMapsService.getGoogleMapsImage(trip.cityFrom.Name, trip.cityTo.Name, trip.waypoints, trip.polyline,
-                   function (base64Img) {
-                       var options = {
-                           fileName: fileName,
-                           docDefinition: {
-                               pageOrientation: 'portrait',
-                               fontSize: 12,
-                               content: [
-                                   {
-                                       text: trip.cityFrom.Name.concat(' --> ', trip.cityTo.Name, ' ', $filter('date')(trip.date, "yyyy-MM-dd HH:mm"))
-                                   },
-                                   {
-                                       text: bus + driver
-                                   },
-                                   { text: ' ' },
-                                   {
-                                       columns: [
-                                       {
-                                           width: '50%',
-                                           text: 'Обязательные расходы:'
-                                       },
-                                       {
-                                           width: '50%',
-                                           text: 'Дополнительные расходы:'
-                                       }]
-                                   },
-                                   {
-                                       columns: [
-                                       {
-                                           width: '50%',
-                                           table: {
-                                               headerRows: 1,
-                                               body: compolsuryExpenseTable
-                                           }
-                                       },
-                                       {
-                                           width: '50%',
-                                           table: {
-                                               headerRows: 1,
-                                               body: unexpectedExpenseTable
-                                           }
-                                       }]
-                                   },
-                                   {
-                                       columns: [
-                                       {
-                                           width: '50%',
-                                           text: 'Итого: ' + expenses.compolsuryTotal
-                                       },
-                                       {
-                                           width: '50%',
-                                           text: 'Итого: ' + expenses.unexpectedTotal
-                                       }]
-                                   },
-                                   { text: ' ' },
-                                   {
-                                       text: 'Клиенты:'
-                                   },
-                                   {
-                                       table: {
-                                           headerRows: 1,
-                                           body: tableBody
-                                       }
-                                   },
-                                   { text: ' ' },
-                                   {
-                                       text: 'Касса водителя: ' + tripCashService.countDriverCashBox(trip)
-                                   },
-                                   {
-                                       text: 'Агентские по рейсу суммарно: ' + expenses.agentExpensesTotal
-                                   },
-                                   {
-                                       text: 'Доход: ' + tripCashService.countIncomes(trip)
-                                   },
-                                   { text: ' ' },
-                                   {
-                                       image: base64Img
-                                   }
-                               ]
-                           }
-                       }
+                if (base64Img != null) {
+                    options.docDefinition.content.push({ image: base64Img });
+                }
 
-                       PdfMaker.createAndDownload(options);
-                   });
+                PdfMaker.createAndDownload(options);
             }
 
             this.editTrip = function (trip) {
-                var startDate = new Date(trip.date);
-                var endDate = new Date(trip.arrivalDate);
+                //parce time to utc object, needed for uib datetime pickers
+                var startDate = that.parseTimeToUtcObject(trip.date);
+                var endDate = that.parseTimeToUtcObject(trip.arrivalDate);
 
                 that.isEditMode = true;
                 that.trip = trip;
@@ -300,6 +314,15 @@ component('tripList', {
                 that.trip.endTime = endDate;
                 that.showAddTripForm = true;
             };
+
+            this.parseTimeToUtcObject = function (time) {
+                var date = new Date(time);
+                var minutesOffset = date.getMinutes() + date.getTimezoneOffset();
+
+                date.setMinutes(minutesOffset);
+
+                return date;
+            }
 
             this.disableEditMode = function () {
                 that.showAddTripForm = false;
@@ -362,9 +385,15 @@ component('tripList', {
 
                 that.getTripWaypoints(trip.tripClients, trip.cityFrom.Name, trip.cityTo.Name)
                     .then(function (response) {
-                        directionsDisplay.setDirections(response.response);
+                        if (response.response != null) {
+                            directionsDisplay.setDirections(response.response);
+                            trip.polyline = response.response.routes[0].overview_polyline;
 
-                        trip.polyline = response.response.routes[0].overview_polyline;
+
+                        } else {
+                            trip.directionLoadingFaled = true;
+                        }
+
                         trip.waypoints = response.waypoints;
                     });
             }
@@ -374,7 +403,9 @@ component('tripList', {
                 var deferred = $q.defer();
 
                 var addToWaypoints = function (location) {
-                    if (!waypoints.some((wp) => wp.location == location) && location != origin && location != destination) {
+                    if (!waypoints.some((wp) =>
+                        wp.location == location) && location != origin && location != destination) {
+                        location = location.concat(', Украина');
                         waypoints.push({ location: location, stopover: true });
                     }
                 }

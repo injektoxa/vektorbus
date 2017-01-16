@@ -93,6 +93,7 @@ gulp.task('bower_components', function () {
         gulp.src([
                     'app/bower_components/jquery/dist/jquery.min.js',
                     'app/bower_components/angular/angular.min.js',
+                    'app/bower_components/angular-i18n/angular-locale_ru-ru.js',
                     'app/bower_components/angular-animate/angular-animate.min.js',
                     'app/bower_components/angular-resource/angular-resource.min.js',
                     'app/bower_components/angular-route/angular-route.min.js',
