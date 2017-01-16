@@ -250,11 +250,11 @@
                 <span class="comments">{{trip.comments}}</span> 
 
                 <ng-map center="{{$ctrl.mapCenterLatLng}}" min-zoom="5" 
-                        ng-show="trip.directionLoaded"
+                        ng-show="!trip.directionLoadingFaled"
                         map-initialized="$ctrl.mapInitialized(map, trip)"
                         zoom-to-include-markers="false"></ng-map>
 
-                <div class="row" ng-show="!trip.directionLoaded">
+                <div class="row" ng-show="trip.directionLoadingFaled">
                     <div class="alert alert-danger">
                         Маршрут не может быть отображен
                     </div>

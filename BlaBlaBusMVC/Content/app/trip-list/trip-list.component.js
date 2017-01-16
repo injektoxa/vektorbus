@@ -387,9 +387,11 @@ component('tripList', {
                     .then(function (response) {
                         if (response.response != null) {
                             directionsDisplay.setDirections(response.response);
-                            trip.polyline = response.response.routes[0].overview_polyline;
+                            trip.polyline=response.response.routes[0].overview_polyline;
 
-                            trip.directionLoaded = true;
+                         
+                        } else {
+                            trip.directionLoadingFaled = true;
                         }
 
                         trip.waypoints = response.waypoints;
