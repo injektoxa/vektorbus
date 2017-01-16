@@ -153,7 +153,7 @@ component('tripList', {
             };
 
             this.createPDF = function (trip) {
-                if (trip.directionLoaded) {
+                if (!trip.directionLoadingFaled) {
                     googleMapsService.getGoogleMapsImage(trip.cityFrom.Name,
                         trip.cityTo.Name,
                         trip.waypoints,
