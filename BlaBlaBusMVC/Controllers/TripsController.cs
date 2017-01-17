@@ -8,6 +8,7 @@ using System.Web.Http.Description;
 using BlaBlaBusMVC.Models;
 using BlaBlaBusMVC.ViewModels;
 using Newtonsoft.Json;
+using System.Data.Entity;
 
 namespace BlaBlaBusMVC.Controllers
 {
@@ -30,7 +31,7 @@ namespace BlaBlaBusMVC.Controllers
                 trips.Add(new TripsViewModel(item));
             }
 
-            return trips;
+            return trips.OrderByDescending(i => i.date);
         }
 
         // GET: api/Trips/5
