@@ -27,23 +27,26 @@ namespace BlaBlaBusMVC.Controllers
             return reports;
         }
 
-        private List<AgentReportViewModel> CreateAgentReports(List<ClientTrip> clientTrips)
+        private static List<AgentReportViewModel> CreateAgentReports(List<ClientTrip> clientTrips)
         {
             var reports = clientTrips.GroupBy(x => x.Trip)
-                .Select(group => new AgentReportViewModel()
+                .Select(group => new AgentReportViewModel
                 {
-                    TripDate = group.Key.Date.ToString("yyyy-MM-dd hh:mm"),
-                    BusInfo = group.Key.Bus!= null 
+                    TripDate = group.Key.Date,
+                    BusInfo = group.Key.Bus != null 
                         ? group.Key.Bus.FriendlyName + " " + group.Key.Bus.RegistrationNumber 
                         : string.Empty,
+
                     DriverInfo = group.Key.Driver != null 
                         ? group.Key.Driver.FullName
                         : string.Empty,
+
                     CityFrom = group.Key.CityFrom.Name,
                     CityTo = group.Key.CityTo.Name,
                     ClientsCount = group.Count(),
                     AgentCompensation = group.Sum(x => x.AgentPrice)
                 }).ToList();
+
             return reports;
         }
     }
