@@ -4,6 +4,6 @@
     {
         public string Comment { get; set; }
 
-        public double Cost { get; set; }
+        public double? Cost { get; set; }
     }
 }

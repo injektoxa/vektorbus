@@ -122,10 +122,14 @@
                 <div class="form-group expense-input-row" ng-repeat="compulsory in $ctrl.trip.compulsoryExpenses">
                     <input type="number" class="form-control cost-input" ng-model="compulsory.Cost" />
                     <input type="text" class="form-control comment-input" ng-model="compulsory.Comment" />
+
+                    <button class="btn btn-default" ng-click="$ctrl.removeExpense($ctrl.trip.compulsoryExpenses, $index)">
+                        -
+                    </button>
                 </div>
 
                 <div class="form-group expense-input-row">
-                    <input type="number" class="form-control cost-input" ng-model="$ctrl.compulsoryNewCost"
+                    <input type="number" min="0" class="form-control cost-input" ng-model="$ctrl.compulsoryNewCost"
                            ng-blur="$ctrl.addCompolsoryExpense($ctrl.compulsoryNewCost, $ctrl.compulsoryNewComment)" />
 
                     <input type="text" class="form-control comment-input" ng-model="$ctrl.compulsoryNewComment"
@@ -136,18 +140,23 @@
                     </button>
                 </div>
             </div>
+
             <div class="col-xs-12 col-sm-6">
                 <label class="text-center"> Дополнительные расходы: </label>
                 <div class="form-group expense-input-row" ng-repeat="unexpected in $ctrl.trip.unexpectedExpenses">
-                    <input type="number" class="form-control cost-input" ng-model="unexpected.Cost" />
+                    <input type="number"  min="0" class="form-control cost-input" ng-model="unexpected.Cost" />
                     <input type="text" class="form-control comment-input" ng-model="unexpected.Comment" />
+                    
+                    <button class="btn btn-default" ng-click="$ctrl.removeExpense($ctrl.trip.unexpectedExpenses, $index)">
+                        -
+                    </button>
                 </div>
 
                 <div class="form-group expense-input-row">
                     <input type="number" class="form-control cost-input" ng-model="$ctrl.unexpectedNewCost"
                            ng-blur="$ctrl.addUnexpectedExpens($ctrl.unexpectedNewCost, $ctrl.unexpectedNewComment)" />
 
-                    <input type="text" class="form-control comment-input" ng-model="$ctrl.unexpectedNewComment"
+                    <input type="text"  min="0" class="form-control comment-input" ng-model="$ctrl.unexpectedNewComment"
                            ng-blur="$ctrl.addUnexpectedExpens($ctrl.unexpectedNewCost, $ctrl.unexpectedNewComment)" />
 
                     <button class="btn btn-default" ng-click="$ctrl.addUnexpectedExpens($ctrl.unexpectedNewCost, $ctrl.unexpectedNewComment)">

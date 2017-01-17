@@ -13,16 +13,29 @@ angular.module('core.trip')
             },
 
             countDriverCashBox: function (trip) {
-                return trip.tripClients.reduce((acc, client) => acc + client.Price, 0);
+                if (trip.tripClients) {
+                    return trip.tripClients.reduce((acc, client) => acc + client.Price, 0);
+                }
+
+                return 0;
             },
 
             countAgentExpenses: function (trip) {
-                return trip.tripClients.reduce((acc, client) => acc + client.AgentPrice, 0);
+                if (trip.tripClients) {
+                    return trip.tripClients.reduce((acc, client) => acc + client.AgentPrice, 0);
+                }
+
+                return 0;
             },
 
             countTotalExpenses: function (trip) {
-                var compulsoryExpensesSum = trip.compulsoryExpenses.reduce(expenseSumFun, 0);
-                var unexpectedExpensesSum = trip.unexpectedExpenses.reduce(expenseSumFun, 0);
+                var compulsoryExpensesSum = trip.compulsoryExpenses
+                    ? trip.compulsoryExpenses.reduce(expenseSumFun, 0)
+                    : 0;
+
+                var unexpectedExpensesSum=trip.unexpectedExpenses
+                    ? trip.unexpectedExpenses.reduce(expenseSumFun, 0)
+                    : 0;
 
                 var agentExpensesSum = this.countAgentExpenses(trip);
 
