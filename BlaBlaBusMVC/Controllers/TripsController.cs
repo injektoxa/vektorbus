@@ -190,8 +190,8 @@ namespace BlaBlaBusMVC.Controllers
             tripdb.CityTo = db.Cities.First(c => c.Id == trip.cityTo.Id);
             tripdb.Comments = trip.comments;
 
-            tripdb.JsonCompulsoryExpenses = JsonConvert.SerializeObject(trip.compulsoryExpenses);
-            tripdb.JsonUnexpectedExpenses = JsonConvert.SerializeObject(trip.unexpectedExpenses);
+            tripdb.JsonCompulsoryExpenses = JsonConvert.SerializeObject(trip.compulsoryExpenses.Where(x => x.Cost != null));
+            tripdb.JsonUnexpectedExpenses = JsonConvert.SerializeObject(trip.unexpectedExpenses.Where(x => x.Cost != null));
 
             return tripdb;
         }

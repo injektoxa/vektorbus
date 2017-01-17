@@ -67,6 +67,7 @@ component('tripList', {
                     $scope.form.$setValidity('isAnyClient', false);
                     return;
                 }
+
                 if ($scope.form.$invalid) {
                     return;
                 }
@@ -313,7 +314,7 @@ component('tripList', {
                 that.trip.endDate = endDate;
                 that.trip.endTime = endDate;
                 that.showAddTripForm = true;
-            };
+            }; 
 
             this.disableEditMode = function () {
                 that.showAddTripForm = false;
@@ -336,6 +337,10 @@ component('tripList', {
                             alert(errorMessage);
                         });
                 }
+            }
+
+            this.removeExpense = function(expensesArray, index) {
+                expensesArray.splice(index, 1);
             }
 
             this.addCompolsoryExpense = function (cost, comment) {

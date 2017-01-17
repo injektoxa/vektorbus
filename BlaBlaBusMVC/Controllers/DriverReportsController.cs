@@ -35,8 +35,9 @@ namespace BlaBlaBusMVC.Controllers
         {
             var reports = trips.Select(x =>
             {
-                var unexpectedExpenses = x.UnexpectedExpenses.Sum(e => e.Cost);
-                var compulsoryExpenses = x.CompulsoryExpenses.Sum(e => e.Cost);
+                var unexpectedExpenses = x.UnexpectedExpenses.Sum(e => e.Cost ?? 0);
+                var compulsoryExpenses = x.CompulsoryExpenses.Sum(e => e.Cost ?? 0);
+
                 var allIncomes = x.ClientTrip.Sum(c => c.Price - (c.AgentPrice ?? 0));
 
                 return new DriverReportViewModel()
