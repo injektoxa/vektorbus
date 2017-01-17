@@ -1,8 +1,10 @@
-﻿namespace BlaBlaBusMVC.ViewModels
+﻿using System;
+
+namespace BlaBlaBusMVC.ViewModels
 {
     public class AgentReportViewModel
     {
-        public string TripDate { get; set; }
+        public DateTime TripDate { get; set; }
 
         public string CityFrom { get; set; }
 

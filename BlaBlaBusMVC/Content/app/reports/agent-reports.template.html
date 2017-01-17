@@ -67,7 +67,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="report in $ctrl.reports" class="repeat-animation">
-                    <td>{{report.TripDate}}</td>
+                    <td>{{report.TripDate | date: 'dd/MM/yyyy HH:mm' }}</td>
                     <td>{{report.CityFrom}}</td>
                     <td>{{report.CityTo}}</td>
                     <td>{{report.BusInfo}}</td>

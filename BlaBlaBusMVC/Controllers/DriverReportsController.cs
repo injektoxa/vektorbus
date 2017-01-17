@@ -44,7 +44,7 @@ namespace BlaBlaBusMVC.Controllers
                 {
                     DriverId = x.Driver.Id,
                     DriverName = x.Driver.FullName,
-                    TripDate = x.Date.ToString("yyyy-MM-dd hh:mm"),
+                    TripDate = x.Date,
                     BusInfo = x.Bus != null ? $"{x.Bus.FriendlyName} {x.Bus.RegistrationNumber}" : string.Empty,
                     CityFrom = x.CityFrom.Name,
                     CityTo = x.CityTo.Name,

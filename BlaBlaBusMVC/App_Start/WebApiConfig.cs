@@ -11,8 +11,7 @@ namespace BlaBlaBusMVC
             // Use camel case for JSON data.
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 
-            config.Formatters.JsonFormatter.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local;
-
+            config.Formatters.JsonFormatter.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
 
             // Web API routes
             config.MapHttpAttributeRoutes();
