@@ -30,7 +30,7 @@ angular.module('googleMaps')
             var url = googleMapsServiceBase.concat(
                 googleMapsFactory.covertWaypointsToUrlParams(cityFrom, cityTo, waypoints),
                 '&path=color:0x0000ff80|weight:5|enc:', polyline,
-                '&key=AIzaSyBkEIsxJ1ZqsEBPUYsef_jF2ajuSkmbxJ4');
+                '&key=AIzaSyASESgz77PHOJYW_GWrEa4eAJPlMXeua5Q');
 
             //convert image to base64
             googleMapsFactory.convertImgToDataURL(url, callback);
@@ -47,7 +47,7 @@ angular.module('googleMaps')
             };
 
             urlParams += getUrlParam(cityFrom);
-            // waypoints.map((waypoint) => urlParams += getUrlParam(waypoint.location));
+            waypoints.map((waypoint) => urlParams += getUrlParam(waypoint.location));
             urlParams += getUrlParam(cityTo, 'red');
 
             return urlParams;
