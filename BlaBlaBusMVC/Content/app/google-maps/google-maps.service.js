@@ -47,7 +47,7 @@ angular.module('googleMaps')
             };
 
             urlParams += getUrlParam(cityFrom);
-            waypoints.map((waypoint) => urlParams += getUrlParam(waypoint.location));
+            // waypoints.map((waypoint) => urlParams += getUrlParam(waypoint.location));
             urlParams += getUrlParam(cityTo, 'red');
 
             return urlParams;
