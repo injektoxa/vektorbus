@@ -156,4 +156,4 @@ gulp.task('watch', function() {
     gulp.watch(applicationStyles, ['styles']);
 });
 
-gulp.task('default', ['bower_components', 'app_scripts', 'styles', 'fonts', 'watch']);
+gulp.task('default', ['app_scripts', 'styles', 'fonts', 'watch']);

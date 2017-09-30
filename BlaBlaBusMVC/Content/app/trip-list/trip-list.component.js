@@ -11,7 +11,7 @@ component('tripList', {
             this.showAddTripForm = false;
             this.isEditMode = false;
             this.dateNow = new Date();
-            this.mapCenterLatLng = new google.maps.LatLng(49.361625, 32.139730);
+            //this.mapCenterLatLng = new google.maps.LatLng(49.361625, 32.139730);
 
             this.trip = {
                 tripClients: [],
@@ -154,17 +154,7 @@ component('tripList', {
             };
 
             this.createPDF = function (trip) {
-                if (!trip.directionLoadingFaled) {
-                    googleMapsService.getGoogleMapsImage(trip.cityFrom.Name,
-                        trip.cityTo.Name,
-                        trip.waypoints,
-                        trip.polyline,
-                        function (base64Img) {
-                            that.createTripReportPdf(trip, base64Img);
-                        });
-                } else {
                     that.createTripReportPdf(trip, null);
-                }
             }
 
             this.createTripReportPdf = function (trip, base64Img) {
@@ -373,24 +363,24 @@ component('tripList', {
                 return tripCashService.countAgentExpenses(trip);
             }
 
-            this.mapInitialized = function (map, trip) {
-                google.maps.event.trigger(map, 'resize');
+            //this.mapInitialized = function (map, trip) {
+            //    google.maps.event.trigger(map, 'resize');
 
-                var directionsDisplay = new google.maps.DirectionsRenderer;
-                directionsDisplay.setMap(map);
+            //    var directionsDisplay = new google.maps.DirectionsRenderer;
+            //    directionsDisplay.setMap(map);
 
-                that.getTripWaypoints(trip.tripClients, trip.cityFrom.Name, trip.cityTo.Name)
-                    .then(function (response) {
-                        if (response.response != null) {
-                            directionsDisplay.setDirections(response.response);
-                            trip.polyline = response.response.routes[0].overview_polyline;
-                        } else {
-                            trip.directionLoadingFaled = true;
-                        }
+            //    that.getTripWaypoints(trip.tripClients, trip.cityFrom.Name, trip.cityTo.Name)
+            //        .then(function (response) {
+            //            if (response.response != null) {
+            //                directionsDisplay.setDirections(response.response);
+            //                trip.polyline = response.response.routes[0].overview_polyline;
+            //            } else {
+            //                trip.directionLoadingFaled = true;
+            //            }
 
-                        trip.waypoints = response.waypoints;
-                    });
-            }
+            //            trip.waypoints = response.waypoints;
+            //        });
+            //}
 
             this.getTripWaypoints = function (clients, origin, destination) {
                 var waypoints = [];
