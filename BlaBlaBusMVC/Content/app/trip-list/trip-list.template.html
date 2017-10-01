@@ -195,9 +195,10 @@
         <span>
             Поиск:
             <input class="form-control" ng-model="$ctrl.query" />
+            <input type="button" ng-click="$ctrl.updateTrips()" value="Найти" />
         </span>
         <br />
-        <uib-accordion close-others="oneAtATime" ng-repeat="trip in $ctrl.trips | filter:$ctrl.query">
+        <uib-accordion close-others="oneAtATime" ng-repeat="trip in $ctrl.trips">
             <div uib-accordion-group class="panel-default trip-accordion" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
                 <uib-accordion-heading>
                     {{trip.date | date: $ctrl.dateTimeFormat }} - {{trip.arrivalDate| date: $ctrl.dateTimeFormat}},

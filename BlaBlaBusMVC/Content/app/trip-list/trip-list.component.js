@@ -23,6 +23,10 @@ component('tripList', {
                 endTime: that.dateNow
             };
 
+            this.updateTrips = function() {
+                this.trips = Trip.search({ query: this.query });
+            }
+
             this.trips = Trip.query();
             this.buses = Bus.query();
             this.cities = City.query();

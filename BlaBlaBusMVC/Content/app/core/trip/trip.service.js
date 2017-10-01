@@ -7,6 +7,11 @@ angular.
                 method: 'GET',
                 isArray: true
             },
+            search: {
+                method: 'GET',
+                isArray: true,
+                params: { query: 'query'}
+            },
             get: {
                 method: 'GET',
                 params: { Id: 'id' }

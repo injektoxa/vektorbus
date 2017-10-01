@@ -22,10 +22,45 @@ namespace BlaBlaBusMVC.Controllers
         {
             var trips = new List<TripsViewModel>();
             var tripsdb = clientId == null
-                ? db.Trips
+                ? db.Trips.Take(20)
                 : db.Trips.Where(x => x.ClientTrip.Any(y => y.Client.Id == clientId));
 
+            foreach (var item in tripsdb)
+            {
+                trips.Add(new TripsViewModel(item));
+            }
 
+            return trips.OrderByDescending(i => i.date);
+        }
+
+        public IEnumerable<TripsViewModel> GetTrips(string query)
+        {
+            var trips = new List<TripsViewModel>();
+            IQueryable<Trip> tripsdb;
+            if (string.IsNullOrEmpty(query))
+            {
+                tripsdb = db.Trips.Take(20);
+            }
+            else
+            {
+                if (query.Contains('.'))
+                {
+                    var date = query.Split('.');
+                    var day = date[1];
+                    var month = date[0];
+                    tripsdb = db.Trips.Where(x => x.Date.Day.ToString() == day
+                                                  && x.Date.Month.ToString() == month);
+                }
+                else
+                {
+                    tripsdb = db.Trips.Where(x =>
+                        x.Driver.Name.Contains(query) ||
+                        x.Bus.FriendlyName.Contains(query) ||
+                        x.ClientTrip.Any(y => y.Client.Name.Contains(query) ||
+                        x.ClientTrip.Any(z => z.Client.Phone.Contains(query)
+                     )));
+                }
+            }
             foreach (var item in tripsdb)
             {
                 trips.Add(new TripsViewModel(item));
