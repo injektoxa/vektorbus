@@ -11,7 +11,7 @@ using BlaBlaBusMVC.ViewModels;
 
 namespace BlaBlaBusMVC.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class CitiesController : BaseApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -19,7 +19,11 @@ namespace BlaBlaBusMVC.Controllers
         // GET: api/Cities
         public IEnumerable<CityViewModel> GetCities()
         {
-            var cities = db.Cities.Select(this.ToCityViewModel);
+            var cities = db.Cities.Select(c=> new CityViewModel()
+            {
+                Id = c.Id,
+                Name = c.Name,
+            });
 
             return cities;
         }
@@ -118,19 +122,19 @@ namespace BlaBlaBusMVC.Controllers
             return db.Cities.Count(e => e.Id == id) > 0;
         }
 
-        private CityViewModel ToCityViewModel(City city)
-        {
-            var cityRelated = db.ClientTrip.Any(x => x.To.Id == city.Id || x.From.Id == city.Id)
-                || db.Trips.Any(x => x.CityTo.Id == city.Id || x.CityFrom.Id == city.Id);
+        //private CityViewModel ToCityViewModel(City city)
+        //{
+        //    var cityRelated = db.ClientTrip.Any(x => x.To.Id == city.Id || x.From.Id == city.Id)
+        //        || db.Trips.Any(x => x.CityTo.Id == city.Id || x.CityFrom.Id == city.Id);
 
-            var cityViewModel = new CityViewModel
-            {
-                Name = city.Name,
-                HasRelatedEntities = cityRelated,
-                Id = city.Id
-            };
+        //    var cityViewModel = new CityViewModel
+        //    {
+        //        Name = city.Name,
+        //        //HasRelatedEntities = cityRelated,
+        //        Id = city.Id
+        //    };
 
-            return cityViewModel;
-        }
+        //    return cityViewModel;
+        //}
     }
 }

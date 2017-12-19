@@ -1,22 +1,28 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BlaBlaBusMVC.Models;
+using BlaBlaBusMVC.ViewModels;
 
 namespace BlaBlaBusMVC.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class DriversController : BaseApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Drivers
-        public IQueryable<Driver> GetDrivers()
+        public IEnumerable<DriverViewModel> GetDrivers()
         {
-            return db.Drivers;
+            return db.Drivers.Select(d=>new DriverViewModel()
+            {
+                Id = d.Id,
+                Name = d.Name,
+            });
         }
 
         // GET: api/Drivers/5

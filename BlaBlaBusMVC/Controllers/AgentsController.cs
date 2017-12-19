@@ -10,7 +10,7 @@ using BlaBlaBusMVC.ViewModels;
 
 namespace BlaBlaBusMVC.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class AgentsController : BaseApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();

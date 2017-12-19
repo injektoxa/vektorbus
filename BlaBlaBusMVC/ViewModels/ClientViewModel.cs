@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using BlaBlaBusMVC.Models;
 
 namespace BlaBlaBusMVC.ViewModels
@@ -30,17 +26,6 @@ namespace BlaBlaBusMVC.ViewModels
         public ClientViewModel()
         {
 
-        }
-
-        public ClientViewModel(Client client)
-        {
-            Id = client.Id;
-            Name = client.Name;
-            Phone = client.Phone;
-            HasDiscount = client.HasDiscount;
-            HasDisability = client.HasDisability;
-            HasMinorChild = client.HasMinorChild;
-            Comments = client.Comments;
         }
     }
 }

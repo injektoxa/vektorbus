@@ -4,6 +4,8 @@ namespace BlaBlaBusMVC.ViewModels
 {
     public class ClientTripViewModel
     {
+        public string TripId { get; set; }
+
         public string Name { get; set; }
 
         public int Id { get; set; }
@@ -40,28 +42,29 @@ namespace BlaBlaBusMVC.ViewModels
 
         public ClientTripViewModel()
         {
-            
         }
 
-        public ClientTripViewModel(ClientTrip clientTrip)
+        public ClientTripViewModel(ClientTrip t)
         {
-            Id = clientTrip.Id;
-            ClientId = clientTrip.Client.Id;
-            Name = clientTrip.Client.Name;
-            Comments = clientTrip.Client.Comments;
-            HasDiscount = clientTrip.Client.HasDiscount;
-            Phone = clientTrip.Client.Phone;
-            From = clientTrip.From.Name;
-            To = clientTrip.To.Name;
-            Price = clientTrip.Price;
-            IsStayInBus = clientTrip.IsStayInBus;
-            HasBaggage = clientTrip.HasBaggage;
-            AgentId = clientTrip.Agent?.Id;
-            AgentName = clientTrip.Agent?.FullName;
-            AgentPrice = clientTrip.AgentPrice;
-            AdditionalExpenses = clientTrip.AdditionalExpenses;
-            HasDisability = clientTrip.Client.HasDisability;
-            HasMinorChild = clientTrip.Client.HasMinorChild;
+            var client = t.Client;
+
+            Id = t.Id;
+            ClientId = client.Id;
+            Name = client.Name;
+            Comments = client.Comments;
+            HasDiscount = client.HasDiscount;
+            Phone = client.Phone;
+            From = t.From.Name;
+            To = t.To.Name;
+            Price = t.Price;
+            IsStayInBus = t.IsStayInBus;
+            HasBaggage = t.HasBaggage;
+            AgentId = t.Agent?.Id;
+            AgentName = t.Agent?.FullName;
+            AgentPrice = t.AgentPrice;
+            AdditionalExpenses = t.AdditionalExpenses;
+            HasDisability = client.HasDisability;
+            HasMinorChild = client.HasMinorChild;
         }
     }
 }

@@ -8,7 +8,7 @@ using BlaBlaBusMVC.Models;
 
 namespace BlaBlaBusMVC.Controllers
 {
-    [Authorize(Roles = "Admin, Driver, Partner")]
+    //[Authorize(Roles = "Admin, Driver, Partner")]
     public class BusesController : BaseApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();

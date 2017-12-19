@@ -10,7 +10,7 @@ using BlaBlaBusMVC.ViewModels;
 
 namespace BlaBlaBusMVC.Controllers
 {
-    [Authorize(Roles = "Admin, Driver")]
+    //[Authorize(Roles = "Admin, Driver")]
     public class ClientsController : BaseApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -18,8 +18,16 @@ namespace BlaBlaBusMVC.Controllers
         // GET: api/Clients
         public IEnumerable<ClientViewModel> GetClients()
         {
-            var clients = db.Clients.ToList();
-            var models = clients.Select(x => new ClientViewModel(x)).ToList();
+            var models = db.Clients.Select(x => new ClientViewModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Phone = x.Phone,
+                HasDiscount = x.HasDiscount,
+                HasDisability = x.HasDisability,
+                HasMinorChild = x.HasMinorChild,
+                Comments = x.Comments,
+            });
             return models;
         }
 

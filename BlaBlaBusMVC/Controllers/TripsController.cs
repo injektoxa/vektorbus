@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -9,119 +10,149 @@ using BlaBlaBusMVC.Models;
 using BlaBlaBusMVC.ViewModels;
 using Newtonsoft.Json;
 using System.Data.Entity;
+using WebGrease.Css.Extensions;
 
 namespace BlaBlaBusMVC.Controllers
 {
-    [Authorize(Roles = "Admin, Driver, Partner, User")]
+    //[Authorize(Roles = "Admin, Driver, Partner, User")]
     public class TripsController : BaseApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Trips
-        public IEnumerable<TripsViewModel> GetTrips(int? clientId = null)
+        public IEnumerable<TripsViewModel> GetTrips()
         {
-            var trips = new List<TripsViewModel>();
-            var tripsdb = clientId == null
-                ? db.Trips.Take(20)
-                : db.Trips.Where(x => x.ClientTrip.Any(y => y.Client.Id == clientId));
-
-            foreach (var item in tripsdb)
+            var trips = db.Trips.Select(e => new TripsViewModel
             {
-                trips.Add(new TripsViewModel(item));
-            }
-
-            return trips.OrderByDescending(i => i.date);
+                date = e.Date,
+                arrivalDate = e.ArrivalDate,
+                bus = e.Bus.FriendlyName,
+                cityFrom = e.CityFrom.Name,
+                cityTo = e.CityTo.Name,
+                comments = e.Comments,
+                driver = e.Driver.Name,
+                id = e.Id,
+            });
+            return trips.AsEnumerable();
         }
 
-        public IEnumerable<TripsViewModel> GetTrips(string query)
+        [HttpGet]
+        public IEnumerable<ClientTripViewModel> GetTripDetail(int tripId)
         {
-            var trips = new List<TripsViewModel>();
-            IQueryable<Trip> tripsdb;
-            if (string.IsNullOrEmpty(query))
+            var clientTrip = db.ClientTrip.Where(t => t.Trip.Id == tripId);
+            var clientTrips = clientTrip.Select(t => new ClientTripViewModel()
             {
-                tripsdb = db.Trips.Take(20);
-            }
-            else
-            {
-                if (query.Contains('.'))
-                {
-                    var date = query.Split('.');
-                    var day = date[1];
-                    var month = date[0];
-                    tripsdb = db.Trips.Where(x => x.Date.Day.ToString() == day
-                                                  && x.Date.Month.ToString() == month);
-                }
-                else
-                {
-                    tripsdb = db.Trips.Where(x =>
-                        x.Driver.Name.Contains(query) ||
-                        x.Bus.FriendlyName.Contains(query) ||
-                        x.ClientTrip.Any(y => y.Client.Name.Contains(query) ||
-                        x.ClientTrip.Any(z => z.Client.Phone.Contains(query)
-                     )));
-                }
-            }
-            foreach (var item in tripsdb)
-            {
-                trips.Add(new TripsViewModel(item));
-            }
+                Id = t.Id,
+                ClientId = t.Client.Id,
+                Name = t.Client.Name,
+                Comments = t.Client.Comments,
+                HasDiscount = t.Client.HasDiscount,
+                Phone = t.Client.Phone,
+                From = t.From.Name,
+                AgentName = t.Agent.Name,
+                To = t.To.Name,
+                Price = t.Price,
+                IsStayInBus = t.IsStayInBus,
+                HasBaggage = t.HasBaggage,
+                AgentId = t.Agent.Id,
+                AgentPrice = t.AgentPrice,
+                AdditionalExpenses = t.AdditionalExpenses,
+                HasDisability = t.Client.HasDisability,
+                HasMinorChild = t.Client.HasMinorChild,
+            });
 
-            return trips.OrderByDescending(i => i.date);
+            return clientTrips.AsEnumerable();
         }
 
-        // GET: api/Trips/5
-        [ResponseType(typeof(TripsViewModel))]
-        public IHttpActionResult GetTrip(int id)
-        {
-            var trip = db.Trips.Find(id);
+        //public IEnumerable<TripsViewModel> GetTrips(string query)
+        //{
+        //    var trips = new List<TripsViewModel>();
+        //    IQueryable<Trip> tripsdb;
+        //    if (string.IsNullOrEmpty(query))
+        //    {
+        //        tripsdb = db.Trips.Take(20);
+        //    }
+        //    else
+        //    {
+        //        if (query.Contains('.'))
+        //        {
+        //            var date = query.Split('.');
+        //            var day = date[1];
+        //            var month = date[0];
+        //            tripsdb = db.Trips.Where(x => x.Date.Day.ToString() == day
+        //                                          && x.Date.Month.ToString() == month);
+        //        }
+        //        else
+        //        {
+        //            tripsdb = db.Trips.Where(x =>
+        //                x.Driver.Name.Contains(query) ||
+        //                x.Bus.FriendlyName.Contains(query) ||
+        //                x.ClientTrip.Any(y => y.Client.Name.Contains(query) ||
+        //                x.ClientTrip.Any(z => z.Client.Phone.Contains(query)
+        //             )));
+        //        }
+        //    }
+        //    foreach (var item in tripsdb)
+        //    {
+        //        trips.Add(new TripsViewModel(item));
+        //    }
 
-            if (trip == null)
-            {
-                return NotFound();
-            }
+        //    return trips.OrderByDescending(i => i.date);
+        //}
 
-            var model = new TripsViewModel(trip);
+        //// GET: api/Trips/5
+        //[ResponseType(typeof(TripsViewModel))]
+        //public IHttpActionResult GetTrip(int id)
+        //{
+        //    var trip = db.Trips.Find(id);
 
-            return Ok(model);
-        }
+        //    if (trip == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-        // PUT: api/Trips/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutTrip(int id, TripsViewModel tripModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //    var model = new TripsViewModel(trip);
 
-            if (id != tripModel.id)
-            {
-                return BadRequest();
-            }
+        //    return Ok(model);
+        //}
 
-            var trip = this.ConvertToTrip(tripModel);
-            db.Entry(trip).State = EntityState.Modified;
+        //PUT: api/Trips/5
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutTrip(int id, TripsViewModel tripModel)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TripExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    if (id != tripModel.id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    var trip = this.ConvertToTrip(tripModel);
+        //    db.Entry(trip).State = EntityState.Modified;
 
-        // POST: api/Trips
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!TripExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
+
+        //POST: api/Trips
         [ResponseType(typeof(TripsViewModel))]
         public IHttpActionResult PostTrip(TripsViewModel trip)
         {
@@ -130,38 +161,52 @@ namespace BlaBlaBusMVC.Controllers
                 return BadRequest(ModelState);
             }
 
-            var tripdb = this.ConvertToTrip(trip);
+            int busId = int.Parse(trip.bus);
+            int cityFromId = int.Parse(trip.cityFrom);
+            int cityTo = int.Parse(trip.cityTo);
+            int driverId = int.Parse(trip.driver);
 
-            db.Trips.Add(tripdb);
+            var tripdb = new Trip()
+            {
+                ArrivalDate = trip.arrivalDate,
+                Bus = db.Buses.First(b => b.Id == busId),
+                CityFrom = db.Cities.First(c => c.Id == cityFromId),
+                CityTo = db.Cities.First(c => c.Id == cityTo),
+                Comments = trip.comments,
+                Driver = db.Drivers.First(d => d.Id == driverId),
+                Date = trip.date,
+            };
+
+            var res = db.Trips.Add(tripdb);
             db.SaveChanges();
 
-            var model = new TripsViewModel(tripdb);
+            //var model = new TripsViewModel(tripdb);
 
-            return CreatedAtRoute("DefaultApi", new { id = model.id }, model);
+            return CreatedAtRoute("DefaultApi", new { id = res.Id }, trip);
         }
 
         // DELETE: api/Trips/5
-        [ResponseType(typeof(TripsViewModel))]
-        public IHttpActionResult DeleteTrip(int id)
-        {
-            var trip = db.Trips.Find(id);
-            if (trip == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(TripsViewModel))]
+        //public IHttpActionResult DeleteTrip(int id)
+        //{
+        //    var trip = db.Trips.Find(id);
+        //    if (trip == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            trip.ClientTrip.Clear();
+        //    trip.ClientTrip.Clear();
 
-            db.Entry(trip).State = EntityState.Modified;
-            db.SaveChanges();
+        //    db.Entry(trip).State = EntityState.Modified;
+        //    db.SaveChanges();
 
-            db.Trips.Remove(trip);
-            db.SaveChanges();
+        //    db.Trips.Remove(trip);
+        //    db.SaveChanges();
 
-            var model = new TripsViewModel(trip);
+        //    var model = new TripsViewModel(trip);
 
-            return Ok(model);
-        }
+        //    return Ok(model);
+        //}
 
         protected override void Dispose(bool disposing)
         {
@@ -178,58 +223,58 @@ namespace BlaBlaBusMVC.Controllers
             return db.Trips.Count(e => e.Id == id) > 0;
         }
 
-        private Trip ConvertToTrip(TripsViewModel trip)
-        {
-            var isnewTrip = trip.id == 0;
-            var tripdb = isnewTrip ? new Trip() : db.Trips.Find(trip.id);
+        //private Trip ConvertToTrip(TripsViewModel trip)
+        //{
+        //    var isnewTrip = trip.id == 0;
+        //    var tripdb = isnewTrip ? new Trip() : db.Trips.Find(trip.id);
 
-            tripdb.Bus = trip.bus != null
-                ? db.Buses.First(b => b.Id == trip.bus.Id)
-                : null;
+        //    tripdb.Bus = trip.bus != null
+        //        ? db.Buses.First(b => b.Id == trip.bus.Id)
+        //        : null;
 
-            tripdb.Driver = trip.driver != null
-                ? db.Drivers.First(b => b.Id == trip.driver.Id)
-                : null;
+        //    tripdb.Driver = trip.driver != null
+        //        ? db.Drivers.First(b => b.Id == trip.driver.Id)
+        //        : null;
 
-            tripdb.Date = trip.date;
-            tripdb.ArrivalDate = trip.arrivalDate;
+        //    tripdb.Date = trip.date;
+        //    tripdb.ArrivalDate = trip.arrivalDate;
 
-            var clientsDb = new List<ClientTrip>();
+        //    var clientsDb = new List<ClientTrip>();
 
-            foreach (var item in trip.tripClients)
-            {
-                var clientTrip = item.Id == 0
-                    ? new ClientTrip()
-                    : db.ClientTrip.Find(item.Id);
+        //    foreach (var item in trip.tripClients)
+        //    {
+        //        var clientTrip = item.Id == 0
+        //            ? new ClientTrip()
+        //            : db.ClientTrip.Find(item.Id);
 
-                clientTrip.Client = db.Clients.First(i => i.Id == item.ClientId);
-                clientTrip.From = db.Cities.First(i => i.Name == item.From);
-                clientTrip.To = db.Cities.First(i => i.Name == item.To);
-                clientTrip.Price = item.Price;
-                clientTrip.IsStayInBus = item.IsStayInBus;
-                clientTrip.HasBaggage = item.HasBaggage;
+        //        clientTrip.Client = db.Clients.First(i => i.Id == item.ClientId);
+        //        clientTrip.From = db.Cities.First(i => i.Name == item.From);
+        //        clientTrip.To = db.Cities.First(i => i.Name == item.To);
+        //        clientTrip.Price = item.Price;
+        //        clientTrip.IsStayInBus = item.IsStayInBus;
+        //        clientTrip.HasBaggage = item.HasBaggage;
 
-                clientTrip.Agent = item.AgentId != null
-                    ? db.Agents.First(x => x.Id == item.AgentId)
-                    : null;
+        //        clientTrip.Agent = item.AgentId != null
+        //            ? db.Agents.First(x => x.Id == item.AgentId)
+        //            : null;
 
-                clientTrip.AgentPrice = item.AgentPrice;
-                clientTrip.AdditionalExpenses = item.AdditionalExpenses;
+        //        clientTrip.AgentPrice = item.AgentPrice;
+        //        clientTrip.AdditionalExpenses = item.AdditionalExpenses;
 
-                clientsDb.Add(clientTrip);
-            }
+        //        clientsDb.Add(clientTrip);
+        //    }
 
-            tripdb.ClientTrip?.Clear();
-            tripdb.ClientTrip = clientsDb;
+        //    tripdb.ClientTrip?.Clear();
+        //    tripdb.ClientTrip = clientsDb;
 
-            tripdb.CityFrom = db.Cities.First(c => c.Id == trip.cityFrom.Id);
-            tripdb.CityTo = db.Cities.First(c => c.Id == trip.cityTo.Id);
-            tripdb.Comments = trip.comments;
+        //    tripdb.CityFrom = db.Cities.First(c => c.Id == trip.cityFrom.Id);
+        //    tripdb.CityTo = db.Cities.First(c => c.Id == trip.cityTo.Id);
+        //    tripdb.Comments = trip.comments;
 
-            tripdb.JsonCompulsoryExpenses = JsonConvert.SerializeObject(trip.compulsoryExpenses.Where(x => x.Cost != null));
-            tripdb.JsonUnexpectedExpenses = JsonConvert.SerializeObject(trip.unexpectedExpenses.Where(x => x.Cost != null));
+        //    //tripdb.JsonCompulsoryExpenses = JsonConvert.SerializeObject(trip.compulsoryExpenses.Where(x => x.Cost != null));
+        //    //tripdb.JsonUnexpectedExpenses = JsonConvert.SerializeObject(trip.unexpectedExpenses.Where(x => x.Cost != null));
 
-            return tripdb;
-        }
+        //    return tripdb;
+        //}
     }
 }
