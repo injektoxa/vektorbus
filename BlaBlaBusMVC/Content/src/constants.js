@@ -1,0 +1,13 @@
+export const LOAD_ALL_TRIPS = 'LOAD_ALL_TRIPS';
+export const LOAD_DRIVERS = 'LOAD_DRIVERS';
+export const LOAD_BUSES = 'LOAD_BUSES';
+export const LOAD_CITIES = 'LOAD_CITIES';
+export const POST_TRIP_DATA = 'POST_TRIP_DATA';
+export const TOGGLE_DIALOG = 'TOGGLE_DIALOG';
+export const LOAD_AGENTS = 'LOAD_AGENTS';
+export const LOAD_CLIENTS = 'LOAD_CLIENTS';
+export const POST_CLIENT_TRIP_DATA = 'POST_CLIENT_TRIP_DATA';
+export const DELETE_CLIENT_TRIP_DATA = 'DELETE_CLIENT_TRIP_DATA';
+export const SUCCESS = '_SUCCESS';
+export const FAIL = '_FAIL';
+export const START = '_START';

@@ -9,3 +9,7 @@ BlaBlaBusMVC/node_modules/
 .vs/config/applicationhost.config
 .vs/BlaBlaBusMVC/v14/.suo
 .vs/
+BlaBlaBusMVC/app/node_modules/
+BlaBlaBusMVC/Content/node_modules/
+BlaBlaBusMVC/Content/build/favicon.ico
+BlaBlaBusMVC/Content/build/

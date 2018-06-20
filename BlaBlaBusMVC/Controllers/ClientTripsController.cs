@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
@@ -65,9 +66,9 @@ namespace BlaBlaBusMVC.Controllers
 
                 return CreatedAtRoute("DefaultApi", new {id = res.Id}, clientTrip);
             }
-            catch
+            catch(Exception error)
             {
-                return BadRequest();
+                return BadRequest(error.Message);
             }
         }
 
